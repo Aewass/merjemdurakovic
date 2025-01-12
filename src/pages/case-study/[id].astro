@@ -1,0 +1,213 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import { ArrowLeft } from 'lucide-astro';
+
+// Define all possible case study IDs
+export async function getStaticPaths() {
+  // This could come from a CMS, API, or local data
+  const caseStudies = {
+    "01": {
+      title: "Coffee Roastery Branding",
+      category: "Brand Identity",
+      description: "A complete visual identity system for a boutique coffee roaster, capturing the artisanal nature of their craft while maintaining a modern, sophisticated aesthetic.",
+      challenge: "The challenge was to create a brand identity that would stand out in the crowded coffee market while conveying the artisanal and premium nature of the product.",
+      solution: "We developed a minimalist yet warm visual language that emphasizes craftsmanship and quality, using a carefully selected color palette and typography that reflects both tradition and modernity.",
+      images: [
+        { 
+          src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085", 
+          alt: "Coffee beans being roasted",
+          caption: "The roasting process that inspired our color palette" 
+        }
+      ],
+      results: [
+        "Increased brand recognition by 45%",
+        "Successfully launched in 12 new retail locations",
+        "Featured in Design Weekly magazine"
+      ],
+      nextProject: "02"
+    },
+    "02": {
+      title: "Wellness App Design",
+      category: "UI/UX Design",
+      description: "A mindfulness and meditation app designed to help users build healthy daily habits and reduce stress through guided practices and mood tracking.",
+      challenge: "Creating an intuitive interface that makes meditation and mindfulness practices accessible to beginners while providing depth for experienced practitioners.",
+      solution: "We designed a progressive interface that adapts to user experience levels, incorporating calming visualizations and haptic feedback to enhance the meditation experience.",
+      images: [
+        {
+          src: "https://images.unsplash.com/photo-1616593871468-2a9452218369",
+          alt: "Wellness app interface design",
+          caption: "The main dashboard featuring daily mindfulness metrics"
+        }
+      ],
+      results: [
+        "85% user retention rate after 30 days",
+        "Featured in Apple's App Store Best of 2023",
+        "Over 100,000 meditation sessions completed"
+      ],
+      nextProject: "03"
+    },
+    "03": {
+      title: "Sustainable Fashion Campaign",
+      category: "Digital Marketing",
+      description: "An integrated digital campaign for an eco-conscious fashion brand, highlighting their commitment to sustainable practices and ethical manufacturing.",
+      challenge: "Communicating complex sustainability initiatives in an engaging way while driving sales and brand awareness in a competitive market.",
+      solution: "We created a multi-channel campaign that combined storytelling, interactive elements, and transparent supply chain visualization to educate and inspire consumers.",
+      images: [
+        {
+          src: "https://images.unsplash.com/photo-1581375074612-d1fd0e661aeb",
+          alt: "Sustainable fashion campaign visuals",
+          caption: "Behind-the-scenes look at ethical manufacturing processes"
+        }
+      ],
+      results: [
+        "200% increase in organic social media engagement",
+        "43% growth in eco-conscious customer segment",
+        "Winner of Sustainable Marketing Excellence Award"
+      ],
+      nextProject: "01"
+    }
+  };
+
+  return Object.entries(caseStudies).map(([id, caseStudy]) => {
+    return {
+      params: { id },
+      props: { caseStudy }
+    };
+  });
+}
+
+// Get case study data from props
+const { id } = Astro.params;
+const { caseStudy } = Astro.props;
+---
+
+<Layout title={`${caseStudy.title} - Case Study`}>
+  <main class="relative min-h-screen">
+    {/* Background gradients */}
+    <div class="fixed inset-0">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-rose-200/40 via-rose-100/30 to-transparent"></div>
+    </div>
+    
+    {/* Content */}
+    <div class="relative">
+      
+      <article class="pt-32 pb-24">
+        <div class="max-w-6xl mx-auto px-6 sm:px-8">
+          {/* Back to Home */}
+          <a 
+            href="/"
+            class="
+              inline-flex 
+              items-center 
+              gap-2 
+              text-gray-600
+              hover:text-gray-900
+              transition-colors 
+              duration-300
+              group
+              mb-12
+            "
+          >
+            <ArrowLeft class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform duration-300" />
+            <span class="text-lg">Back to Home</span>
+          </a>
+
+          {/* Header */}
+          <header class="mb-24">
+            <div class="text-sm uppercase tracking-wider text-gray-600 mb-4">
+              {caseStudy.category}
+            </div>
+            <h1 class="text-5xl sm:text-6xl font-bold text-gray-900 mb-8">
+              {caseStudy.title}
+            </h1>
+            <p class="text-xl text-gray-600 max-w-2xl">
+              {caseStudy.description}
+            </p>
+          </header>
+
+          {/* Main Image */}
+          <div class="aspect-[16/9] mb-24">
+            <img 
+              src={caseStudy.images[0].src} 
+              alt={caseStudy.images[0].alt}
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* Content Sections */}
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
+            <div class="md:col-span-4">
+              <h2 class="text-2xl font-bold mb-4">The Challenge</h2>
+            </div>
+            <div class="md:col-span-8">
+              <p class="text-lg text-gray-600">{caseStudy.challenge}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-24">
+            <div class="md:col-span-4">
+              <h2 class="text-2xl font-bold mb-4">The Solution</h2>
+            </div>
+            <div class="md:col-span-8">
+              <p class="text-lg text-gray-600">{caseStudy.solution}</p>
+            </div>
+          </div>
+
+          {/* Results */}
+          <div class="mb-24">
+            <div class="max-w-3xl">
+              <h2 class="text-2xl font-bold mb-8 relative inline-block">
+                Key Results
+                <div class="absolute -bottom-2 left-0 w-full h-2 bg-rose-200/40 -rotate-1"></div>
+              </h2>
+              
+              <ul class="space-y-6">
+                {caseStudy.results.map(result => (
+                  <li class="flex items-start gap-4 group">
+                    <div class="w-2 h-2 rounded-full bg-rose-400/70 mt-2.5 group-hover:scale-150 transition-transform duration-300"></div>
+                    <p class="text-lg text-gray-600 flex-1">{result}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Next Project */}
+          <div class="text-center">
+            <a 
+              href={`/case-study/${caseStudy.nextProject}`}
+              class="
+                inline-flex
+                items-center
+                gap-2
+                text-gray-900
+                hover:text-gray-600
+                transition-colors
+                duration-300
+              "
+            >
+              <span>Next Project</span>
+              <svg class="w-4 h-4" viewBox="0 0 16 16" fill="none">
+                <path d="M1 8H15M15 8L8 1M15 8L8 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <Footer />
+    </div>
+  </main>
+</Layout> 
+
+<style>
+  /* Optional: Add a subtle hover effect to list items */
+  li {
+    transition: transform 0.3s ease;
+  }
+  li:hover {
+    transform: translateX(4px);
+  }
+</style> 

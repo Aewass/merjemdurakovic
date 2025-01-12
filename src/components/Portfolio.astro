@@ -1,0 +1,122 @@
+---
+import PortfolioItem from './PortfolioItem.astro';
+import { ArrowRight } from 'lucide-astro';
+
+type Project = {
+  number: string;
+  category: string;
+  title: string;
+  description: string;
+  tags: string[];
+  color: 'purple' | 'rose' | 'emerald';
+  images: Array<{ src: string; alt: string; }>;
+}
+
+const projects: Project[] = [
+  {
+    number: "01",
+    category: "Brand Identity",
+    title: "Coffee Roastery Branding",
+    description: "A complete visual identity system for a boutique coffee roaster, capturing the artisanal nature of their craft while maintaining a modern, sophisticated aesthetic.",
+    tags: ["Branding", "Typography", "Packaging"],
+    color: "purple",
+    images: [
+      { 
+        src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80", 
+        alt: "Coffee beans being roasted" 
+      }
+    ]
+  },
+  {
+    number: "02",
+    category: "UI/UX Design",
+    title: "Wellness App Design",
+    description: "A mindfulness and meditation app designed to help users build healthy daily habits and reduce stress through guided practices and mood tracking.",
+    tags: ["UI Design", "User Experience", "Mobile App"],
+    color: "rose",
+    images: [
+      { 
+        src: "https://images.unsplash.com/photo-1616593871468-2a9452218369?auto=format&fit=crop&w=1200&q=80", 
+        alt: "Wellness app interface design" 
+      }
+    ]
+  },
+  {
+    number: "03",
+    category: "Digital Marketing",
+    title: "Sustainable Fashion Campaign",
+    description: "An integrated digital campaign for an eco-conscious fashion brand, highlighting their commitment to sustainable practices and ethical manufacturing.",
+    tags: ["Digital", "Campaign", "Sustainability"],
+    color: "emerald",
+    images: [
+      { 
+        src: "https://images.unsplash.com/photo-1581375074612-d1fd0e661aeb?auto=format&fit=crop&w=1200&q=80", 
+        alt: "Sustainable fashion campaign visuals" 
+      }
+    ]
+  }
+];
+---
+
+<section id="portfolio" class="scroll-mt-20 relative py-32">
+  <div class="max-w-6xl mx-auto px-6 sm:px-8">
+    <h2 class="text-4xl font-bold mb-24 relative inline-block">
+      Selected Works
+      <div class="absolute -z-10 -bottom-2 left-0 w-full h-3 bg-yellow-200/50"></div>
+    </h2>
+    
+    <div class="space-y-32">
+      {projects.map(project => (
+        <div>
+          <PortfolioItem {...project} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  class Carousel {
+    private track: HTMLElement;
+    private slides: HTMLElement[];
+    private currentIndex: number;
+
+    constructor(element: HTMLElement) {
+      const trackElement = element.querySelector('.carousel-track');
+      const slideElements = element.querySelectorAll('.carousel-slide');
+
+      if (!trackElement) throw new Error('Carousel track not found');
+      
+      this.track = trackElement as HTMLElement;
+      this.slides = Array.from(slideElements) as HTMLElement[];
+      this.currentIndex = 0;
+      
+      // Buttons
+      const prevBtn = element.parentElement?.querySelector('.carousel-prev');
+      const nextBtn = element.parentElement?.querySelector('.carousel-next');
+      
+      prevBtn?.addEventListener('click', () => this.prev());
+      nextBtn?.addEventListener('click', () => this.next());
+    }
+
+    next(): void {
+      this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+      this.updatePosition();
+    }
+
+    prev(): void {
+      this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
+      this.updatePosition();
+    }
+
+    private updatePosition(): void {
+      const offset = -100 * this.currentIndex;
+      this.track.style.transform = `translateX(${offset}%)`;
+    }
+  }
+
+  // Initialize all carousels
+  document.querySelectorAll('.carousel-container').forEach(container => {
+    new Carousel(container as HTMLElement);
+  });
+</script> 
