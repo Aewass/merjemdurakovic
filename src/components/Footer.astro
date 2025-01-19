@@ -1,75 +1,79 @@
 ---
-import { Linkedin, Mail, Copyright } from 'lucide-astro'
+import { Linkedin, Mail, Copyright, Copy, Check } from 'lucide-astro'
 ---
 
 <footer id="contact" class="scroll-mt-20 relative overflow-hidden py-24 sm:py-32">
   <div class="max-w-6xl mx-auto px-6 sm:px-8">
     <div class="flex flex-col items-center text-center">
-      {/* Name */}
-      <h3 class="text-2xl font-bold mb-12 relative inline-block">
-        Merjem Durakovic
+      {/* Main Heading */}
+      <h2 class="text-4xl font-bold mb-16 relative inline-block">
+        Let's Work Together
         <div class="absolute -bottom-2 left-0 w-full h-2 bg-rose-200/40 -rotate-1"></div>
-      </h3>
+      </h2>
       
-      {/* Social Links */}
-      <div class="flex gap-6 mb-12">
-        <a 
-          href="https://linkedin.com" 
-          class="
-            group
-            relative
-            p-3
-            text-gray-600
-            hover:text-gray-900
-            transition-colors
-            duration-300
-          "
-        >
-          <div class="absolute inset-0 bg-gray-50 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300"></div>
-          <Linkedin class="relative z-10 w-5 h-5" />
-          <span class="sr-only">LinkedIn</span>
-        </a>
-        <a 
-          href="mailto:your@email.com" 
-          class="
-            group
-            relative
-            p-3
-            text-gray-600
-            hover:text-gray-900
-            transition-colors
-            duration-300
-          "
-        >
-          <div class="absolute inset-0 bg-gray-50 rounded-xl scale-0 group-hover:scale-100 transition-transform duration-300"></div>
-          <Mail class="relative z-10 w-5 h-5" />
-          <span class="sr-only">Email</span>
-        </a>
-      </div>
+      {/* Contact Links */}
+      <div class="flex flex-col gap-4 mb-12 w-full max-w-md px-4">
+        {/* Email Row */}
+        <div class="relative flex group w-full">
+          <a 
+            href="mailto:merjemdurakovic@outlook.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 flex items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-white hover:bg-gray-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-gray-100 shadow-sm"
+          >
+            <div class="bg-rose-100/30 p-2.5 sm:p-3 rounded-xl">
+              <Mail class="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" />
+            </div>
+            <div class="flex-grow min-w-0 pr-8">
+              <p class="font-semibold text-gray-900 text-base sm:text-lg mb-0.5">Send me an email</p>
+            </div>
+          </a>
+          <button
+            data-copy="merjemdurakovic@outlook.com"
+            class="copy-button absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 text-gray-400 hover:text-gray-600 transition-colors duration-300"
+            title="Copy email"
+          >
+            <Copy class="w-4 h-4 sm:w-5 sm:h-5 copy-icon" />
+            <Check class="w-4 h-4 sm:w-5 sm:h-5 check-icon hidden" />
+            <span class="tooltip absolute -top-8 sm:-top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs sm:text-sm py-1 px-2 rounded opacity-0 transition-opacity duration-300">
+              Copied!
+            </span>
+          </button>
+        </div>
 
-      {/* Contact */}
-      <p class="text-gray-600 mb-12">
-        Get in touch:{" "}
-        <a 
-          href="mailto:your@email.com" 
-          class="
-            relative 
-            inline-block 
-            text-gray-900 
-            font-medium
-            hover:text-gray-600
-            transition-colors
-            duration-300
-          "
-        >
-          your@email.com
-        </a>
-      </p>
+        {/* LinkedIn Row */}
+        <div class="relative flex group w-full">
+          <a 
+            href="https://www.linkedin.com/in/merjem-durakovic-0a7152288/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-1 flex items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-white hover:bg-gray-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-gray-100 shadow-sm"
+          >
+            <div class="bg-blue-100/30 p-2.5 sm:p-3 rounded-xl">
+              <Linkedin class="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" />
+            </div>
+            <div class="flex-grow min-w-0 pr-8">
+              <p class="font-semibold text-gray-900 text-base sm:text-lg mb-0.5">Connect on LinkedIn</p>
+            </div>
+          </a>
+          <button
+            data-copy="https://www.linkedin.com/in/merjem-durakovic-0a7152288/"
+            class="copy-button absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 text-gray-400 hover:text-gray-600 transition-colors duration-300"
+            title="Copy LinkedIn URL"
+          >
+            <Copy class="w-4 h-4 sm:w-5 sm:h-5 copy-icon" />
+            <Check class="w-4 h-4 sm:w-5 sm:h-5 check-icon hidden" />
+            <span class="tooltip absolute -top-8 sm:-top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-xs sm:text-sm py-1 px-2 rounded opacity-0 transition-opacity duration-300">
+              Copied!
+            </span>
+          </button>
+        </div>
+      </div>
 
       {/* Copyright */}
       <div class="flex items-center gap-1.5 text-sm text-gray-500">
         <Copyright class="w-4 h-4" />
-        <span>Merjem Durakovic. All rights reserved.</span>
+        <span>All rights reserved.</span>
       </div>
     </div>
   </div>
@@ -77,4 +81,33 @@ import { Linkedin, Mail, Copyright } from 'lucide-astro'
   {/* Decorative Elements */}
   <div class="absolute top-1/2 right-8 md:right-24 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-violet-200/30 to-rose-200/30 rounded-full blur-3xl -z-10"></div>
   <div class="absolute bottom-24 left-12 w-40 h-40 bg-gradient-to-br from-blue-200/30 to-emerald-200/30 rounded-full blur-2xl -z-10"></div>
-</footer> 
+</footer>
+
+<script>
+  document.querySelectorAll('.copy-button').forEach(button => {
+    button.addEventListener('click', async () => {
+      const textToCopy = button.getAttribute('data-copy') || '';
+      const copyIcon = button.querySelector('.copy-icon');
+      const checkIcon = button.querySelector('.check-icon');
+      const tooltip = button.querySelector('.tooltip');
+
+      try {
+        await navigator.clipboard.writeText(textToCopy);
+        
+        // Show success state
+        copyIcon?.classList.add('hidden');
+        checkIcon?.classList.remove('hidden');
+        tooltip?.classList.add('opacity-100');
+
+        // Reset after 2 seconds
+        setTimeout(() => {
+          copyIcon?.classList.remove('hidden');
+          checkIcon?.classList.add('hidden');
+          tooltip?.classList.remove('opacity-100');
+        }, 2000);
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+      }
+    });
+  });
+</script> 
