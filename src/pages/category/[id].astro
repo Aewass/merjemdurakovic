@@ -294,11 +294,13 @@ const { category } = Astro.props;
   <main class="relative min-h-screen">
     <div class="fixed inset-0">
       <div class={`absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] ${
-        id === 'visit-cards' || id === 'print-media'
+        id === 'visit-cards'
           ? 'from-rose-200/40 via-rose-100/30 to-transparent' 
           : id === 'books'
             ? 'from-emerald-200/40 via-emerald-100/30 to-transparent'
-            : 'from-purple-200/40 via-purple-100/30 to-transparent'
+            : id === 'print-media'
+              ? 'from-amber-200/40 via-amber-100/30 to-transparent'
+              : 'from-purple-200/40 via-purple-100/30 to-transparent'
       }`}></div>
     </div>
 
@@ -308,7 +310,22 @@ const { category } = Astro.props;
           <!-- Back Button -->
           <a 
             href="/#portfolio" 
-            class="inline-flex items-center gap-2 text-gray-500 hover:text-purple-600 transition-colors duration-300 mb-12 group"
+            class={`
+              inline-flex 
+              items-center 
+              gap-2 
+              text-gray-500 
+              ${
+                id === 'visit-cards' ? 'hover:text-rose-600' : 
+                id === 'books' ? 'hover:text-emerald-600' : 
+                id === 'print-media' ? 'hover:text-amber-600' :
+                'hover:text-purple-600'
+              }
+              transition-colors 
+              duration-300 
+              mb-12 
+              group
+            `}
           >
             <ArrowLeft class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
             <span class="text-sm">Back to Portfolio</span>
@@ -318,8 +335,9 @@ const { category } = Astro.props;
           <header class="mb-16">
             <div>
               <div class={`flex items-center gap-2 ${
-                id === 'visit-cards' || id === 'print-media' ? 'text-rose-600' : 
+                id === 'visit-cards' ? 'text-rose-600' : 
                 id === 'books' ? 'text-emerald-600' : 
+                id === 'print-media' ? 'text-amber-600' :
                 'text-purple-600'
               } mb-4`}>
                 <span class="font-mono">{category.number}</span>
@@ -345,12 +363,16 @@ const { category } = Astro.props;
                     <p class="text-lg text-gray-600 mb-8">{item.description}</p>
                     <div class="flex items-center">
                       <span class={`inline-flex items-center py-1.5 px-3 ${
-                        id === 'visit-cards' || id === 'print-media' ? 'bg-rose-50/70' : 
-                        id === 'books' ? 'bg-emerald-50/70' : 'bg-purple-50/70'
+                        id === 'visit-cards' ? 'bg-rose-50/70' : 
+                        id === 'books' ? 'bg-emerald-50/70' : 
+                        id === 'print-media' ? 'bg-amber-50/70' :
+                        'bg-purple-50/70'
                       } text-sm text-gray-800 rounded-full`}>
                         <span class={`w-1.5 h-1.5 ${
-                          id === 'visit-cards' || id === 'print-media' ? 'bg-rose-500' : 
-                          id === 'books' ? 'bg-emerald-500' : 'bg-purple-500'
+                          id === 'visit-cards' ? 'bg-rose-500' : 
+                          id === 'books' ? 'bg-emerald-500' : 
+                          id === 'print-media' ? 'bg-amber-500' :
+                          'bg-purple-500'
                         } rounded-full mr-2`}></span>
                         {item.images.length} {item.images.length === 1 ? 'page' : 'pages'}
                       </span>

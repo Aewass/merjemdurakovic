@@ -11,7 +11,7 @@ type Category = {
     images: Array<{ src: string; alt: string; }>;
   }>;
   tags: string[];
-  color: 'purple' | 'rose' | 'emerald';
+  color: 'purple' | 'rose' | 'emerald' | 'amber';
   images: Array<{ src: string; alt: string; }>;
   singleImageDesign?: boolean;
 }
@@ -180,7 +180,7 @@ const categories: Category[] = [
       }
     ],
     tags: ["Design", "Advertising", "Print"],
-    color: "rose",
+    color: "amber",
     images: [{ src: "/src/assets/print-media/trifold-artane/1.jpg", alt: "Print media sample" }]
   }
   // ... other categories can be added here in the future

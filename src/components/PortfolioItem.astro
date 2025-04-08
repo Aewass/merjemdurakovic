@@ -7,7 +7,7 @@ interface Props {
   title: string;
   description: string;
   tags: string[];
-  color: 'purple' | 'rose' | 'emerald';
+  color: 'purple' | 'rose' | 'emerald' | 'amber';
   images: Array<{ src: string; alt: string; }>;
   name?: string;
   catalogs?: Array<{
@@ -40,6 +40,13 @@ const colorClasses = {
     shadow: "shadow-emerald-200/20",
     gradient: "from-emerald-400/20 to-emerald-200/20",
     tag: "bg-emerald-50"
+  },
+  amber: {
+    text: "text-amber-600",
+    border: "border-amber-200",
+    shadow: "shadow-amber-200/20",
+    gradient: "from-amber-400/20 to-amber-200/20",
+    tag: "bg-amber-50"
   }
 };
 
@@ -108,18 +115,17 @@ if (catalogs && catalogs.length > 0) {
         inline-flex
         items-center
         gap-2
-        px-6
-        py-3
-        rounded-xl
-        bg-gray-900
-        text-white
-        hover:bg-gray-800
-        transition-colors
+        ${colorClasses[color].text}
+        font-medium
+        text-lg
+        hover:opacity-80
+        transition-all
         duration-300
+        group
       `}
     >
       <span>View Category</span>
-      <ArrowRight class="w-4 h-4" />
+      <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
     </a>
   </div>
 
