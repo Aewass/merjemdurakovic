@@ -12,9 +12,32 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<meta name="description" content="Merjem Durakovic - Digital Designer Portfolio" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		
+		<!-- Favicon references with all available icons -->
+		<link rel="icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="manifest" href="/site.webmanifest" />
+		<link rel="mask-icon" href="/android-chrome-192x192.png" color="#5bbad5" />
+		<meta name="theme-color" content="#ffffff" />
+		
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		
+		<!-- Open Graph / Social Media Meta Tags -->
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content="Merjem Durakovic - Digital Designer Portfolio" />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://merjedurakovic.netlify.app/" />
+		
+		<!-- Use favicon for social media previews -->
+		<meta name="twitter:card" content="summary" /> 
+		<meta name="twitter:image" content="https://merjedurakovic.netlify.app/android-chrome-512x512.png" />
+		<meta property="og:image" content="https://merjedurakovic.netlify.app/android-chrome-512x512.png" />
+		<meta property="og:image:width" content="512" />
+		<meta property="og:image:height" content="512" />
+		
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,14 +47,22 @@ const { title } = Astro.props;
 		<slot />
 		
 		<script>
+			// Use a namespace to avoid conflicts with existing declarations
+			namespace NetlifyTypes {
+				export interface NetlifyIdentity {
+					on(event: string, callback: (user?: unknown) => void): void;
+				}
+			}
+			
+			// Extend the Window interface only once
 			declare global {
 				interface Window {
-					netlifyIdentity: any;
+					netlifyIdentity: NetlifyTypes.NetlifyIdentity;
 				}
 			}
 
 			if (window.netlifyIdentity) {
-				window.netlifyIdentity.on("init", (user: any) => {
+				window.netlifyIdentity.on("init", (user) => {
 					if (!user) {
 						window.netlifyIdentity.on("login", () => {
 							document.location.href = "/admin/";
