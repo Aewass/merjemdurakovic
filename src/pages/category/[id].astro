@@ -478,14 +478,14 @@ const { category } = Astro.props;
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                       </svg>
                     </button>
-                    <button id="prevImage" class="absolute left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 opacity-70 hover:opacity-100 transition">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10">
+                    <button id="prevImage" class="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
                         <polyline points="15 18 9 12 15 6"></polyline>
                       </svg>
                     </button>
                     <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
-                    <button id="nextImage" class="absolute right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 opacity-70 hover:opacity-100 transition">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10">
+                    <button id="nextImage" class="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
                         <polyline points="9 18 15 12 9 6"></polyline>
                       </svg>
                     </button>
@@ -507,13 +507,100 @@ const { category } = Astro.props;
   let currentImages: string[] = [];
   let currentIndex = 0;
   
+  // Setup touch variables
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  // Handle swipe direction
+  function handleSwipe() {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer && !viewer.classList.contains('hidden') && currentImages.length > 1) {
+      // Minimum swipe distance (in pixels) to trigger navigation
+      const swipeThreshold = 50;
+      const swipeDistance = touchEndX - touchStartX;
+      
+      // Right to left swipe (next image)
+      if (swipeDistance < -swipeThreshold) {
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        updateViewerImage();
+      }
+      // Left to right swipe (previous image)
+      else if (swipeDistance > swipeThreshold) {
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        updateViewerImage();
+      }
+    }
+  }
+  
+  // Setup touch events for fullscreen navigation
+  function setupTouchEvents() {
+    const fullImage = document.getElementById('fullImage');
+    if (fullImage) {
+      // Clean up previous listeners if any
+      fullImage.removeEventListener('touchstart', handleTouchStart);
+      fullImage.removeEventListener('touchend', handleTouchEnd);
+      
+      // Add new listeners
+      fullImage.addEventListener('touchstart', handleTouchStart, { passive: true });
+      fullImage.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+  }
+  
+  // Touch event handlers
+  function handleTouchStart(e: TouchEvent) {
+    touchStartX = e.changedTouches[0].screenX;
+  }
+  
+  function handleTouchEnd(e: TouchEvent) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }
+  
+  // Setup image loading
   document.querySelectorAll('img[data-fullview]').forEach(img => {
+    // Create and add loading indicator
+    const parent = img.parentElement;
+    if (parent) {
+      // Add a loading indicator div
+      const loadingDiv = document.createElement('div');
+      loadingDiv.className = 'loading-indicator';
+      parent.appendChild(loadingDiv);
+      
+      // Handler to remove loading indicator
+      const removeLoading = () => {
+        img.classList.add('loaded');
+        loadingDiv.remove();
+      };
+      
+      // Add load event to remove loading state
+      img.addEventListener('load', removeLoading);
+      
+      // For already loaded images
+      if ((img as HTMLImageElement).complete) {
+        removeLoading();
+      }
+    }
+    
     img.addEventListener('click', () => {
       const fullview = img.getAttribute('data-fullview');
       const viewer = document.getElementById('imageViewer');
       const fullImage = document.getElementById('fullImage') as HTMLImageElement;
       
       if (fullview && viewer && fullImage) {
+        // Reset the loaded class
+        fullImage.classList.remove('loaded');
+        
+        // Add loading indicator for fullscreen view
+        const fullImageContainer = fullImage.parentElement;
+        let loadingIndicator = document.getElementById('fullImageLoading');
+        
+        if (!loadingIndicator && fullImageContainer) {
+          loadingIndicator = document.createElement('div');
+          loadingIndicator.id = 'fullImageLoading';
+          loadingIndicator.className = 'loading-indicator fullscreen-loading';
+          fullImageContainer.appendChild(loadingIndicator);
+        }
+        
         // Collect all images in the same catalog item
         const catalogItem = img.closest('.catalog-item');
         currentImages = [];
@@ -533,6 +620,28 @@ const { category } = Astro.props;
         // Set image source
         fullImage.src = fullview;
         fullImage.alt = (img as HTMLImageElement).alt;
+        
+        // Add load event for fullscreen image
+        fullImage.onload = () => {
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          // Setup touch events after image has loaded
+          setupTouchEvents();
+        };
+        
+        // For cached images
+        if (fullImage.complete) {
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          // Setup touch events for cached images
+          setupTouchEvents();
+        } else if (loadingIndicator) {
+          loadingIndicator.style.display = 'block';
+        }
         
         viewer.classList.remove('hidden');
         viewer.classList.add('flex');
@@ -562,16 +671,42 @@ const { category } = Astro.props;
   // Update the viewer image based on current index
   function updateViewerImage() {
     const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    const loadingIndicator = document.getElementById('fullImageLoading');
     
     if (fullImage && currentImages[currentIndex]) {
+      // Reset loaded state
+      fullImage.classList.remove('loaded');
+      
+      // Show loading indicator
+      if (loadingIndicator) {
+        loadingIndicator.style.display = 'block';
+      }
+      
+      // Set new image source
       fullImage.src = currentImages[currentIndex];
       
-      // Find the original image to get its caption
+      // Find the original image to get its alt text
       document.querySelectorAll('img[data-fullview]').forEach(img => {
         if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
           fullImage.alt = (img as HTMLImageElement).alt;
         }
       });
+      
+      // Add load event
+      fullImage.onload = () => {
+        fullImage.classList.add('loaded');
+        if (loadingIndicator) {
+          loadingIndicator.style.display = 'none';
+        }
+      };
+      
+      // For cached images
+      if (fullImage.complete) {
+        fullImage.classList.add('loaded');
+        if (loadingIndicator) {
+          loadingIndicator.style.display = 'none';
+        }
+      }
     }
   }
   
@@ -608,6 +743,29 @@ const { category } = Astro.props;
       }
     }
   });
+  
+  // Pre-load adjacent images for smoother navigation
+  function preloadAdjacentImages() {
+    if (currentImages.length <= 1) return;
+    
+    const nextIndex = (currentIndex + 1) % currentImages.length;
+    const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    
+    if (currentImages[nextIndex]) {
+      const nextImg = new Image();
+      nextImg.src = currentImages[nextIndex];
+    }
+    
+    if (currentImages[prevIndex]) {
+      const prevImg = new Image();
+      prevImg.src = currentImages[prevIndex];
+    }
+  }
+  
+  // Preload adjacent images when current image is loaded
+  document.getElementById('fullImage')?.addEventListener('load', () => {
+    preloadAdjacentImages();
+  });
 </script>
 
 <style>
@@ -617,5 +775,63 @@ const { category } = Astro.props;
   
   .image-mosaic img:hover {
     transform: scale(1.05);
+  }
+
+  /* Image loading styles */
+  .loading-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f4f6;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .loading-indicator::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: shimmer 1.5s infinite;
+    transform: translateX(-100%);
+  }
+  
+  .fullscreen-loading {
+    background-color: transparent;
+  }
+  
+  .fullscreen-loading::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  }
+
+  img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  img.loaded {
+    opacity: 1;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  #fullImage {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #fullImage.loaded {
+    opacity: 1;
   }
 </style> 
