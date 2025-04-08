@@ -43,40 +43,38 @@ const colorClasses = {
   }
 };
 
-// Check if catalog items mostly have single images
-const hasMostlySingleImages = catalogs && catalogs.length > 0 
-  ? catalogs.filter(cat => cat.images.length === 1).length > catalogs.length / 2
-  : false;
-
-// Get images for mosaic from catalogs
-const mosaicImages = catalogs && catalogs.length > 0
-  ? catalogs.slice(0, 5).map(catalog => catalog.images[0])
-  : images;
-
-// Determine if we should use the single image design
-const useSingleImageDesign = singleImageDesign || hasMostlySingleImages;
-
-// For books category, show all images in a mosaic
+// For different category types
 const isBooks = name === 'books';
 const isVisitCards = name === 'visit-cards';
 const isPrintMedia = name === 'print-media';
+const isCatalogs = name === 'catalogs';
 
-// Get images based on category
-let displayImages = mosaicImages;
-if (isBooks && catalogs && catalogs.length > 0) {
-  // Get all book images for the mosaic
-  displayImages = catalogs[0].images;
-} else if (isVisitCards && catalogs && catalogs.length > 0) {
-  // Get a selection of visit card images
-  displayImages = catalogs.slice(0, 2).map(catalog => catalog.images[0]);
-} else if (isPrintMedia && catalogs && catalogs.length > 0) {
-  // For print media, show a mix of different items
-  displayImages = [
-    catalogs[0].images[0], // fascicle
-    catalogs[6].images[0], // trifold
-    catalogs[1].images[0], // flyer adblue
-    catalogs[4].images[0]  // flyer phoenix
-  ];
+// Select images based on category
+let displayImages: Array<{ src: string; alt: string; }> = [];
+
+// Get feature images for each category
+if (catalogs && catalogs.length > 0) {
+  // Special selection for print media to showcase variety
+  if (isPrintMedia) {
+    // Show a mix of different items
+    displayImages = [
+      catalogs[0].images[0], // fascicle
+      catalogs[6].images[0], // trifold
+      catalogs[1].images[0], // flyer adblue
+      catalogs[4].images[0]  // flyer phoenix
+    ];
+  } 
+  // Books should show all images from the first book
+  else if (isBooks) {
+    displayImages = catalogs[0].images;
+  }
+  // Visit cards and catalogs show first image from first few catalogs
+  else {
+    displayImages = catalogs.slice(0, Math.min(5, catalogs.length))
+      .map(catalog => catalog.images[0]);
+  }
+} else {
+  displayImages = images;
 }
 ---
 
@@ -123,243 +121,68 @@ if (isBooks && catalogs && catalogs.length > 0) {
     </a>
   </div>
 
-  {/* Project Images - Right Side */}
-  {isBooks ? (
-    /* Book Mosaic - Special Layout */
-    <div class="relative">
-      <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
-        {displayImages.map((image, index) => (
-          <div 
-            class={`
-              mosaic-item
-              overflow-hidden 
-              rounded-lg 
-              bg-white 
-              shadow-md 
-              border 
-              ${colorClasses[color].border}
-              transition-all
-              duration-300
-              hover:shadow-xl
-              hover:-translate-y-2
-              hover:z-10
-              relative
-              ${index === 0 ? 'col-span-2 row-span-2' : ''}
-            `}
-          >
-            <div class="w-full h-full relative overflow-hidden">
-              <img 
-                src={image.src} 
-                alt={image.alt} 
-                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            
-            {/* Individual image glow effect */}
-            <div class={`
-              absolute 
-              inset-0 
-              -z-10
-              opacity-0
-              bg-gradient-to-r 
-              ${colorClasses[color].gradient} 
-              blur-md
-              scale-110
-              transition-opacity 
-              duration-300
-              pointer-events-none
-            `}></div>
+  {/* Project Images - Right Side - Unified Mosaic Display */}
+  <div class="relative">
+    <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
+      {displayImages.map((image, index) => (
+        <div 
+          class={`
+            mosaic-item
+            overflow-hidden 
+            rounded-lg 
+            bg-white 
+            shadow-md 
+            border 
+            ${colorClasses[color].border}
+            transition-all
+            duration-300
+            hover:shadow-xl
+            hover:-translate-y-2
+            hover:z-10
+            relative
+            ${index === 0 ? 'col-span-2 row-span-2' : ''}
+          `}
+        >
+          <div class="w-full h-full relative overflow-hidden">
+            <img 
+              src={image.src} 
+              alt={image.alt} 
+              class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
+            />
           </div>
-        ))}
-        
-        {/* Background Element */}
-        <div class={`
-          absolute 
-          -bottom-4 
-          -right-4 
-          -z-10 
-          w-full 
-          h-full 
-          bg-gradient-to-r 
-          rounded-lg 
-          opacity-30 
-          ${colorClasses[color].gradient}
-        `}></div>
-      </div>
-    </div>
-  ) : isVisitCards ? (
-    /* Visit Cards Combo Design */
-    <div class="relative">
-      <div class="relative w-full max-w-lg mx-auto">
-        <div class="grid grid-cols-2 gap-4">
-          {/* Two Cards Side by Side with Slight Overlap */}
-          {displayImages.map((image, index) => (
-            <div 
-              class={`
-                card-item
-                bg-white
-                rounded-xl
-                shadow-lg
-                overflow-hidden
-                transition-all
-                duration-500
-                hover:shadow-xl
-                hover:-translate-y-2
-                ${index === 0 ? 'z-10 -mr-4' : 'z-20 -ml-4'}
-              `}
-            >
-              <div class="aspect-[7/4] relative overflow-hidden">
-                <img 
-                  src={image.src} 
-                  alt={image.alt} 
-                  class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                />
-                
-                {/* Decorative corner accent */}
-                <div class="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-rose-400/20 to-transparent"></div>
-              </div>
-            </div>
-          ))}
+          
+          {/* Decorative corner accent */}
+          <div class={`
+            absolute 
+            top-0 
+            right-0 
+            w-16 
+            h-16 
+            bg-gradient-to-bl 
+            ${colorClasses[color].gradient} 
+            to-transparent
+          `}></div>
         </div>
-        
-        {/* Background Element */}
-        <div class={`
-          absolute 
-          -bottom-4 
-          -right-4 
-          -z-10 
-          w-full 
-          h-full 
-          bg-gradient-to-r 
-          rounded-xl
-          opacity-30 
-          ${colorClasses[color].gradient}
-        `}></div>
-      </div>
+      ))}
+      
+      {/* Background Element */}
+      <div class={`
+        absolute 
+        -bottom-4 
+        -right-4 
+        -z-10 
+        w-full 
+        h-full 
+        bg-gradient-to-r 
+        rounded-lg 
+        opacity-20 
+        ${colorClasses[color].gradient}
+      `}></div>
     </div>
-  ) : useSingleImageDesign ? (
-    /* Single Image Design - Stacked Cards */
-    <div class="relative">
-      <div class="relative w-full">
-        <div class="grid md:grid-cols-2 gap-6 relative z-10">
-          {mosaicImages.slice(0, 4).map((image, index) => (
-            <div 
-              class={`
-                group
-                bg-white
-                rounded-xl
-                shadow-lg
-                overflow-hidden
-                transition-all
-                duration-500
-                hover:shadow-xl
-                hover:-translate-y-2
-                ${index === 0 ? 'md:col-span-2' : ''}
-              `}
-            >
-              <div class="relative overflow-hidden">
-                <img 
-                  src={image.src} 
-                  alt={image.alt} 
-                  class="w-full h-full object-cover aspect-[5/3] transition-transform duration-500 group-hover:scale-105"
-                />
-                
-                {/* Decorative corner accent */}
-                <div class={`absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl ${
-                  color === 'rose' ? 'from-rose-400/20' : 
-                  color === 'emerald' ? 'from-emerald-400/20' : 'from-purple-400/20'
-                } to-transparent`}></div>
-              </div>
-            </div>
-          ))}
-        </div>
-        
-        {/* Background Element */}
-        <div class={`
-          absolute 
-          -bottom-3 
-          -right-3 
-          -z-0
-          w-[calc(100%-3rem)] 
-          h-[calc(100%-3rem)] 
-          bg-gradient-to-r 
-          rounded-xl
-          opacity-20
-          ${colorClasses[color].gradient}
-        `}></div>
-      </div>
-    </div>
-  ) : (
-    /* Mosaic Grid */
-    <div class="relative">
-      <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
-        {mosaicImages.map((image, index) => (
-          <div 
-            class={`
-              mosaic-item
-              overflow-hidden 
-              rounded-lg 
-              bg-white 
-              shadow-md 
-              border 
-              ${colorClasses[color].border}
-              transition-all
-              duration-300
-              hover:shadow-xl
-              hover:-translate-y-2
-              hover:z-10
-              relative
-              ${index === 0 ? 'col-span-2 row-span-2' : ''}
-            `}
-          >
-            <div class="w-full h-full relative overflow-hidden">
-              <img 
-                src={image.src} 
-                alt={image.alt} 
-                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
-              />
-            </div>
-            
-            {/* Individual image glow effect */}
-            <div class={`
-              absolute 
-              inset-0 
-              -z-10
-              opacity-0
-              bg-gradient-to-r 
-              ${colorClasses[color].gradient} 
-              blur-md
-              scale-110
-              transition-opacity 
-              duration-300
-              pointer-events-none
-            `}></div>
-          </div>
-        ))}
-        
-        {/* Background Element */}
-        <div class={`
-          absolute 
-          -bottom-4 
-          -right-4 
-          -z-10 
-          w-full 
-          h-full 
-          bg-gradient-to-r 
-          rounded-lg 
-          opacity-30 
-          ${colorClasses[color].gradient}
-        `}></div>
-      </div>
-    </div>
-  )}
+  </div>
 </div>
 
 <style>
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  
   .mosaic-item {
     transform-origin: center center;
     backface-visibility: hidden;
@@ -367,15 +190,5 @@ if (isBooks && catalogs && catalogs.length > 0) {
   
   .mosaic-item:hover {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .mosaic-item:hover > div:last-child {
-    opacity: 0.7;
-  }
-  
-  .card-item {
-    transform-origin: center center;
-    backface-visibility: hidden;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style> 
