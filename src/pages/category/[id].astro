@@ -443,11 +443,6 @@ const { category } = Astro.props;
                               class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                               data-fullview={image.src}
                             />
-                            {image.caption && (
-                              <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                                {image.caption}
-                              </div>
-                            )}
                           </div>
                         </div>
                       ))}
@@ -468,11 +463,6 @@ const { category } = Astro.props;
                                 class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                                 data-fullview={image.src}
                               />
-                              {image.caption && (
-                                <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                                  {image.caption}
-                                </div>
-                              )}
                             </div>
                           </div>
                         ))}
@@ -488,7 +478,17 @@ const { category } = Astro.props;
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                       </svg>
                     </button>
+                    <button id="prevImage" class="absolute left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 opacity-70 hover:opacity-100 transition">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                      </svg>
+                    </button>
                     <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
+                    <button id="nextImage" class="absolute right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 opacity-70 hover:opacity-100 transition">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                      </svg>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -504,6 +504,9 @@ const { category } = Astro.props;
 
 <script>
   // Initialize image viewers for all images with data-fullview
+  let currentImages: string[] = [];
+  let currentIndex = 0;
+  
   document.querySelectorAll('img[data-fullview]').forEach(img => {
     img.addEventListener('click', () => {
       const fullview = img.getAttribute('data-fullview');
@@ -511,8 +514,26 @@ const { category } = Astro.props;
       const fullImage = document.getElementById('fullImage') as HTMLImageElement;
       
       if (fullview && viewer && fullImage) {
+        // Collect all images in the same catalog item
+        const catalogItem = img.closest('.catalog-item');
+        currentImages = [];
+        
+        if (catalogItem) {
+          catalogItem.querySelectorAll('img[data-fullview]').forEach(itemImg => {
+            const imgSrc = itemImg.getAttribute('data-fullview');
+            if (imgSrc) {
+              currentImages.push(imgSrc);
+            }
+          });
+        }
+        
+        // Set current index to clicked image
+        currentIndex = currentImages.indexOf(fullview);
+        
+        // Set image source
         fullImage.src = fullview;
         fullImage.alt = (img as HTMLImageElement).alt;
+        
         viewer.classList.remove('hidden');
         viewer.classList.add('flex');
         
@@ -521,6 +542,38 @@ const { category } = Astro.props;
       }
     });
   });
+  
+  // Navigate to previous image
+  document.getElementById('prevImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      updateViewerImage();
+    }
+  });
+  
+  // Navigate to next image
+  document.getElementById('nextImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      updateViewerImage();
+    }
+  });
+  
+  // Update the viewer image based on current index
+  function updateViewerImage() {
+    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    
+    if (fullImage && currentImages[currentIndex]) {
+      fullImage.src = currentImages[currentIndex];
+      
+      // Find the original image to get its caption
+      document.querySelectorAll('img[data-fullview]').forEach(img => {
+        if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
+          fullImage.alt = (img as HTMLImageElement).alt;
+        }
+      });
+    }
+  }
   
   // Close viewer
   document.getElementById('closeViewer')?.addEventListener('click', () => {
@@ -534,14 +587,24 @@ const { category } = Astro.props;
     }
   });
   
-  // Close on escape key
+  // Keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      const viewer = document.getElementById('imageViewer');
-      if (viewer && !viewer.classList.contains('hidden')) {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer && !viewer.classList.contains('hidden')) {
+      if (e.key === 'Escape') {
         viewer.classList.add('hidden');
         viewer.classList.remove('flex');
         document.body.style.overflow = '';
+      } else if (e.key === 'ArrowLeft') {
+        if (currentImages.length > 1) {
+          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+          updateViewerImage();
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (currentImages.length > 1) {
+          currentIndex = (currentIndex + 1) % currentImages.length;
+          updateViewerImage();
+        }
       }
     }
   });
