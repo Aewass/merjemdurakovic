@@ -1,10 +1,22 @@
 ---
 import { ArrowRight } from 'lucide-astro';
-import type { Project } from '../types';
 
-interface Props extends Project {}
+interface Props {
+  number: string;
+  category: string;
+  title: string;
+  description: string;
+  tags: string[];
+  color: 'purple' | 'rose' | 'emerald';
+  images: Array<{ src: string; alt: string; }>;
+  name?: string;
+  catalogs?: Array<{
+    name: string;
+    images: Array<{ src: string; alt: string; }>;
+  }>;
+}
 
-const { number, category, title, description, tags, color, images } = Astro.props;
+const { number, category, title, description, tags, color, images, name = "", catalogs = [] } = Astro.props;
 
 const colorClasses = {
   purple: {
@@ -29,6 +41,11 @@ const colorClasses = {
     tag: "bg-emerald-50"
   }
 };
+
+// Get images for mosaic from catalogs
+const mosaicImages = catalogs && catalogs.length > 0
+  ? catalogs.slice(0, 5).map(catalog => catalog.images[0])
+  : images;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -46,116 +63,98 @@ const colorClasses = {
     {/* Tags */}
     <div class="flex flex-wrap gap-3 mb-8">
       {tags.map(tag => (
-        <span class={`
-          px-4 
-          py-2 
-          ${colorClasses[color].tag}
-          rounded-full 
-          text-gray-900
-          flex
-          items-center
-          gap-2
-          text-sm
-        `}>
-          <span class="w-1 h-1 rounded-full bg-current opacity-40"></span>
+        <span class={`px-4 py-2 ${colorClasses[color].tag} rounded-full text-gray-900 text-sm`}>
           {tag}
         </span>
       ))}
     </div>
 
-    {/* Case Study Link */}
-    <a 
-      href={`/case-study/${number}`}
-      class="
-        inline-flex 
-        items-center 
-        gap-2 
-        text-gray-900 
-        hover:text-gray-600 
-        transition-colors 
+    {/* Add View Category Button */}
+    <a
+      href={`/category/${name}`}
+      class={`
+        inline-flex
+        items-center
+        gap-2
+        px-6
+        py-3
+        rounded-xl
+        bg-gray-900
+        text-white
+        hover:bg-gray-800
+        transition-colors
         duration-300
-        group
-      "
+      `}
     >
-      <span class="text-lg font-medium">View Case Study</span>
-      <ArrowRight class="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300" />
+      <span>View Category</span>
+      <ArrowRight class="w-4 h-4" />
     </a>
   </div>
 
-  {/* Project Image - Right Side */}
-  <a 
-    href={`/case-study/${number}`}
-    class="relative perspective-1000 group/image block"
-  >
-    <div class={`
-      card-container
-      aspect-[4/3] 
-      bg-white 
-      rounded-none
-      shadow-lg
-      overflow-hidden 
-      relative
-      border-2 
-      ${colorClasses[color].border}
-      ${colorClasses[color].shadow}
-      transform-gpu
-      transition-all
-      duration-500
-      ease-out
-      hover:scale-[1.02]
-      hover:shadow-2xl
-      hover:-translate-y-2
-      group/card
-      cursor-pointer
-    `}>
-      <div class="w-full h-full relative overflow-hidden">
-        <img 
-          src={images[0].src} 
-          alt={images[0].alt} 
-          class="w-full h-full object-cover transform transition-all duration-700 ease-out group-hover/card:scale-110"
-        />
-        
-        {/* Hover Overlay with View Case Study */}
-        <div class="absolute inset-0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500 ease-out flex items-center justify-center">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent"></div>
-          <div class="relative text-white flex items-center gap-2 font-medium">
-            <span>View Case Study</span>
-            <ArrowRight class="w-5 h-5" />
+  {/* Project Images - Right Side - Mosaic Grid */}
+  <div class="relative">
+    <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
+      {mosaicImages.map((image, index) => (
+        <div 
+          class={`
+            mosaic-item
+            overflow-hidden 
+            rounded-lg 
+            bg-white 
+            shadow-md 
+            border 
+            ${colorClasses[color].border}
+            transition-all
+            duration-300
+            hover:shadow-xl
+            hover:-translate-y-2
+            hover:z-10
+            relative
+            ${index === 0 ? 'col-span-2 row-span-2' : ''}
+          `}
+        >
+          <div class="w-full h-full relative overflow-hidden">
+            <img 
+              src={image.src} 
+              alt={image.alt} 
+              class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+            />
           </div>
+          
+          {/* Individual image glow effect */}
+          <div class={`
+            absolute 
+            inset-0 
+            -z-10
+            opacity-0
+            bg-gradient-to-r 
+            ${colorClasses[color].gradient} 
+            blur-md
+            scale-110
+            transition-opacity 
+            duration-300
+            pointer-events-none
+          `}></div>
         </div>
-      </div>
+      ))}
+      
+      {/* Background Element */}
+      <div class="absolute -bottom-4 -right-4 -z-10 w-full h-full bg-gradient-to-r rounded-lg opacity-30 ${colorClasses[color].gradient}"></div>
     </div>
-    
-    {/* Background Glow */}
-    <div class={`
-      absolute 
-      -z-10 
-      inset-0 
-      bg-gradient-to-r 
-      ${colorClasses[color].gradient} 
-      blur-3xl 
-      opacity-0 
-      group-hover/card:opacity-60 
-      transition-opacity 
-      duration-700
-      ease-out
-    `}></div>
-  </a>
+  </div>
 </div>
 
 <style>
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-
-  .card-container {
-    transform-style: preserve-3d;
+  .mosaic-item {
+    transform-origin: center center;
     backface-visibility: hidden;
   }
-
-  /* Smooth hover state transitions */
-  .card-container,
-  .card-container * {
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  .mosaic-item:hover {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .mosaic-item:hover > div:last-child {
+    opacity: 0.7;
   }
 </style> 

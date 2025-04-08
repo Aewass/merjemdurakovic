@@ -1,60 +1,90 @@
 ---
 import PortfolioItem from './PortfolioItem.astro';
 
-
-type Project = {
+type Category = {
   number: string;
-  category: string;
+  name: string;
   title: string;
   description: string;
+  catalogs: Array<{
+    name: string;
+    images: Array<{ src: string; alt: string; }>;
+  }>;
   tags: string[];
   color: 'purple' | 'rose' | 'emerald';
   images: Array<{ src: string; alt: string; }>;
 }
 
-const projects: Project[] = [
+const categories: Category[] = [
   {
     number: "01",
-    category: "Brand Identity",
-    title: "Coffee Roastery Branding",
-    description: "A complete visual identity system for a boutique coffee roaster, capturing the artisanal nature of their craft while maintaining a modern, sophisticated aesthetic.",
-    tags: ["Branding", "Typography", "Packaging"],
+    name: "catalogs",
+    title: "Catalogs",
+    description: "Collection of product catalogs for various clients",
+    catalogs: [
+      {
+        name: "iform",
+        images: [
+          { src: "/src/assets/catalogs/catalog-iform/1.png", alt: "iform catalog page 1" },
+          { src: "/src/assets/catalogs/catalog-iform/2.png", alt: "iform catalog page 2" }
+        ]
+      },
+      {
+        name: "lezaj-trade",
+        images: [
+          { src: "/src/assets/catalogs/catalog-lezaj-trade/1.png", alt: "Lezaj Trade catalog page 1" },
+          { src: "/src/assets/catalogs/catalog-lezaj-trade/2.png", alt: "Lezaj Trade catalog page 2" },
+          { src: "/src/assets/catalogs/catalog-lezaj-trade/3.png", alt: "Lezaj Trade catalog page 3" },
+          { src: "/src/assets/catalogs/catalog-lezaj-trade/4.png", alt: "Lezaj Trade catalog page 4" }
+        ]
+      },
+      {
+        name: "mega",
+        images: [
+          { src: "/src/assets/catalogs/catalog-mega/1.png", alt: "Mega catalog page 1" },
+          { src: "/src/assets/catalogs/catalog-mega/2.png", alt: "Mega catalog page 2" },
+          { src: "/src/assets/catalogs/catalog-mega/3.png", alt: "Mega catalog page 3" }
+        ]
+      },
+      {
+        name: "shams",
+        images: [
+          { src: "/src/assets/catalogs/catalog-shams/1.png", alt: "Shams catalog page 1" },
+          { src: "/src/assets/catalogs/catalog-shams/2.png", alt: "Shams catalog page 2" },
+          { src: "/src/assets/catalogs/catalog-shams/3.png", alt: "Shams catalog page 3" }
+        ]
+      },
+      {
+        name: "stanic",
+        images: [
+          { src: "/src/assets/catalogs/catalog-stanic/1.png", alt: "Stanic catalog page 1" },
+          { src: "/src/assets/catalogs/catalog-stanic/2.png", alt: "Stanic catalog page 2" },
+          { src: "/src/assets/catalogs/catalog-stanic/3.jpg", alt: "Stanic catalog page 3" },
+          { src: "/src/assets/catalogs/catalog-stanic/4.png", alt: "Stanic catalog page 4" }
+        ]
+      },
+      {
+        name: "zgi",
+        images: [
+          { src: "/src/assets/catalogs/catalog-zgi/1.jpg", alt: "ZGI catalog page 1" },
+          { src: "/src/assets/catalogs/catalog-zgi/2.jpg", alt: "ZGI catalog page 2" },
+          { src: "/src/assets/catalogs/catalog-zgi/3.jpg", alt: "ZGI catalog page 3" }
+        ]
+      },
+      {
+        name: "zgi2",
+        images: [
+          { src: "/src/assets/catalogs/catalog-zgi2/1.jpg", alt: "ZGI Vol.2 catalog page 1" },
+          { src: "/src/assets/catalogs/catalog-zgi2/2.jpg", alt: "ZGI Vol.2 catalog page 2" },
+          { src: "/src/assets/catalogs/catalog-zgi2/3.jpg", alt: "ZGI Vol.2 catalog page 3" }
+        ]
+      }
+    ],
+    tags: ["Design", "Products"],
     color: "purple",
-    images: [
-      { 
-        src: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80", 
-        alt: "Coffee beans being roasted" 
-      }
-    ]
-  },
-  {
-    number: "02",
-    category: "UI/UX Design",
-    title: "Wellness App Design",
-    description: "A mindfulness and meditation app designed to help users build healthy daily habits and reduce stress through guided practices and mood tracking.",
-    tags: ["UI Design", "User Experience", "Mobile App"],
-    color: "rose",
-    images: [
-      { 
-        src: "https://images.unsplash.com/photo-1616593871468-2a9452218369?auto=format&fit=crop&w=1200&q=80", 
-        alt: "Wellness app interface design" 
-      }
-    ]
-  },
-  {
-    number: "03",
-    category: "Digital Marketing",
-    title: "Sustainable Fashion Campaign",
-    description: "An integrated digital campaign for an eco-conscious fashion brand, highlighting their commitment to sustainable practices and ethical manufacturing.",
-    tags: ["Digital", "Campaign", "Sustainability"],
-    color: "emerald",
-    images: [
-      { 
-        src: "https://images.unsplash.com/photo-1581375074612-d1fd0e661aeb?auto=format&fit=crop&w=1200&q=80", 
-        alt: "Sustainable fashion campaign visuals" 
-      }
-    ]
+    images: [{ src: "/src/assets/catalogs/catalog-iform/1.png", alt: "iform catalog page 1" }]
   }
+  // ... other categories can be added here in the future
 ];
 ---
 
@@ -66,12 +96,23 @@ const projects: Project[] = [
     </h2>
     
     <div class="space-y-32">
-      {projects.map(project => (
+      {categories.map(category => (
         <div>
-          <PortfolioItem {...project} />
+          <PortfolioItem 
+            number={category.number}
+            category="Category"
+            title={category.title}
+            description={category.description}
+            tags={category.tags}
+            color={category.color}
+            images={category.images}
+            catalogs={category.catalogs}
+            name={category.name}
+          />
         </div>
       ))}
     </div>
   </div>
 </section>
+
 
