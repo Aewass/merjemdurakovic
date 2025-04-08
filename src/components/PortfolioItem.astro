@@ -14,9 +14,10 @@ interface Props {
     name: string;
     images: Array<{ src: string; alt: string; }>;
   }>;
+  singleImageDesign?: boolean;
 }
 
-const { number, category, title, description, tags, color, images, name = "", catalogs = [] } = Astro.props;
+const { number, category, title, description, tags, color, images, name = "", catalogs = [], singleImageDesign = false } = Astro.props;
 
 const colorClasses = {
   purple: {
@@ -42,10 +43,18 @@ const colorClasses = {
   }
 };
 
+// Check if catalog items mostly have single images
+const hasMostlySingleImages = catalogs && catalogs.length > 0 
+  ? catalogs.filter(cat => cat.images.length === 1).length > catalogs.length / 2
+  : false;
+
 // Get images for mosaic from catalogs
 const mosaicImages = catalogs && catalogs.length > 0
   ? catalogs.slice(0, 5).map(catalog => catalog.images[0])
   : images;
+
+// Determine if we should use the single image design
+const useSingleImageDesign = singleImageDesign || hasMostlySingleImages;
 ---
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -91,60 +100,127 @@ const mosaicImages = catalogs && catalogs.length > 0
     </a>
   </div>
 
-  {/* Project Images - Right Side - Mosaic Grid */}
-  <div class="relative">
-    <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
-      {mosaicImages.map((image, index) => (
-        <div 
-          class={`
-            mosaic-item
-            overflow-hidden 
-            rounded-lg 
-            bg-white 
-            shadow-md 
-            border 
-            ${colorClasses[color].border}
-            transition-all
-            duration-300
-            hover:shadow-xl
-            hover:-translate-y-2
-            hover:z-10
-            relative
-            ${index === 0 ? 'col-span-2 row-span-2' : ''}
-          `}
-        >
-          <div class="w-full h-full relative overflow-hidden">
+  {/* Project Images - Right Side */}
+  {useSingleImageDesign ? (
+    /* Single Image Design - Stacked Cards */
+    <div class="relative perspective-1000">
+      <div class="relative mx-auto w-full max-w-md">
+        {mosaicImages.slice(0, 3).map((image, index) => (
+          <div 
+            class={`
+              card-item
+              absolute
+              inset-0
+              bg-white
+              rounded-lg
+              shadow-lg
+              border-2
+              ${colorClasses[color].border}
+              overflow-hidden
+              transition-all
+              duration-500
+              hover:z-10
+              hover:shadow-xl
+              hover:-translate-y-2
+              hover:rotate-0
+            `}
+            style={`transform: rotate(${index * 3 - 3}deg) translateY(${index * 8}px); z-index: ${3 - index};`}
+          >
             <img 
               src={image.src} 
               alt={image.alt} 
-              class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+              class="w-full h-full object-cover aspect-[5/3]"
             />
           </div>
-          
-          {/* Individual image glow effect */}
-          <div class={`
-            absolute 
-            inset-0 
-            -z-10
-            opacity-0
-            bg-gradient-to-r 
-            ${colorClasses[color].gradient} 
-            blur-md
-            scale-110
-            transition-opacity 
-            duration-300
-            pointer-events-none
-          `}></div>
-        </div>
-      ))}
+        ))}
+        <div class="aspect-[5/3] opacity-0"><!-- Spacer div to maintain aspect ratio --></div>
+      </div>
       
       {/* Background Element */}
-      <div class="absolute -bottom-4 -right-4 -z-10 w-full h-full bg-gradient-to-r rounded-lg opacity-30 ${colorClasses[color].gradient}"></div>
+      <div class={`
+        absolute 
+        -bottom-6 
+        -right-6 
+        -z-10 
+        w-full 
+        h-full 
+        bg-gradient-to-r 
+        rounded-lg 
+        opacity-30 
+        ${colorClasses[color].gradient}
+      `}></div>
     </div>
-  </div>
+  ) : (
+    /* Mosaic Grid */
+    <div class="relative">
+      <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
+        {mosaicImages.map((image, index) => (
+          <div 
+            class={`
+              mosaic-item
+              overflow-hidden 
+              rounded-lg 
+              bg-white 
+              shadow-md 
+              border 
+              ${colorClasses[color].border}
+              transition-all
+              duration-300
+              hover:shadow-xl
+              hover:-translate-y-2
+              hover:z-10
+              relative
+              ${index === 0 ? 'col-span-2 row-span-2' : ''}
+            `}
+          >
+            <div class="w-full h-full relative overflow-hidden">
+              <img 
+                src={image.src} 
+                alt={image.alt} 
+                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
+              />
+            </div>
+            
+            {/* Individual image glow effect */}
+            <div class={`
+              absolute 
+              inset-0 
+              -z-10
+              opacity-0
+              bg-gradient-to-r 
+              ${colorClasses[color].gradient} 
+              blur-md
+              scale-110
+              transition-opacity 
+              duration-300
+              pointer-events-none
+            `}></div>
+          </div>
+        ))}
+        
+        {/* Background Element */}
+        <div class={`
+          absolute 
+          -bottom-4 
+          -right-4 
+          -z-10 
+          w-full 
+          h-full 
+          bg-gradient-to-r 
+          rounded-lg 
+          opacity-30 
+          ${colorClasses[color].gradient}
+        `}></div>
+      </div>
+    </div>
+  )}
 </div>
 
 <style>
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  
   .mosaic-item {
     transform-origin: center center;
     backface-visibility: hidden;
@@ -156,5 +232,11 @@ const mosaicImages = catalogs && catalogs.length > 0
   
   .mosaic-item:hover > div:last-child {
     opacity: 0.7;
+  }
+  
+  .card-item {
+    transform-origin: center center;
+    backface-visibility: hidden;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   }
 </style> 

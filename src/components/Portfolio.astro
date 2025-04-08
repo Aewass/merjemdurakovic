@@ -6,13 +6,14 @@ type Category = {
   name: string;
   title: string;
   description: string;
-  catalogs: Array<{
+  catalogs?: Array<{
     name: string;
     images: Array<{ src: string; alt: string; }>;
   }>;
   tags: string[];
   color: 'purple' | 'rose' | 'emerald';
   images: Array<{ src: string; alt: string; }>;
+  singleImageDesign?: boolean;
 }
 
 const categories: Category[] = [
@@ -83,6 +84,30 @@ const categories: Category[] = [
     tags: ["Design", "Products"],
     color: "purple",
     images: [{ src: "/src/assets/catalogs/catalog-iform/1.png", alt: "iform catalog page 1" }]
+  },
+  {
+    number: "02",
+    name: "visit-cards",
+    title: "Visit Cards",
+    description: "Collection of business cards and visit cards for various clients",
+    catalogs: [
+      {
+        name: "visit-card-lezaj-trade",
+        images: [
+          { src: "/src/assets/visit-cards/visit-card-lezaj-trade/1.jpg", alt: "Lezaj Trade visit card" }
+        ]
+      },
+      {
+        name: "visit-card-zerro-max",
+        images: [
+          { src: "/src/assets/visit-cards/visit-card-zerro-max/2.jpg", alt: "Zerro Max visit card" }
+        ]
+      }
+    ],
+    tags: ["Design", "Branding"],
+    color: "rose",
+    images: [{ src: "/src/assets/visit-cards/visit-card-lezaj-trade/1.jpg", alt: "Visit card sample" }],
+    singleImageDesign: true
   }
   // ... other categories can be added here in the future
 ];
@@ -108,6 +133,7 @@ const categories: Category[] = [
             images={category.images}
             catalogs={category.catalogs}
             name={category.name}
+            singleImageDesign={category.singleImageDesign}
           />
         </div>
       ))}

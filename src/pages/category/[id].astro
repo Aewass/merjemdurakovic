@@ -108,6 +108,41 @@ export function getStaticPaths() {
           ]
         } as CategoryData
       }
+    },
+    {
+      params: { id: 'visit-cards' },
+      props: {
+        category: {
+          number: "02",
+          title: "Visit Cards",
+          category: "Category",
+          description: "Collection of business cards and visit cards for various clients",
+          items: [
+            {
+              name: "visit-card-lezaj-trade",
+              description: "Business card design for Lezaj Trade",
+              images: [
+                { 
+                  src: "/src/assets/visit-cards/visit-card-lezaj-trade/1.jpg", 
+                  alt: "Lezaj Trade visit card",
+                  caption: "Front design" 
+                }
+              ]
+            },
+            {
+              name: "visit-card-zerro-max",
+              description: "Business card design for Zerro Max",
+              images: [
+                { 
+                  src: "/src/assets/visit-cards/visit-card-zerro-max/2.jpg", 
+                  alt: "Zerro Max visit card",
+                  caption: "Complete business card design" 
+                }
+              ]
+            }
+          ]
+        } as CategoryData
+      }
     }
   ];
 }
@@ -119,7 +154,11 @@ const { category } = Astro.props;
 <Layout title={`${category.title} - ${category.category}`}>
   <main class="relative min-h-screen">
     <div class="fixed inset-0">
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-rose-200/40 via-rose-100/30 to-transparent"></div>
+      <div class={`absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] ${
+        id === 'visit-cards' 
+          ? 'from-rose-200/40 via-rose-100/30 to-transparent' 
+          : 'from-purple-200/40 via-purple-100/30 to-transparent'
+      }`}></div>
     </div>
 
     <div class="relative">
@@ -137,7 +176,7 @@ const { category } = Astro.props;
           <!-- Header -->
           <header class="mb-16">
             <div>
-              <div class="flex items-center gap-2 text-purple-600 mb-4">
+              <div class={`flex items-center gap-2 ${id === 'visit-cards' ? 'text-rose-600' : 'text-purple-600'} mb-4`}>
                 <span class="font-mono">{category.number}</span>
                 <span class="text-gray-300">—</span>
                 <span>{category.category}</span>
@@ -160,24 +199,28 @@ const { category } = Astro.props;
                     <h2 class="text-4xl font-bold mb-4 capitalize">{item.name.replace('-', ' ')}</h2>
                     <p class="text-lg text-gray-600 mb-8">{item.description}</p>
                     <div class="flex items-center">
-                      <span class="inline-flex items-center py-1.5 px-3 bg-purple-50/70 text-sm text-gray-800 rounded-full">
-                        <span class="w-1.5 h-1.5 bg-purple-500 rounded-full mr-2"></span>
+                      <span class={`inline-flex items-center py-1.5 px-3 ${
+                        id === 'visit-cards' ? 'bg-rose-50/70' : 'bg-purple-50/70'
+                      } text-sm text-gray-800 rounded-full`}>
+                        <span class={`w-1.5 h-1.5 ${
+                          id === 'visit-cards' ? 'bg-rose-500' : 'bg-purple-500'
+                        } rounded-full mr-2`}></span>
                         {item.images.length} {item.images.length === 1 ? 'page' : 'pages'}
                       </span>
                     </div>
                   </div>
                   
-                  <!-- Image Mosaic Gallery -->
-                  <div class="image-mosaic relative">
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {/* Check if it's a visit card (single image) */}
+                  {id === 'visit-cards' ? (
+                    <div class="relative perspective-1000 max-w-lg mx-auto lg:mx-0">
                       {item.images.map((image, index) => (
-                        <div class={`overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl ${
-                          index === 0 ? 'col-span-2 row-span-2' : ''
-                        }`}>
-                          <div class="relative group cursor-pointer aspect-[4/3]">
+                        <div 
+                          class="relative bg-white rounded-lg shadow-xl border border-rose-200 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+                        >
+                          <div class="group cursor-pointer">
                             <img 
                               src={image.src} 
-                              alt={image.alt || `${item.name} image ${index + 1}`}
+                              alt={image.alt} 
                               class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                               data-fullview={image.src}
                             />
@@ -189,18 +232,44 @@ const { category } = Astro.props;
                           </div>
                         </div>
                       ))}
+                      <div class="absolute -bottom-4 -right-4 -z-10 w-full h-full bg-gradient-to-r from-rose-400/20 to-rose-200/20 rounded-lg"></div>
                     </div>
-                    
-                    <!-- Full-size image viewer (hidden by default) -->
-                    <div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
-                      <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
-                          <line x1="18" y1="6" x2="6" y2="18"></line>
-                          <line x1="6" y1="6" x2="18" y2="18"></line>
-                        </svg>
-                      </button>
-                      <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
+                  ) : (
+                    /* Mosaic Grid for Catalogs */
+                    <div class="image-mosaic relative">
+                      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {item.images.map((image, index) => (
+                          <div class={`overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl ${
+                            index === 0 ? 'col-span-2 row-span-2' : ''
+                          }`}>
+                            <div class="relative group cursor-pointer aspect-[4/3]">
+                              <img 
+                                src={image.src} 
+                                alt={image.alt || `${item.name} image ${index + 1}`}
+                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                data-fullview={image.src}
+                              />
+                              {image.caption && (
+                                <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-2 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                                  {image.caption}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
+                  )}
+                  
+                  <!-- Full-size image viewer (hidden by default) -->
+                  <div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+                    <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                      </svg>
+                    </button>
+                    <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
                   </div>
                 </div>
               </div>
@@ -215,8 +284,8 @@ const { category } = Astro.props;
 </Layout>
 
 <script>
-  // Initialize image viewers
-  document.querySelectorAll('.image-mosaic img[data-fullview]').forEach(img => {
+  // Initialize image viewers for all images with data-fullview
+  document.querySelectorAll('img[data-fullview]').forEach(img => {
     img.addEventListener('click', () => {
       const fullview = img.getAttribute('data-fullview');
       const viewer = document.getElementById('imageViewer');
