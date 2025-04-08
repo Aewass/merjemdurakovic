@@ -1,6 +1,6 @@
 ---
 import PortfolioItem from './PortfolioItem.astro';
-import { ArrowRight } from 'lucide-astro';
+
 
 type Project = {
   number: string;
@@ -61,7 +61,7 @@ const projects: Project[] = [
 <section id="portfolio" class="scroll-mt-20 relative py-32">
   <div class="max-w-6xl mx-auto px-6 sm:px-8">
     <h2 class="text-4xl font-bold mb-24 relative inline-block">
-      Selected Works
+      My Work
       <div class="absolute -z-10 -bottom-2 left-0 w-full h-3 bg-yellow-200/50"></div>
     </h2>
     
@@ -75,48 +75,3 @@ const projects: Project[] = [
   </div>
 </section>
 
-<script>
-  class Carousel {
-    private track: HTMLElement;
-    private slides: HTMLElement[];
-    private currentIndex: number;
-
-    constructor(element: HTMLElement) {
-      const trackElement = element.querySelector('.carousel-track');
-      const slideElements = element.querySelectorAll('.carousel-slide');
-
-      if (!trackElement) throw new Error('Carousel track not found');
-      
-      this.track = trackElement as HTMLElement;
-      this.slides = Array.from(slideElements) as HTMLElement[];
-      this.currentIndex = 0;
-      
-      // Buttons
-      const prevBtn = element.parentElement?.querySelector('.carousel-prev');
-      const nextBtn = element.parentElement?.querySelector('.carousel-next');
-      
-      prevBtn?.addEventListener('click', () => this.prev());
-      nextBtn?.addEventListener('click', () => this.next());
-    }
-
-    next(): void {
-      this.currentIndex = (this.currentIndex + 1) % this.slides.length;
-      this.updatePosition();
-    }
-
-    prev(): void {
-      this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
-      this.updatePosition();
-    }
-
-    private updatePosition(): void {
-      const offset = -100 * this.currentIndex;
-      this.track.style.transform = `translateX(${offset}%)`;
-    }
-  }
-
-  // Initialize all carousels
-  document.querySelectorAll('.carousel-container').forEach(container => {
-    new Carousel(container as HTMLElement);
-  });
-</script> 
