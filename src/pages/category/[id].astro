@@ -143,6 +143,145 @@ export function getStaticPaths() {
           ]
         } as CategoryData
       }
+    },
+    {
+      params: { id: 'books' },
+      props: {
+        category: {
+          number: "03",
+          title: "Books",
+          category: "Category",
+          description: "Book designs and layouts for various publications",
+          items: [
+            {
+              name: "book",
+              description: "Book design and layout project",
+              images: [
+                { 
+                  src: "/src/assets/books/book/1.jpg", 
+                  alt: "Book design page 1",
+                  caption: "Cover design" 
+                },
+                { 
+                  src: "/src/assets/books/book/2.jpg", 
+                  alt: "Book design page 2",
+                  caption: "Internal layout" 
+                },
+                { 
+                  src: "/src/assets/books/book/3.jpg", 
+                  alt: "Book design page 3",
+                  caption: "Chapter opening page" 
+                }
+              ]
+            }
+          ]
+        } as CategoryData
+      }
+    },
+    {
+      params: { id: 'print-media' },
+      props: {
+        category: {
+          number: "04",
+          title: "Print Media",
+          category: "Category",
+          description: "Various print media designs including flyers, brochures, and trifolds",
+          items: [
+            {
+              name: "fascicle-zerromax",
+              description: "Fascicle design for Zerromax",
+              images: [
+                { 
+                  src: "/src/assets/print-media/fascicle-zerromax/1.jpg", 
+                  alt: "Zerromax fascicle design page 1",
+                  caption: "Front cover design" 
+                },
+                { 
+                  src: "/src/assets/print-media/fascicle-zerromax/2.jpg", 
+                  alt: "Zerromax fascicle design page 2",
+                  caption: "Interior spread" 
+                }
+              ]
+            },
+            {
+              name: "flyer-adblue",
+              description: "Promotional flyer for AdBlue",
+              images: [
+                { 
+                  src: "/src/assets/print-media/flyer-adblue/1.jpg", 
+                  alt: "AdBlue flyer design",
+                  caption: "Single page promotional flyer" 
+                }
+              ]
+            },
+            {
+              name: "flyer-doma",
+              description: "Promotional flyer for Doma",
+              images: [
+                { 
+                  src: "/src/assets/print-media/flyer-doma/1.jpg", 
+                  alt: "Doma flyer design",
+                  caption: "Marketing flyer design" 
+                }
+              ]
+            },
+            {
+              name: "flyer-palma",
+              description: "Promotional flyer for Palma",
+              images: [
+                { 
+                  src: "/src/assets/print-media/flyer-palma/1.jpg", 
+                  alt: "Palma flyer design",
+                  caption: "Product promotion flyer" 
+                }
+              ]
+            },
+            {
+              name: "flyer-phoenix",
+              description: "Promotional flyer for Phoenix",
+              images: [
+                { 
+                  src: "/src/assets/print-media/flyer-phoenix/1.jpg", 
+                  alt: "Phoenix flyer design",
+                  caption: "Event promotional material" 
+                }
+              ]
+            },
+            {
+              name: "flyer-shams",
+              description: "Promotional flyer for Shams",
+              images: [
+                { 
+                  src: "/src/assets/print-media/flyer-shams/1.jpg", 
+                  alt: "Shams flyer design",
+                  caption: "Product showcase flyer" 
+                }
+              ]
+            },
+            {
+              name: "trifold-artane",
+              description: "Trifold brochure design for Artane",
+              images: [
+                { 
+                  src: "/src/assets/print-media/trifold-artane/1.jpg", 
+                  alt: "Artane trifold brochure page 1",
+                  caption: "Front panel design" 
+                },
+                { 
+                  src: "/src/assets/print-media/trifold-artane/2.jpg", 
+                  alt: "Artane trifold brochure page 2",
+                  caption: "Interior panels layout" 
+                },
+                { 
+                  src: "/src/assets/print-media/trifold-artane/3.jpg", 
+                  alt: "Artane trifold brochure page 3",
+                  caption: "Back panel design" 
+                }
+              ]
+            }
+          ]
+        } as CategoryData
+      }
     }
   ];
 }
@@ -155,9 +294,11 @@ const { category } = Astro.props;
   <main class="relative min-h-screen">
     <div class="fixed inset-0">
       <div class={`absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] ${
-        id === 'visit-cards' 
+        id === 'visit-cards' || id === 'print-media'
           ? 'from-rose-200/40 via-rose-100/30 to-transparent' 
-          : 'from-purple-200/40 via-purple-100/30 to-transparent'
+          : id === 'books'
+            ? 'from-emerald-200/40 via-emerald-100/30 to-transparent'
+            : 'from-purple-200/40 via-purple-100/30 to-transparent'
       }`}></div>
     </div>
 
@@ -176,7 +317,11 @@ const { category } = Astro.props;
           <!-- Header -->
           <header class="mb-16">
             <div>
-              <div class={`flex items-center gap-2 ${id === 'visit-cards' ? 'text-rose-600' : 'text-purple-600'} mb-4`}>
+              <div class={`flex items-center gap-2 ${
+                id === 'visit-cards' || id === 'print-media' ? 'text-rose-600' : 
+                id === 'books' ? 'text-emerald-600' : 
+                'text-purple-600'
+              } mb-4`}>
                 <span class="font-mono">{category.number}</span>
                 <span class="text-gray-300">—</span>
                 <span>{category.category}</span>
@@ -200,10 +345,12 @@ const { category } = Astro.props;
                     <p class="text-lg text-gray-600 mb-8">{item.description}</p>
                     <div class="flex items-center">
                       <span class={`inline-flex items-center py-1.5 px-3 ${
-                        id === 'visit-cards' ? 'bg-rose-50/70' : 'bg-purple-50/70'
+                        id === 'visit-cards' || id === 'print-media' ? 'bg-rose-50/70' : 
+                        id === 'books' ? 'bg-emerald-50/70' : 'bg-purple-50/70'
                       } text-sm text-gray-800 rounded-full`}>
                         <span class={`w-1.5 h-1.5 ${
-                          id === 'visit-cards' ? 'bg-rose-500' : 'bg-purple-500'
+                          id === 'visit-cards' || id === 'print-media' ? 'bg-rose-500' : 
+                          id === 'books' ? 'bg-emerald-500' : 'bg-purple-500'
                         } rounded-full mr-2`}></span>
                         {item.images.length} {item.images.length === 1 ? 'page' : 'pages'}
                       </span>
