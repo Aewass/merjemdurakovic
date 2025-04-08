@@ -27,10 +27,54 @@ type CategoryData = {
 export function getStaticPaths() {
   return [
     {
-      params: { id: 'catalogs' },
+      params: { id: 'branding' },
       props: {
         category: {
           number: "01",
+          title: "Branding",
+          category: "Category",
+          description: "Brand identity and visual system design for various clients",
+          items: [
+            {
+              name: "branding-harvest-harmony",
+              description: "Brand identity design for Harvest Harmony",
+              images: [
+                { 
+                  src: "/branding/branding-harvest-harmony/1.jpg", 
+                  alt: "Harvest Harmony brand identity",
+                  caption: "Logo design and visual identity" 
+                },
+                { 
+                  src: "/branding/branding-harvest-harmony/2.jpg", 
+                  alt: "Harvest Harmony logo design",
+                  caption: "Logo variations and applications" 
+                },
+                { 
+                  src: "/branding/branding-harvest-harmony/3.jpg", 
+                  alt: "Harvest Harmony brand applications",
+                  caption: "Brand applications and stationery" 
+                },
+                { 
+                  src: "/branding/branding-harvest-harmony/4.jpg", 
+                  alt: "Harvest Harmony packaging design",
+                  caption: "Packaging design solutions" 
+                },
+                { 
+                  src: "/branding/branding-harvest-harmony/5.jpg", 
+                  alt: "Harvest Harmony brand guidelines",
+                  caption: "Brand style guide and standards" 
+                }
+              ]
+            }
+          ]
+        } as CategoryData
+      }
+    },
+    {
+      params: { id: 'catalogs' },
+      props: {
+        category: {
+          number: "02",
           title: "Catalogs",
           category: "Category",
           description: "Collection of product catalogs for various clients",
@@ -113,7 +157,7 @@ export function getStaticPaths() {
       params: { id: 'visit-cards' },
       props: {
         category: {
-          number: "02",
+          number: "03",
           title: "Visit Cards",
           category: "Category",
           description: "Collection of business cards and visit cards for various clients",
@@ -148,7 +192,7 @@ export function getStaticPaths() {
       params: { id: 'books' },
       props: {
         category: {
-          number: "03",
+          number: "04",
           title: "Books",
           category: "Category",
           description: "Book designs and layouts for various publications",
@@ -182,7 +226,7 @@ export function getStaticPaths() {
       params: { id: 'print-media' },
       props: {
         category: {
-          number: "04",
+          number: "05",
           title: "Print Media",
           category: "Category",
           description: "Various print media designs including flyers, brochures, and trifolds",
@@ -300,7 +344,9 @@ const { category } = Astro.props;
             ? 'from-emerald-200/40 via-emerald-100/30 to-transparent'
             : id === 'print-media'
               ? 'from-amber-200/40 via-amber-100/30 to-transparent'
-              : 'from-purple-200/40 via-purple-100/30 to-transparent'
+              : id === 'branding'
+                ? 'from-indigo-200/40 via-indigo-100/30 to-transparent'
+                : 'from-purple-200/40 via-purple-100/30 to-transparent'
       }`}></div>
     </div>
 
@@ -319,6 +365,7 @@ const { category } = Astro.props;
                 id === 'visit-cards' ? 'hover:text-rose-600' : 
                 id === 'books' ? 'hover:text-emerald-600' : 
                 id === 'print-media' ? 'hover:text-amber-600' :
+                id === 'branding' ? 'hover:text-indigo-600' :
                 'hover:text-purple-600'
               }
               transition-colors 
@@ -338,6 +385,7 @@ const { category } = Astro.props;
                 id === 'visit-cards' ? 'text-rose-600' : 
                 id === 'books' ? 'text-emerald-600' : 
                 id === 'print-media' ? 'text-amber-600' :
+                id === 'branding' ? 'text-indigo-600' :
                 'text-purple-600'
               } mb-4`}>
                 <span class="font-mono">{category.number}</span>
@@ -366,12 +414,14 @@ const { category } = Astro.props;
                         id === 'visit-cards' ? 'bg-rose-50/70' : 
                         id === 'books' ? 'bg-emerald-50/70' : 
                         id === 'print-media' ? 'bg-amber-50/70' :
+                        id === 'branding' ? 'bg-indigo-50/70' :
                         'bg-purple-50/70'
                       } text-sm text-gray-800 rounded-full`}>
                         <span class={`w-1.5 h-1.5 ${
                           id === 'visit-cards' ? 'bg-rose-500' : 
                           id === 'books' ? 'bg-emerald-500' : 
                           id === 'print-media' ? 'bg-amber-500' :
+                          id === 'branding' ? 'bg-indigo-500' :
                           'bg-purple-500'
                         } rounded-full mr-2`}></span>
                         {item.images.length} {item.images.length === 1 ? 'page' : 'pages'}

@@ -11,7 +11,7 @@ type Category = {
     images: Array<{ src: string; alt: string; }>;
   }>;
   tags: string[];
-  color: 'purple' | 'rose' | 'emerald' | 'amber';
+  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo';
   images: Array<{ src: string; alt: string; }>;
   singleImageDesign?: boolean;
 }
@@ -19,6 +19,27 @@ type Category = {
 const categories: Category[] = [
   {
     number: "01",
+    name: "branding",
+    title: "Branding",
+    description: "Brand identity and visual system design for various clients",
+    catalogs: [
+      {
+        name: "branding-harvest-harmony",
+        images: [
+          { src: "/branding/branding-harvest-harmony/1.jpg", alt: "Harvest Harmony brand identity" },
+          { src: "/branding/branding-harvest-harmony/2.jpg", alt: "Harvest Harmony logo design" },
+          { src: "/branding/branding-harvest-harmony/3.jpg", alt: "Harvest Harmony brand applications" },
+          { src: "/branding/branding-harvest-harmony/4.jpg", alt: "Harvest Harmony packaging design" },
+          { src: "/branding/branding-harvest-harmony/5.jpg", alt: "Harvest Harmony brand guidelines" }
+        ]
+      }
+    ],
+    tags: ["Brand Identity", "Logo Design", "Visual Systems"],
+    color: "indigo",
+    images: [{ src: "/branding/branding-harvest-harmony/1.jpg", alt: "Branding sample" }]
+  },
+  {
+    number: "02",
     name: "catalogs",
     title: "Catalogs",
     description: "Collection of product catalogs for various clients",
@@ -86,7 +107,7 @@ const categories: Category[] = [
     images: [{ src: "/catalogs/catalog-iform/1.png", alt: "iform catalog page 1" }]
   },
   {
-    number: "02",
+    number: "03",
     name: "visit-cards",
     title: "Visit Cards",
     description: "Collection of business cards and visit cards for various clients",
@@ -109,7 +130,7 @@ const categories: Category[] = [
     images: [{ src: "/visit-cards/visit-card-lezaj-trade/1.jpg", alt: "Visit card sample" }]
   },
   {
-    number: "03",
+    number: "04",
     name: "books",
     title: "Books",
     description: "Book designs and layouts for various publications",
@@ -128,7 +149,7 @@ const categories: Category[] = [
     images: [{ src: "/books/book/1.jpg", alt: "Book design sample" }]
   },
   {
-    number: "04",
+    number: "05",
     name: "print-media",
     title: "Print Media",
     description: "Various print media designs including flyers, brochures, and trifolds",
