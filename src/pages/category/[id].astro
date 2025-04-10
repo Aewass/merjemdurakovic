@@ -310,6 +310,79 @@ export function getStaticPaths() {
           ]
         } as CategoryData
       }
+    },
+    {
+      params: { id: 'social-media' },
+      props: {
+        category: {
+          number: "06",
+          title: "Social Media Design",
+          category: "Category",
+          description: "My social media design work focuses on creating engaging and visually appealing content that effectively communicates brand messages across various platforms. Each design is crafted to capture attention, drive engagement, and maintain brand consistency while adapting to the unique requirements of different social media channels.",
+          items: [
+            {
+              name: "AdBlue",
+              description: "Social media designs for AdBlue's marketing campaign",
+              images: [
+                { src: "/social-media/social-adblue/1.png", alt: "AdBlue social media design 1" },
+                { src: "/social-media/social-adblue/2.png", alt: "AdBlue social media design 2" },
+                { src: "/social-media/social-adblue/3.png", alt: "AdBlue social media design 3" },
+                { src: "/social-media/social-adblue/4.png", alt: "AdBlue social media design 4" },
+                { src: "/social-media/social-adblue/5.png", alt: "AdBlue social media design 5" },
+                { src: "/social-media/social-adblue/6.png", alt: "AdBlue social media design 6" },
+                { src: "/social-media/social-adblue/7.png", alt: "AdBlue social media design 7" }
+              ]
+            },
+            {
+              name: "Artane",
+              description: "Social media content for Artane",
+              images: [
+                { src: "/social-media/social-artane/1.png", alt: "Artane social media design 1" },
+                { src: "/social-media/social-artane/2.png", alt: "Artane social media design 2" }
+              ]
+            },
+            {
+              name: "Green Servis",
+              description: "Social media designs for Green Servis",
+              images: [
+                { src: "/social-media/social-green-servis/1.png", alt: "Green Servis social media design 1" },
+                { src: "/social-media/social-green-servis/2.png", alt: "Green Servis social media design 2" },
+                { src: "/social-media/social-green-servis/3.png", alt: "Green Servis social media design 3" },
+                { src: "/social-media/social-green-servis/4.png", alt: "Green Servis social media design 4" },
+                { src: "/social-media/social-green-servis/5.png", alt: "Green Servis social media design 5" },
+                { src: "/social-media/social-green-servis/6.png", alt: "Green Servis social media design 6" },
+                { src: "/social-media/social-green-servis/7.png", alt: "Green Servis social media design 7" },
+                { src: "/social-media/social-green-servis/8.png", alt: "Green Servis social media design 8" }
+              ]
+            },
+            {
+              name: "Shams Travel",
+              description: "Social media content for Shams Travel Agency",
+              images: [
+                { src: "/social-media/social-shams-travel/1.jpg", alt: "Shams Travel social media design 1" },
+                { src: "/social-media/social-shams-travel/2.jpg", alt: "Shams Travel social media design 2" },
+                { src: "/social-media/social-shams-travel/3.jpg", alt: "Shams Travel social media design 3" },
+                { src: "/social-media/social-shams-travel/4.jpg", alt: "Shams Travel social media design 4" },
+                { src: "/social-media/social-shams-travel/5.jpg", alt: "Shams Travel social media design 5" },
+                { src: "/social-media/social-shams-travel/6.jpg", alt: "Shams Travel social media design 6" },
+                { src: "/social-media/social-shams-travel/7.jpg", alt: "Shams Travel social media design 7" },
+                { src: "/social-media/social-shams-travel/8.jpg", alt: "Shams Travel social media design 8" },
+                { src: "/social-media/social-shams-travel/9.jpg", alt: "Shams Travel social media design 9" },
+                { src: "/social-media/social-shams-travel/10.png", alt: "Shams Travel social media design 10" },
+                { src: "/social-media/social-shams-travel/11.png", alt: "Shams Travel social media design 11" },
+                { src: "/social-media/social-shams-travel/12.png", alt: "Shams Travel social media design 12" }
+              ]
+            },
+            {
+              name: "Web Content",
+              description: "Web design content for social media platforms",
+              images: [
+                { src: "/social-media/social-web-design/1.png", alt: "Web Design social media design 1" }
+              ]
+            }
+          ]
+        } as CategoryData
+      }
     }
   ];
 }
@@ -330,7 +403,9 @@ const { category } = Astro.props;
               ? 'from-amber-200/40 via-amber-100/30 to-transparent'
               : id === 'branding'
                 ? 'from-indigo-200/40 via-indigo-100/30 to-transparent'
-                : 'from-purple-200/40 via-purple-100/30 to-transparent'
+                : id === 'social-media'
+                  ? 'from-cyan-200/40 via-cyan-100/30 to-transparent'
+                  : 'from-purple-200/40 via-purple-100/30 to-transparent'
       }`}></div>
     </div>
 
@@ -350,6 +425,7 @@ const { category } = Astro.props;
                 id === 'books' ? 'hover:text-emerald-600' : 
                 id === 'print-media' ? 'hover:text-amber-600' :
                 id === 'branding' ? 'hover:text-indigo-600' :
+                id === 'social-media' ? 'hover:text-cyan-600' :
                 'hover:text-purple-600'
               }
               transition-colors 
@@ -370,6 +446,7 @@ const { category } = Astro.props;
                 id === 'books' ? 'text-emerald-600' : 
                 id === 'print-media' ? 'text-amber-600' :
                 id === 'branding' ? 'text-indigo-600' :
+                id === 'social-media' ? 'text-cyan-600' :
                 'text-purple-600'
               } mb-4`}>
                 <span class="font-mono">{category.number}</span>
@@ -399,6 +476,7 @@ const { category } = Astro.props;
                         id === 'books' ? 'bg-emerald-50/70' : 
                         id === 'print-media' ? 'bg-amber-50/70' :
                         id === 'branding' ? 'bg-indigo-50/70' :
+                        id === 'social-media' ? 'bg-cyan-50/70' :
                         'bg-purple-50/70'
                       } text-sm text-gray-800 rounded-full`}>
                         <span class={`w-1.5 h-1.5 ${
@@ -406,9 +484,10 @@ const { category } = Astro.props;
                           id === 'books' ? 'bg-emerald-500' : 
                           id === 'print-media' ? 'bg-amber-500' :
                           id === 'branding' ? 'bg-indigo-500' :
+                          id === 'social-media' ? 'bg-cyan-500' :
                           'bg-purple-500'
                         } rounded-full mr-2`}></span>
-                        {item.images.length} {item.images.length === 1 ? 'page' : 'pages'}
+                        {item.images.length} {item.images.length === 1 ? 'image' : 'images'}
                       </span>
                     </div>
                   </div>
@@ -432,8 +511,26 @@ const { category } = Astro.props;
                       ))}
                       <div class="absolute -bottom-4 -right-4 -z-10 w-full h-full bg-gradient-to-r from-rose-400/20 to-rose-200/20 rounded-lg"></div>
                     </div>
+                  ) : id === 'social-media' ? (
+                    /* Special grid for social media (promotional materials) */
+                    <div class="image-mosaic relative">
+                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {item.images.map((image, index) => (
+                          <div class="overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl">
+                            <div class="relative group cursor-pointer block">
+                              <img 
+                                src={image.src} 
+                                alt={image.alt || `${item.name} image ${index + 1}`}
+                                class="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-500"
+                                data-fullview={image.src}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   ) : (
-                    /* Mosaic Grid for Catalogs */
+                    /* Mosaic Grid for other categories */
                     <div class="image-mosaic relative">
                       <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {item.images.map((image, index) => (

@@ -11,7 +11,7 @@ type Category = {
     images: Array<{ src: string; alt: string; }>;
   }>;
   tags: string[];
-  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo';
+  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo' | 'cyan';
   images: Array<{ src: string; alt: string; }>;
   singleImageDesign?: boolean;
 }
@@ -110,7 +110,7 @@ const categories: Category[] = [
     number: "03",
     name: "visit-cards",
     title: "Visit Cards",
-    description: "Each card in this collection tells a visual story — through color, typography, and layout, I’ve crafted designs that resonate with the personality and profession of each client.",
+    description: "Each card in this collection tells a visual story — through color, typography, and layout, I've crafted designs that resonate with the personality and profession of each client.",
     catalogs: [
       {
         name: "visit-card-lezaj-trade",
@@ -203,6 +203,72 @@ const categories: Category[] = [
     tags: ["Design", "Advertising", "Print"],
     color: "amber",
     images: [{ src: "/print-media/trifold-artane/1.jpg", alt: "Print media sample" }]
+  },
+  {
+    number: "06",
+    name: "social-media",
+    title: "Social Media Design",
+    description: "Creative and engaging social media designs that help brands stand out and connect with their audience across various platforms.",
+    catalogs: [
+      {
+        name: "AdBlue",
+        images: [
+          { src: "/social-media/social-adblue/1.png", alt: "AdBlue social media design 1" },
+          { src: "/social-media/social-adblue/2.png", alt: "AdBlue social media design 2" },
+          { src: "/social-media/social-adblue/3.png", alt: "AdBlue social media design 3" },
+          { src: "/social-media/social-adblue/4.png", alt: "AdBlue social media design 4" },
+          { src: "/social-media/social-adblue/5.png", alt: "AdBlue social media design 5" },
+          { src: "/social-media/social-adblue/6.png", alt: "AdBlue social media design 6" },
+          { src: "/social-media/social-adblue/7.png", alt: "AdBlue social media design 7" }
+        ]
+      },
+      {
+        name: "Artane",
+        images: [
+          { src: "/social-media/social-artane/1.png", alt: "Artane social media design 1" },
+          { src: "/social-media/social-artane/2.png", alt: "Artane social media design 2" }
+        ]
+      },
+      {
+        name: "Green Servis",
+        images: [
+          { src: "/social-media/social-green-servis/1.png", alt: "Green Servis social media design 1" },
+          { src: "/social-media/social-green-servis/2.png", alt: "Green Servis social media design 2" },
+          { src: "/social-media/social-green-servis/3.png", alt: "Green Servis social media design 3" },
+          { src: "/social-media/social-green-servis/4.png", alt: "Green Servis social media design 4" },
+          { src: "/social-media/social-green-servis/5.png", alt: "Green Servis social media design 5" },
+          { src: "/social-media/social-green-servis/6.png", alt: "Green Servis social media design 6" },
+          { src: "/social-media/social-green-servis/7.png", alt: "Green Servis social media design 7" },
+          { src: "/social-media/social-green-servis/8.png", alt: "Green Servis social media design 8" }
+        ]
+      },
+      {
+        name: "Shams Travel",
+        images: [
+          { src: "/social-media/social-shams-travel/1.jpg", alt: "Shams Travel social media design 1" },
+          { src: "/social-media/social-shams-travel/2.jpg", alt: "Shams Travel social media design 2" },
+          { src: "/social-media/social-shams-travel/3.jpg", alt: "Shams Travel social media design 3" },
+          { src: "/social-media/social-shams-travel/4.jpg", alt: "Shams Travel social media design 4" },
+          { src: "/social-media/social-shams-travel/5.jpg", alt: "Shams Travel social media design 5" },
+          { src: "/social-media/social-shams-travel/6.jpg", alt: "Shams Travel social media design 6" },
+          { src: "/social-media/social-shams-travel/7.jpg", alt: "Shams Travel social media design 7" },
+          { src: "/social-media/social-shams-travel/8.jpg", alt: "Shams Travel social media design 8" },
+          { src: "/social-media/social-shams-travel/9.jpg", alt: "Shams Travel social media design 9" },
+          { src: "/social-media/social-shams-travel/10.png", alt: "Shams Travel social media design 10" },
+          { src: "/social-media/social-shams-travel/11.png", alt: "Shams Travel social media design 11" },
+          { src: "/social-media/social-shams-travel/12.png", alt: "Shams Travel social media design 12" }
+        ]
+      },
+      {
+        name: "Web Content",
+        images: [
+          { src: "/social-media/social-web-design/1.png", alt: "Web Design social media design 1" }
+        ]
+      }
+    ],
+    tags: ["Social Media", "Digital Design", "Marketing"],
+    color: "cyan",
+    images: [{ src: "/social-media/social-adblue/1.png", alt: "Social media design sample" }]
   }
   // ... other categories can be added here in the future
 ];

@@ -7,7 +7,7 @@ interface Props {
   title: string;
   description: string;
   tags: string[];
-  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo';
+  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo' | 'cyan';
   images: Array<{ src: string; alt: string; }>;
   name?: string;
   catalogs?: Array<{
@@ -54,15 +54,21 @@ const colorClasses = {
     shadow: "shadow-indigo-200/20",
     gradient: "from-indigo-400/20 to-indigo-200/20",
     tag: "bg-indigo-50"
+  },
+  cyan: {
+    text: "text-cyan-600",
+    border: "border-cyan-200",
+    shadow: "shadow-cyan-200/20",
+    gradient: "from-cyan-400/20 to-cyan-200/20",
+    tag: "bg-cyan-50"
   }
 };
 
 // For different category types
 const isBooks = name === 'books';
-const isVisitCards = name === 'visit-cards';
 const isPrintMedia = name === 'print-media';
-const isCatalogs = name === 'catalogs';
 const isBranding = name === 'branding';
+const isSocialMedia = name === 'social-media';
 
 // Select images based on category
 let displayImages: Array<{ src: string; alt: string; }> = [];
@@ -145,66 +151,95 @@ if (catalogs && catalogs.length > 0) {
     </a>
   </div>
 
-  {/* Project Images - Right Side - Unified Mosaic Display */}
+  {/* Project Images - Right Side */}
   <div class="relative">
-    <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
-      {displayImages.map((image, index) => (
+    {isSocialMedia ? (
+      <div class="social-media-carousel relative aspect-[4/3] rounded-lg overflow-hidden">
         <div 
-          class={`
-            mosaic-item
-            overflow-hidden 
-            rounded-lg 
-            bg-white 
-            shadow-md 
-            border 
-            ${colorClasses[color].border}
-            transition-all
-            duration-300
-            hover:shadow-xl
-            hover:-translate-y-2
-            hover:z-10
-            relative
-            ${index === 0 ? 'col-span-2 row-span-2' : ''}
-          `}
+          class="swiper-container h-full"
+          data-catalogs={JSON.stringify(catalogs)}
         >
-          <div class="w-full h-full relative overflow-hidden">
-            <img 
-              src={image.src} 
-              alt={image.alt} 
-              class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
-            />
+          <div class="swiper-wrapper">
+            {catalogs?.flatMap((company) => 
+              company.images.map((image) => (
+                <div class="swiper-slide">
+                  <img 
+                    src={image.src} 
+                    alt={image.alt} 
+                    class="max-w-full max-h-full w-auto h-auto object-contain"
+                  />
+                </div>
+              ))
+            )}
           </div>
           
-          {/* Decorative corner accent */}
-          <div class={`
-            absolute 
-            top-0 
-            right-0 
-            w-12 
-            h-12 
-            bg-gradient-to-bl 
-            ${colorClasses[color].gradient} 
-            to-transparent
-            opacity-60
-            rounded-bl-xl
-          `}></div>
+          {/* Minimal Top Left Style */}
+          <div class="company-name absolute top-3 left-3 z-10 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-gray-800 text-sm font-medium border border-gray-100/50 transition-all duration-300"></div>
+
+          <div class="swiper-button-prev !bg-white/90 backdrop-blur-sm border border-gray-100/50 !w-8 !h-8 after:!text-xs"></div>
+          <div class="swiper-button-next !bg-white/90 backdrop-blur-sm border border-gray-100/50 !w-8 !h-8 after:!text-xs"></div>
         </div>
-      ))}
-      
-      {/* Background Element */}
-      <div class={`
-        absolute 
-        -bottom-4 
-        -right-4 
-        -z-10 
-        w-full 
-        h-full 
-        bg-gradient-to-r 
-        rounded-lg 
-        opacity-20 
-        ${colorClasses[color].gradient}
-      `}></div>
-    </div>
+      </div>
+    ) : (
+      <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
+        {displayImages.map((image, index) => (
+          <div 
+            class={`
+              mosaic-item
+              overflow-hidden 
+              rounded-lg 
+              bg-white 
+              shadow-md 
+              border 
+              ${colorClasses[color].border}
+              transition-all
+              duration-300
+              hover:shadow-xl
+              hover:-translate-y-2
+              hover:z-10
+              relative
+              ${index === 0 ? 'col-span-2 row-span-2' : ''}
+            `}
+          >
+            <div class="w-full h-full relative overflow-hidden">
+              <img 
+                src={image.src} 
+                alt={image.alt} 
+                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+            
+            {/* Decorative corner accent */}
+            <div class={`
+              absolute 
+              top-0 
+              right-0 
+              w-12 
+              h-12 
+              bg-gradient-to-bl 
+              ${colorClasses[color].gradient} 
+              to-transparent
+              opacity-60
+              rounded-bl-xl
+            `}></div>
+          </div>
+        ))}
+        
+        {/* Background Element */}
+        <div class={`
+          absolute 
+          -bottom-4 
+          -right-4 
+          -z-10 
+          w-full 
+          h-full 
+          bg-gradient-to-r 
+          rounded-lg 
+          opacity-20 
+          ${colorClasses[color].gradient}
+        `}></div>
+      </div>
+    )}
   </div>
 </div>
 
@@ -217,4 +252,148 @@ if (catalogs && catalogs.length > 0) {
   .mosaic-item:hover {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   }
-</style> 
+
+  /* Carousel Styles */
+  .social-media-carousel {
+    position: relative;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .swiper-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Navigation buttons */
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #0891b2 !important; /* Cyan-600 */
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 40px !important;
+    height: 40px !important;
+    opacity: 1 !important;
+    display: flex !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+    z-index: 20 !important;
+    transition: all 0.2s ease;
+  }
+
+  .swiper-button-prev:hover,
+  .swiper-button-next:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.1); /* Cyan shadow */
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 14px !important;
+    font-weight: bold;
+  }
+
+  .company-name {
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+    transform: translateY(0);
+    opacity: 0.95;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .company-name:hover {
+    transform: translateY(-1px);
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.1);
+  }
+
+  /* Navigation buttons - smaller size */
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 12px !important;
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const swiperContainer = document.querySelector('.swiper-container');
+    if (!swiperContainer) return;
+
+    // Get all catalogs data
+    const catalogsData = JSON.parse(swiperContainer.getAttribute('data-catalogs') || '[]');
+    
+    // Create an array to map slide index to company name
+    const slideToCompany: { start: number; end: number; name: string; }[] = [];
+    let currentIndex = 0;
+
+    catalogsData.forEach((company: any) => {
+      slideToCompany.push({
+        start: currentIndex,
+        end: currentIndex + company.images.length - 1,
+        name: company.name
+      });
+      currentIndex += company.images.length;
+    });
+
+    const updateCompanyName = (slideIndex: number) => {
+      const companyNameElement = document.querySelector('.company-name');
+      if (!companyNameElement) return;
+
+      const company = slideToCompany.find(c => slideIndex >= c.start && slideIndex <= c.end);
+      if (company) {
+        companyNameElement.textContent = company.name;
+      }
+    };
+
+    const swiper = new Swiper(swiperContainer as HTMLElement, {
+      modules: [Navigation],
+      slidesPerView: 1,
+      spaceBetween: 30,
+      grabCursor: true,
+      touchRatio: 1,
+      resistance: true,
+      resistanceRatio: 0.85,
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on: {
+        init: function(swiper) {
+          updateCompanyName(swiper.activeIndex);
+        },
+        slideChange: function(swiper) {
+          updateCompanyName(swiper.activeIndex);
+        }
+      }
+    });
+  });
+</script> 
