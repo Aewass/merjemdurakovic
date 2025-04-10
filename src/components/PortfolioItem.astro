@@ -300,9 +300,11 @@ if (typeof window !== 'undefined') {
   .mosaic-item {
     transform-origin: center center;
     backface-visibility: hidden;
+    transition: all 0.3s ease;
   }
   
   .mosaic-item:hover {
+    transform: scale(1.05);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
   }
 
