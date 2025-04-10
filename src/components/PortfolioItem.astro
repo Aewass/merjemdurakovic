@@ -174,10 +174,10 @@ if (catalogs && catalogs.length > 0) {
           </div>
           
           {/* Minimal Top Left Style */}
-          <div class="company-name absolute top-3 left-3 z-10 bg-white/80 backdrop-blur-sm px-3 py-1.5 rounded-lg text-gray-800 text-sm font-medium border border-gray-100/50 transition-all duration-300"></div>
+          <div class="company-name absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-gray-800 text-base font-semibold border border-gray-100/50 shadow-lg transition-all duration-300"></div>
 
-          <div class="swiper-button-prev !bg-white/90 backdrop-blur-sm border border-gray-100/50 !w-8 !h-8 after:!text-xs"></div>
-          <div class="swiper-button-next !bg-white/90 backdrop-blur-sm border border-gray-100/50 !w-8 !h-8 after:!text-xs"></div>
+          <div class="swiper-button-prev !bg-white/95 backdrop-blur-sm border border-gray-100/50 !w-10 !h-10 after:!text-sm shadow-lg"></div>
+          <div class="swiper-button-next !bg-white/95 backdrop-blur-sm border border-gray-100/50 !w-10 !h-10 after:!text-sm shadow-lg"></div>
         </div>
       </div>
     ) : (
@@ -306,34 +306,34 @@ if (catalogs && catalogs.length > 0) {
 
   .swiper-button-prev:after,
   .swiper-button-next:after {
-    font-size: 14px !important;
+    font-size: 16px !important;
     font-weight: bold;
   }
 
   .company-name {
-    font-size: 0.875rem;
+    font-size: 1rem;
     letter-spacing: 0.025em;
     transform: translateY(0);
-    opacity: 0.95;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    opacity: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   }
 
   .company-name:hover {
     transform: translateY(-1px);
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.1);
+    background-color: rgba(255, 255, 255, 1);
+    box-shadow: 0 6px 16px rgba(8, 145, 178, 0.15);
   }
 
-  /* Navigation buttons - smaller size */
+  /* Navigation buttons - larger size */
   .swiper-button-prev,
   .swiper-button-next {
-    width: 32px !important;
-    height: 32px !important;
+    width: 40px !important;
+    height: 40px !important;
   }
 
   .swiper-button-prev:after,
   .swiper-button-next:after {
-    font-size: 12px !important;
+    font-size: 16px !important;
   }
 </style>
 
@@ -350,24 +350,25 @@ if (catalogs && catalogs.length > 0) {
     // Get all catalogs data
     const catalogsData = JSON.parse(swiperContainer.getAttribute('data-catalogs') || '[]');
     
-    // Create an array to map slide index to company name
-    const slideToCompany: { start: number; end: number; name: string; }[] = [];
-    let currentIndex = 0;
-
+    // Create an array to track which company each slide belongs to
+    const slideToCompany: { index: number; name: string; }[] = [];
+    
+    // Map each slide to its company
     catalogsData.forEach((company: any) => {
-      slideToCompany.push({
-        start: currentIndex,
-        end: currentIndex + company.images.length - 1,
-        name: company.name
+      company.images.forEach(() => {
+        slideToCompany.push({ name: company.name, index: slideToCompany.length });
       });
-      currentIndex += company.images.length;
     });
 
-    const updateCompanyName = (slideIndex: number) => {
+    const updateCompanyName = (realIndex: number) => {
       const companyNameElement = document.querySelector('.company-name');
       if (!companyNameElement) return;
 
-      const company = slideToCompany.find(c => slideIndex >= c.start && slideIndex <= c.end);
+      // Calculate the actual index considering the total number of slides
+      const totalSlides = slideToCompany.length;
+      const normalizedIndex = ((realIndex % totalSlides) + totalSlides) % totalSlides;
+      
+      const company = slideToCompany[normalizedIndex];
       if (company) {
         companyNameElement.textContent = company.name;
       }
@@ -388,10 +389,10 @@ if (catalogs && catalogs.length > 0) {
       },
       on: {
         init: function(swiper) {
-          updateCompanyName(swiper.activeIndex);
+          updateCompanyName(swiper.realIndex);
         },
         slideChange: function(swiper) {
-          updateCompanyName(swiper.activeIndex);
+          updateCompanyName(swiper.realIndex);
         }
       }
     });
