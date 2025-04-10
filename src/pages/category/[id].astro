@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
 import { ArrowLeft, Maximize2 } from 'lucide-astro';
+import { preloadImages } from '../../utils/imageCache';
 
 // Update the types for our data structure
 type CatalogImage = {
@@ -610,6 +611,8 @@ const { category } = Astro.props;
 </Layout>
 
 <script>
+  import { preloadImage, getCachedImage } from '../../utils/imageCache';
+
   // Initialize image viewers for all images with data-fullview
   let currentImages: string[] = [];
   let currentIndex = 0;
@@ -811,7 +814,7 @@ const { category } = Astro.props;
   });
 
   // Function to update the viewer image based on current index
-  function updateViewerImage() {
+  async function updateViewerImage() {
     const fullImage = document.getElementById('fullImage') as HTMLImageElement;
     const loadingIndicator = document.getElementById('fullImageLoading');
     
@@ -824,8 +827,33 @@ const { category } = Astro.props;
         loadingIndicator.style.display = 'block';
       }
       
-      // Set new image source
-      fullImage.src = currentImages[currentIndex];
+      // Try to get cached image first
+      const cachedResponse = await getCachedImage(currentImages[currentIndex]);
+      if (cachedResponse) {
+        const blob = await cachedResponse.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        fullImage.src = objectUrl;
+        fullImage.classList.add('loaded');
+        if (loadingIndicator) {
+          loadingIndicator.style.display = 'none';
+        }
+        // Clean up object URL after image loads
+        fullImage.onload = () => {
+          URL.revokeObjectURL(objectUrl);
+          preloadAdjacentImages();
+        };
+      } else {
+        // If not cached, load normally and cache for next time
+        fullImage.src = currentImages[currentIndex];
+        fullImage.onload = async () => {
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          await preloadImage(currentImages[currentIndex]);
+          preloadAdjacentImages();
+        };
+      }
       
       // Find the original image to get its alt text
       document.querySelectorAll('img[data-fullview]').forEach(img => {
@@ -833,23 +861,20 @@ const { category } = Astro.props;
           fullImage.alt = (img as HTMLImageElement).alt;
         }
       });
-      
-      // Add load event
-      fullImage.onload = () => {
-        fullImage.classList.add('loaded');
-        if (loadingIndicator) {
-          loadingIndicator.style.display = 'none';
-        }
-      };
-      
-      // For cached images
-      if (fullImage.complete) {
-        fullImage.classList.add('loaded');
-        if (loadingIndicator) {
-          loadingIndicator.style.display = 'none';
-        }
-      }
     }
+  }
+
+  // Function to preload adjacent images
+  async function preloadAdjacentImages() {
+    if (currentImages.length <= 1) return;
+    
+    const nextIndex = (currentIndex + 1) % currentImages.length;
+    const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    
+    await Promise.all([
+      preloadImage(currentImages[nextIndex]),
+      preloadImage(currentImages[prevIndex])
+    ]);
   }
 
   // Setup navigation handlers
@@ -903,6 +928,14 @@ const { category } = Astro.props;
 
   // Initial setup
   setupFullscreenHandlers();
+
+  // Preload all images in the category
+  if (typeof window !== 'undefined') {
+    const allImageUrls = category.items.flatMap(item => 
+      item.images.map(img => img.src)
+    );
+    preloadImages(allImageUrls);
+  }
 </script>
 
 <style>

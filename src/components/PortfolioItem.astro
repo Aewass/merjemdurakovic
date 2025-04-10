@@ -1,5 +1,6 @@
 ---
 import { ArrowRight, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-astro';
+import { preloadImages } from '../utils/imageCache';
 
 interface Props {
   number: string;
@@ -106,6 +107,12 @@ if (catalogs && catalogs.length > 0) {
   }
 } else {
   displayImages = images;
+}
+
+// Preload images when component is mounted
+if (typeof window !== 'undefined') {
+  const imageUrls = displayImages.map(img => img.src);
+  preloadImages(imageUrls);
 }
 ---
 
@@ -468,6 +475,7 @@ if (catalogs && catalogs.length > 0) {
   import { Navigation } from 'swiper/modules';
   import 'swiper/css';
   import 'swiper/css/navigation';
+  import { preloadImage, getCachedImage } from '../utils/imageCache';
 
   document.addEventListener('DOMContentLoaded', () => {
     // Initialize Swiper for social media carousel
@@ -776,8 +784,21 @@ if (catalogs && catalogs.length > 0) {
       }
     });
     
+    // Function to preload adjacent images
+    async function preloadAdjacentImages() {
+      if (currentImages.length <= 1) return;
+      
+      const nextIndex = (currentIndex + 1) % currentImages.length;
+      const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      
+      await Promise.all([
+        preloadImage(currentImages[nextIndex]),
+        preloadImage(currentImages[prevIndex])
+      ]);
+    }
+    
     // Update the viewer image based on current index
-    function updateViewerImage() {
+    async function updateViewerImage() {
       const fullImage = document.getElementById('fullImage') as HTMLImageElement;
       const loadingIndicator = document.getElementById('fullImageLoading');
       
@@ -790,8 +811,33 @@ if (catalogs && catalogs.length > 0) {
           loadingIndicator.style.display = 'block';
         }
         
-        // Set new image source
-        fullImage.src = currentImages[currentIndex];
+        // Try to get cached image first
+        const cachedResponse = await getCachedImage(currentImages[currentIndex]);
+        if (cachedResponse) {
+          const blob = await cachedResponse.blob();
+          const objectUrl = URL.createObjectURL(blob);
+          fullImage.src = objectUrl;
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          // Clean up object URL after image loads
+          fullImage.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+            preloadAdjacentImages();
+          };
+        } else {
+          // If not cached, load normally and cache for next time
+          fullImage.src = currentImages[currentIndex];
+          fullImage.onload = async () => {
+            fullImage.classList.add('loaded');
+            if (loadingIndicator) {
+              loadingIndicator.style.display = 'none';
+            }
+            await preloadImage(currentImages[currentIndex]);
+            preloadAdjacentImages();
+          };
+        }
         
         // Find the original image to get its alt text
         document.querySelectorAll('img[data-fullview]').forEach(img => {
@@ -799,26 +845,6 @@ if (catalogs && catalogs.length > 0) {
             fullImage.alt = (img as HTMLImageElement).alt;
           }
         });
-        
-        // Add load event
-        fullImage.onload = () => {
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          // Preload adjacent images after current image is loaded
-          preloadAdjacentImages();
-        };
-        
-        // For cached images
-        if (fullImage.complete) {
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          // Preload adjacent images for cached images too
-          preloadAdjacentImages();
-        }
       }
     }
     
@@ -854,47 +880,6 @@ if (catalogs && catalogs.length > 0) {
           }
         }
       }
-    });
-    
-    // Pre-load adjacent images for smoother navigation
-    function preloadAdjacentImages() {
-      if (currentImages.length <= 1) return;
-      
-      const nextIndex = (currentIndex + 1) % currentImages.length;
-      const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-      
-      // Preload next image
-      if (currentImages[nextIndex]) {
-        const nextImg = new Image();
-        nextImg.src = currentImages[nextIndex];
-      }
-      
-      // Preload previous image
-      if (currentImages[prevIndex]) {
-        const prevImg = new Image();
-        prevImg.src = currentImages[prevIndex];
-      }
-      
-      // Also preload the next-next and prev-prev images for smoother navigation
-      if (currentImages.length > 2) {
-        const nextNextIndex = (currentIndex + 2) % currentImages.length;
-        const prevPrevIndex = (currentIndex - 2 + currentImages.length) % currentImages.length;
-        
-        if (currentImages[nextNextIndex]) {
-          const nextNextImg = new Image();
-          nextNextImg.src = currentImages[nextNextIndex];
-        }
-        
-        if (currentImages[prevPrevIndex]) {
-          const prevPrevImg = new Image();
-          prevPrevImg.src = currentImages[prevPrevIndex];
-        }
-      }
-    }
-    
-    // Preload adjacent images when current image is loaded
-    document.getElementById('fullImage')?.addEventListener('load', () => {
-      preloadAdjacentImages();
     });
   });
 </script> 
