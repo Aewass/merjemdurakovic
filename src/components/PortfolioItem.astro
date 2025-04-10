@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-astro';
+import { ArrowRight, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-astro';
 
 interface Props {
   number: string;
@@ -154,20 +154,32 @@ if (catalogs && catalogs.length > 0) {
   {/* Project Images - Right Side */}
   <div class="relative">
     {isSocialMedia ? (
-      <div class="social-media-carousel relative aspect-[4/3] rounded-lg overflow-hidden">
+      <div class="social-media-carousel relative aspect-[4/3] rounded-lg overflow-hidden group">
+        <button 
+          id="carousel-fullscreen-btn"
+          class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-20"
+        >
+          <Maximize2 class={`w-5 h-5 ${colorClasses[color].text}`} />
+        </button>
         <div 
           class="swiper-container h-full"
           data-catalogs={JSON.stringify(catalogs)}
+          data-category="social-media"
         >
           <div class="swiper-wrapper">
             {catalogs?.flatMap((company) => 
               company.images.map((image) => (
                 <div class="swiper-slide">
-                  <img 
-                    src={image.src} 
-                    alt={image.alt} 
-                    class="max-w-full max-h-full w-auto h-auto object-contain"
-                  />
+                  <div class="relative">
+                    <img 
+                      src={image.src} 
+                      alt={image.alt} 
+                      class="max-w-full max-h-full w-auto h-auto object-contain transition-all duration-300"
+                      data-fullview={image.src}
+                      data-alt={image.alt}
+                      data-category="social-media"
+                    />
+                  </div>
                 </div>
               ))
             )}
@@ -205,12 +217,21 @@ if (catalogs && catalogs.length > 0) {
               ${index === 0 ? 'col-span-2 row-span-2' : ''}
             `}
           >
-            <div class="w-full h-full relative overflow-hidden">
+            <div class="w-full h-full relative overflow-hidden group">
               <img 
                 src={image.src} 
                 alt={image.alt} 
-                class="w-full h-full object-cover transform transition-transform duration-500 hover:scale-105"
+                class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                data-fullview={image.src}
+                data-alt={image.alt}
               />
+              <button 
+                class="fullscreen-btn absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
+                data-fullview={image.src}
+                data-alt={image.alt}
+              >
+                <Maximize2 class={`w-4 h-4 ${colorClasses[color].text}`} />
+              </button>
             </div>
             
             {/* Decorative corner accent */}
@@ -247,6 +268,27 @@ if (catalogs && catalogs.length > 0) {
   </div>
 </div>
 
+<!-- Full-size image viewer (hidden by default) -->
+<div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+  <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  </button>
+  <button id="prevImage" class="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
+      <polyline points="15 18 9 12 15 6"></polyline>
+    </svg>
+  </button>
+  <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
+  <button id="nextImage" class="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </button>
+</div>
+
 <style>
   .mosaic-item {
     transform-origin: center center;
@@ -274,7 +316,17 @@ if (catalogs && catalogs.length > 0) {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    height: 100%;
+    padding: 2rem;
+  }
+
+  .swiper-slide > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .swiper-slide img {
@@ -351,6 +403,64 @@ if (catalogs && catalogs.length > 0) {
   .swiper-button-next:after {
     font-size: 16px !important;
   }
+
+  /* Image loading styles */
+  .loading-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f4f6;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .loading-indicator::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: shimmer 1.5s infinite;
+    transform: translateX(-100%);
+  }
+  
+  .fullscreen-loading {
+    background-color: transparent;
+  }
+  
+  .fullscreen-loading::after {
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  }
+
+  img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  img.loaded {
+    opacity: 1;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  #fullImage {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #fullImage.loaded {
+    opacity: 1;
+  }
 </style>
 
 <script>
@@ -360,57 +470,431 @@ if (catalogs && catalogs.length > 0) {
   import 'swiper/css/navigation';
 
   document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Swiper for social media carousel
     const swiperContainer = document.querySelector('.swiper-container');
-    if (!swiperContainer) return;
-
-    // Get all catalogs data
-    const catalogsData = JSON.parse(swiperContainer.getAttribute('data-catalogs') || '[]');
+    let swiper: Swiper | null = null;
     
-    // Create an array to track which company each slide belongs to
-    const slideToCompany: { index: number; name: string; }[] = [];
-    
-    // Map each slide to its company
-    catalogsData.forEach((company: any) => {
-      company.images.forEach(() => {
-        slideToCompany.push({ name: company.name, index: slideToCompany.length });
-      });
-    });
-
-    const updateCompanyName = (realIndex: number) => {
-      const companyNameElement = document.querySelector('.company-name');
-      if (!companyNameElement) return;
-
-      // Calculate the actual index considering the total number of slides
-      const totalSlides = slideToCompany.length;
-      const normalizedIndex = ((realIndex % totalSlides) + totalSlides) % totalSlides;
+    if (swiperContainer) {
+      // Get all catalogs data
+      const catalogsData = JSON.parse(swiperContainer.getAttribute('data-catalogs') || '[]');
       
-      const company = slideToCompany[normalizedIndex];
-      if (company) {
-        companyNameElement.textContent = company.name;
-      }
-    };
+      // Create an array to track which company each slide belongs to
+      const slideToCompany: { index: number; name: string; }[] = [];
+      
+      // Map each slide to its company
+      catalogsData.forEach((company: any) => {
+        company.images.forEach(() => {
+          slideToCompany.push({ name: company.name, index: slideToCompany.length });
+        });
+      });
 
-    const swiper = new Swiper(swiperContainer as HTMLElement, {
-      modules: [Navigation],
-      slidesPerView: 1,
-      spaceBetween: 30,
-      grabCursor: true,
-      touchRatio: 1,
-      resistance: true,
-      resistanceRatio: 0.85,
-      loop: true,
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      on: {
-        init: function(swiper) {
-          updateCompanyName(swiper.realIndex);
+      const updateCompanyName = (realIndex: number) => {
+        const companyNameElement = document.querySelector('.company-name');
+        if (!companyNameElement) return;
+
+        // Calculate the actual index considering the total number of slides
+        const totalSlides = slideToCompany.length;
+        const normalizedIndex = ((realIndex % totalSlides) + totalSlides) % totalSlides;
+        
+        const company = slideToCompany[normalizedIndex];
+        if (company) {
+          companyNameElement.textContent = company.name;
+        }
+      };
+
+      swiper = new Swiper(swiperContainer as HTMLElement, {
+        modules: [Navigation],
+        slidesPerView: 1,
+        spaceBetween: 30,
+        grabCursor: true,
+        touchRatio: 1,
+        resistance: true,
+        resistanceRatio: 0.85,
+        loop: true,
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
         },
-        slideChange: function(swiper) {
-          updateCompanyName(swiper.realIndex);
+        on: {
+          init: function(swiper) {
+            updateCompanyName(swiper.realIndex);
+          },
+          slideChange: function(swiper) {
+            updateCompanyName(swiper.realIndex);
+          }
+        }
+      });
+
+      // Handle fullscreen button click for carousel
+      const carouselFullscreenBtn = document.getElementById('carousel-fullscreen-btn');
+      if (carouselFullscreenBtn) {
+        carouselFullscreenBtn.addEventListener('click', () => {
+          const currentSlide = swiperContainer.querySelector('.swiper-slide-active img');
+          if (currentSlide) {
+            const fullview = currentSlide.getAttribute('data-fullview');
+            const alt = currentSlide.getAttribute('data-alt');
+            openFullscreenViewer(fullview, alt);
+          }
+        });
+      }
+    }
+
+    // Initialize image viewer functionality
+    let currentImages: string[] = [];
+    let currentIndex = 0;
+    
+    // Setup touch variables
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    // Handle swipe direction
+    function handleSwipe() {
+      const viewer = document.getElementById('imageViewer');
+      if (viewer && !viewer.classList.contains('hidden') && currentImages.length > 1) {
+        // Minimum swipe distance (in pixels) to trigger navigation
+        const swipeThreshold = 50;
+        const swipeDistance = touchEndX - touchStartX;
+        
+        // Right to left swipe (next image)
+        if (swipeDistance < -swipeThreshold) {
+          currentIndex = (currentIndex + 1) % currentImages.length;
+          updateViewerImage();
+        }
+        // Left to right swipe (previous image)
+        else if (swipeDistance > swipeThreshold) {
+          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+          updateViewerImage();
         }
       }
+    }
+    
+    // Setup touch events for fullscreen navigation
+    function setupTouchEvents() {
+      const fullImage = document.getElementById('fullImage');
+      if (fullImage) {
+        // Clean up previous listeners if any
+        fullImage.removeEventListener('touchstart', handleTouchStart);
+        fullImage.removeEventListener('touchend', handleTouchEnd);
+        
+        // Add new listeners
+        fullImage.addEventListener('touchstart', handleTouchStart, { passive: true });
+        fullImage.addEventListener('touchend', handleTouchEnd, { passive: true });
+      }
+    }
+    
+    // Touch event handlers
+    function handleTouchStart(e: TouchEvent) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
+    
+    function handleTouchEnd(e: TouchEvent) {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }
+    
+    // Setup image loading
+    document.querySelectorAll('img[data-fullview]').forEach(img => {
+      // Create and add loading indicator
+      const parent = img.parentElement;
+      if (parent) {
+        // Add a loading indicator div
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'loading-indicator';
+        parent.appendChild(loadingDiv);
+        
+        // Handler to remove loading indicator
+        const removeLoading = () => {
+          img.classList.add('loaded');
+          loadingDiv.remove();
+        };
+        
+        // Add load event to remove loading state
+        img.addEventListener('load', removeLoading);
+        
+        // For already loaded images
+        if ((img as HTMLImageElement).complete) {
+          removeLoading();
+        }
+      }
+    });
+    
+    // Setup fullscreen buttons
+    document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const fullview = btn.getAttribute('data-fullview');
+        const alt = btn.getAttribute('data-alt');
+        openFullscreenViewer(fullview, alt);
+      });
+    });
+    
+    // Setup image click for fullscreen
+    document.querySelectorAll('img[data-fullview]').forEach(img => {
+      img.addEventListener('click', () => {
+        const fullview = img.getAttribute('data-fullview');
+        const alt = img.getAttribute('alt');
+        openFullscreenViewer(fullview, alt);
+      });
+    });
+    
+    // Function to open fullscreen viewer
+    function openFullscreenViewer(fullview: string | null, alt: string | null) {
+      if (!fullview) return;
+      
+      const viewer = document.getElementById('imageViewer');
+      const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+      
+      if (viewer && fullImage) {
+        // Reset the loaded class
+        fullImage.classList.remove('loaded');
+        
+        // Add loading indicator for fullscreen view
+        const fullImageContainer = fullImage.parentElement;
+        let loadingIndicator = document.getElementById('fullImageLoading');
+        
+        if (!loadingIndicator && fullImageContainer) {
+          loadingIndicator = document.createElement('div');
+          loadingIndicator.id = 'fullImageLoading';
+          loadingIndicator.className = 'loading-indicator fullscreen-loading';
+          fullImageContainer.appendChild(loadingIndicator);
+        }
+        
+        // Get the category name from the current URL or from the clicked image's path
+        let categoryName = '';
+        const pathParts = fullview.split('/');
+        if (pathParts.length >= 2) {
+          categoryName = pathParts[1]; // This should be the category folder name
+        }
+        
+        // Check if this is a social media image
+        const clickedImage = document.querySelector(`img[data-fullview="${fullview}"]`);
+        const isSocialMedia = clickedImage?.hasAttribute('data-category') && 
+                             clickedImage.getAttribute('data-category') === 'social-media';
+        
+        // Collect all images from the same category
+        currentImages = [];
+        
+        if (isSocialMedia) {
+          // For social media, collect all images from the swiper container
+          const swiperContainer = document.querySelector('.swiper-container');
+          if (swiperContainer) {
+            swiperContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
+              const imgSrc = itemImg.getAttribute('data-fullview');
+              if (imgSrc && !currentImages.includes(imgSrc)) {
+                currentImages.push(imgSrc);
+              }
+            });
+          }
+        } else {
+          // For other categories, collect all images from the same category
+          // First try to get all images from the same category in the current portfolio item
+          const portfolioItem = document.querySelector('.grid.grid-cols-3');
+          if (portfolioItem) {
+            // Get all images from the same category
+            document.querySelectorAll(`img[data-fullview*="/${categoryName}/"]`).forEach(itemImg => {
+              const imgSrc = itemImg.getAttribute('data-fullview');
+              if (imgSrc && !currentImages.includes(imgSrc)) {
+                currentImages.push(imgSrc);
+              }
+            });
+          }
+          
+          // If we didn't find any images, fall back to the original method
+          if (currentImages.length === 0 && portfolioItem) {
+            portfolioItem.querySelectorAll('img[data-fullview]').forEach(itemImg => {
+              const imgSrc = itemImg.getAttribute('data-fullview');
+              if (imgSrc) {
+                currentImages.push(imgSrc);
+              }
+            });
+          }
+        }
+        
+        // Set current index to clicked image
+        currentIndex = currentImages.indexOf(fullview);
+        
+        // Set image source
+        fullImage.src = fullview;
+        fullImage.alt = alt || 'Full size image';
+        
+        // Add load event for fullscreen image
+        fullImage.onload = () => {
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          // Setup touch events after image has loaded
+          setupTouchEvents();
+        };
+        
+        // For cached images
+        if (fullImage.complete) {
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          // Setup touch events for cached images
+          setupTouchEvents();
+        } else if (loadingIndicator) {
+          loadingIndicator.style.display = 'block';
+        }
+        
+        viewer.classList.remove('hidden');
+        viewer.classList.add('flex');
+        
+        // Prevent scrolling on body
+        document.body.style.overflow = 'hidden';
+        
+        // Update navigation button visibility based on number of images
+        const prevButton = document.getElementById('prevImage');
+        const nextButton = document.getElementById('nextImage');
+        if (prevButton && nextButton) {
+          if (currentImages.length <= 1) {
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+          } else {
+            prevButton.style.display = '';
+            nextButton.style.display = '';
+          }
+        }
+      }
+    }
+    
+    // Navigate to previous image
+    document.getElementById('prevImage')?.addEventListener('click', () => {
+      if (currentImages.length > 1) {
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        updateViewerImage();
+      }
+    });
+    
+    // Navigate to next image
+    document.getElementById('nextImage')?.addEventListener('click', () => {
+      if (currentImages.length > 1) {
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        updateViewerImage();
+      }
+    });
+    
+    // Update the viewer image based on current index
+    function updateViewerImage() {
+      const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+      const loadingIndicator = document.getElementById('fullImageLoading');
+      
+      if (fullImage && currentImages[currentIndex]) {
+        // Reset loaded state
+        fullImage.classList.remove('loaded');
+        
+        // Show loading indicator
+        if (loadingIndicator) {
+          loadingIndicator.style.display = 'block';
+        }
+        
+        // Set new image source
+        fullImage.src = currentImages[currentIndex];
+        
+        // Find the original image to get its alt text
+        document.querySelectorAll('img[data-fullview]').forEach(img => {
+          if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
+            fullImage.alt = (img as HTMLImageElement).alt;
+          }
+        });
+        
+        // Add load event
+        fullImage.onload = () => {
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          // Preload adjacent images after current image is loaded
+          preloadAdjacentImages();
+        };
+        
+        // For cached images
+        if (fullImage.complete) {
+          fullImage.classList.add('loaded');
+          if (loadingIndicator) {
+            loadingIndicator.style.display = 'none';
+          }
+          // Preload adjacent images for cached images too
+          preloadAdjacentImages();
+        }
+      }
+    }
+    
+    // Close viewer
+    document.getElementById('closeViewer')?.addEventListener('click', () => {
+      const viewer = document.getElementById('imageViewer');
+      if (viewer) {
+        viewer.classList.add('hidden');
+        viewer.classList.remove('flex');
+        
+        // Restore scrolling
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const viewer = document.getElementById('imageViewer');
+      if (viewer && !viewer.classList.contains('hidden')) {
+        if (e.key === 'Escape') {
+          viewer.classList.add('hidden');
+          viewer.classList.remove('flex');
+          document.body.style.overflow = '';
+        } else if (e.key === 'ArrowLeft') {
+          if (currentImages.length > 1) {
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            updateViewerImage();
+          }
+        } else if (e.key === 'ArrowRight') {
+          if (currentImages.length > 1) {
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            updateViewerImage();
+          }
+        }
+      }
+    });
+    
+    // Pre-load adjacent images for smoother navigation
+    function preloadAdjacentImages() {
+      if (currentImages.length <= 1) return;
+      
+      const nextIndex = (currentIndex + 1) % currentImages.length;
+      const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      
+      // Preload next image
+      if (currentImages[nextIndex]) {
+        const nextImg = new Image();
+        nextImg.src = currentImages[nextIndex];
+      }
+      
+      // Preload previous image
+      if (currentImages[prevIndex]) {
+        const prevImg = new Image();
+        prevImg.src = currentImages[prevIndex];
+      }
+      
+      // Also preload the next-next and prev-prev images for smoother navigation
+      if (currentImages.length > 2) {
+        const nextNextIndex = (currentIndex + 2) % currentImages.length;
+        const prevPrevIndex = (currentIndex - 2 + currentImages.length) % currentImages.length;
+        
+        if (currentImages[nextNextIndex]) {
+          const nextNextImg = new Image();
+          nextNextImg.src = currentImages[nextNextIndex];
+        }
+        
+        if (currentImages[prevPrevIndex]) {
+          const prevPrevImg = new Image();
+          prevPrevImg.src = currentImages[prevPrevIndex];
+        }
+      }
+    }
+    
+    // Preload adjacent images when current image is loaded
+    document.getElementById('fullImage')?.addEventListener('load', () => {
+      preloadAdjacentImages();
     });
   });
 </script> 

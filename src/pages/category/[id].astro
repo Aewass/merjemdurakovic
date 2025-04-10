@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
-import { ArrowLeft } from 'lucide-astro';
+import { ArrowLeft, Maximize2 } from 'lucide-astro';
 
 // Update the types for our data structure
 type CatalogImage = {
@@ -499,13 +499,20 @@ const { category } = Astro.props;
                         <div 
                           class="relative bg-white rounded-lg shadow-xl border border-rose-200 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
                         >
-                          <div class="group cursor-pointer">
+                          <div class="relative group cursor-pointer">
                             <img 
                               src={image.src} 
                               alt={image.alt} 
-                              class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                               data-fullview={image.src}
                             />
+                            <button 
+                              class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
+                              data-fullview={image.src}
+                              data-alt={image.alt}
+                            >
+                              <Maximize2 class="w-5 h-5 text-rose-600" />
+                            </button>
                           </div>
                         </div>
                       ))}
@@ -521,9 +528,16 @@ const { category } = Astro.props;
                               <img 
                                 src={image.src} 
                                 alt={image.alt || `${item.name} image ${index + 1}`}
-                                class="w-full h-auto rounded-lg hover:scale-105 transition-transform duration-500"
+                                class="w-full h-auto rounded-lg transition-transform duration-500 group-hover:scale-105"
                                 data-fullview={image.src}
                               />
+                              <button 
+                                class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
+                                data-fullview={image.src}
+                                data-alt={image.alt}
+                              >
+                                <Maximize2 class="w-5 h-5 text-cyan-600" />
+                              </button>
                             </div>
                           </div>
                         ))}
@@ -541,9 +555,21 @@ const { category } = Astro.props;
                               <img 
                                 src={image.src} 
                                 alt={image.alt || `${item.name} image ${index + 1}`}
-                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 data-fullview={image.src}
                               />
+                              <button 
+                                class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
+                                data-fullview={image.src}
+                                data-alt={image.alt}
+                              >
+                                <Maximize2 class={`w-5 h-5 ${
+                                  id === 'books' ? 'text-emerald-600' : 
+                                  id === 'print-media' ? 'text-amber-600' :
+                                  id === 'branding' ? 'text-indigo-600' :
+                                  'text-purple-600'
+                                }`} />
+                              </button>
                             </div>
                           </div>
                         ))}
@@ -636,8 +662,129 @@ const { category } = Astro.props;
     touchEndX = e.changedTouches[0].screenX;
     handleSwipe();
   }
+
+  // Setup click handlers for both images and fullscreen buttons
+  function setupFullscreenHandlers() {
+    // Image click handlers
+    document.querySelectorAll('img[data-fullview]').forEach(img => {
+      img.addEventListener('click', () => {
+        openFullscreenViewer(img as HTMLImageElement);
+      });
+    });
+
+    // Fullscreen button click handlers
+    document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Find the closest parent container that has the image
+        const container = btn.closest('.group, .relative');
+        if (container) {
+          const img = container.querySelector('img[data-fullview]') as HTMLImageElement;
+          if (img) {
+            openFullscreenViewer(img);
+          }
+        }
+      });
+    });
+  }
+
+  // Function to open fullscreen viewer
+  function openFullscreenViewer(img: HTMLImageElement) {
+    const fullview = img.getAttribute('data-fullview');
+    const viewer = document.getElementById('imageViewer');
+    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    
+    if (fullview && viewer && fullImage) {
+      // Reset the loaded class
+      fullImage.classList.remove('loaded');
+      
+      // Add loading indicator for fullscreen view
+      const fullImageContainer = fullImage.parentElement;
+      let loadingIndicator = document.getElementById('fullImageLoading');
+      
+      if (!loadingIndicator && fullImageContainer) {
+        loadingIndicator = document.createElement('div');
+        loadingIndicator.id = 'fullImageLoading';
+        loadingIndicator.className = 'loading-indicator fullscreen-loading';
+        fullImageContainer.appendChild(loadingIndicator);
+      }
+      
+      // Find the specific image-mosaic container that contains this image
+      const mosaic = img.closest('.image-mosaic, .perspective-1000');
+      currentImages = [];
+      
+      if (mosaic) {
+        // Collect all images from this specific mosaic
+        mosaic.querySelectorAll('img[data-fullview]').forEach(itemImg => {
+          const imgSrc = itemImg.getAttribute('data-fullview');
+          if (imgSrc) {
+            currentImages.push(imgSrc);
+          }
+        });
+      } else {
+        // If we can't find the mosaic, try to get all images from the same category
+        const categoryId = window.location.pathname.split('/').pop();
+        if (categoryId) {
+          document.querySelectorAll(`img[data-fullview*="/${categoryId}/"]`).forEach(itemImg => {
+            const imgSrc = itemImg.getAttribute('data-fullview');
+            if (imgSrc && !currentImages.includes(imgSrc)) {
+              currentImages.push(imgSrc);
+            }
+          });
+        }
+      }
+      
+      // Set current index to clicked image
+      currentIndex = currentImages.indexOf(fullview);
+      
+      // Set image source
+      fullImage.src = fullview;
+      fullImage.alt = img.alt;
+      
+      // Add load event for fullscreen image
+      fullImage.onload = () => {
+        fullImage.classList.add('loaded');
+        if (loadingIndicator) {
+          loadingIndicator.style.display = 'none';
+        }
+        // Setup touch events after image has loaded
+        setupTouchEvents();
+      };
+      
+      // For cached images
+      if (fullImage.complete) {
+        fullImage.classList.add('loaded');
+        if (loadingIndicator) {
+          loadingIndicator.style.display = 'none';
+        }
+        // Setup touch events for cached images
+        setupTouchEvents();
+      } else if (loadingIndicator) {
+        loadingIndicator.style.display = 'block';
+      }
+      
+      viewer.classList.remove('hidden');
+      viewer.classList.add('flex');
+      
+      // Prevent scrolling on body
+      document.body.style.overflow = 'hidden';
+
+      // Update navigation button visibility based on number of images
+      const prevButton = document.getElementById('prevImage');
+      const nextButton = document.getElementById('nextImage');
+      if (prevButton && nextButton) {
+        if (currentImages.length <= 1) {
+          prevButton.style.display = 'none';
+          nextButton.style.display = 'none';
+        } else {
+          prevButton.style.display = '';
+          nextButton.style.display = '';
+        }
+      }
+    }
+  }
   
-  // Setup image loading
+  // Setup image loading and click handlers
   document.querySelectorAll('img[data-fullview]').forEach(img => {
     // Create and add loading indicator
     const parent = img.parentElement;
@@ -661,95 +808,9 @@ const { category } = Astro.props;
         removeLoading();
       }
     }
-    
-    img.addEventListener('click', () => {
-      const fullview = img.getAttribute('data-fullview');
-      const viewer = document.getElementById('imageViewer');
-      const fullImage = document.getElementById('fullImage') as HTMLImageElement;
-      
-      if (fullview && viewer && fullImage) {
-        // Reset the loaded class
-        fullImage.classList.remove('loaded');
-        
-        // Add loading indicator for fullscreen view
-        const fullImageContainer = fullImage.parentElement;
-        let loadingIndicator = document.getElementById('fullImageLoading');
-        
-        if (!loadingIndicator && fullImageContainer) {
-          loadingIndicator = document.createElement('div');
-          loadingIndicator.id = 'fullImageLoading';
-          loadingIndicator.className = 'loading-indicator fullscreen-loading';
-          fullImageContainer.appendChild(loadingIndicator);
-        }
-        
-        // Collect all images in the same catalog item
-        const catalogItem = img.closest('.catalog-item');
-        currentImages = [];
-        
-        if (catalogItem) {
-          catalogItem.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-            const imgSrc = itemImg.getAttribute('data-fullview');
-            if (imgSrc) {
-              currentImages.push(imgSrc);
-            }
-          });
-        }
-        
-        // Set current index to clicked image
-        currentIndex = currentImages.indexOf(fullview);
-        
-        // Set image source
-        fullImage.src = fullview;
-        fullImage.alt = (img as HTMLImageElement).alt;
-        
-        // Add load event for fullscreen image
-        fullImage.onload = () => {
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          // Setup touch events after image has loaded
-          setupTouchEvents();
-        };
-        
-        // For cached images
-        if (fullImage.complete) {
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          // Setup touch events for cached images
-          setupTouchEvents();
-        } else if (loadingIndicator) {
-          loadingIndicator.style.display = 'block';
-        }
-        
-        viewer.classList.remove('hidden');
-        viewer.classList.add('flex');
-        
-        // Prevent scrolling on body
-        document.body.style.overflow = 'hidden';
-      }
-    });
   });
-  
-  // Navigate to previous image
-  document.getElementById('prevImage')?.addEventListener('click', () => {
-    if (currentImages.length > 1) {
-      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-      updateViewerImage();
-    }
-  });
-  
-  // Navigate to next image
-  document.getElementById('nextImage')?.addEventListener('click', () => {
-    if (currentImages.length > 1) {
-      currentIndex = (currentIndex + 1) % currentImages.length;
-      updateViewerImage();
-    }
-  });
-  
-  // Update the viewer image based on current index
+
+  // Function to update the viewer image based on current index
   function updateViewerImage() {
     const fullImage = document.getElementById('fullImage') as HTMLImageElement;
     const loadingIndicator = document.getElementById('fullImageLoading');
@@ -790,6 +851,21 @@ const { category } = Astro.props;
       }
     }
   }
+
+  // Setup navigation handlers
+  document.getElementById('prevImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      updateViewerImage();
+    }
+  });
+  
+  document.getElementById('nextImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      updateViewerImage();
+    }
+  });
   
   // Close viewer
   document.getElementById('closeViewer')?.addEventListener('click', () => {
@@ -824,29 +900,9 @@ const { category } = Astro.props;
       }
     }
   });
-  
-  // Pre-load adjacent images for smoother navigation
-  function preloadAdjacentImages() {
-    if (currentImages.length <= 1) return;
-    
-    const nextIndex = (currentIndex + 1) % currentImages.length;
-    const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-    
-    if (currentImages[nextIndex]) {
-      const nextImg = new Image();
-      nextImg.src = currentImages[nextIndex];
-    }
-    
-    if (currentImages[prevIndex]) {
-      const prevImg = new Image();
-      prevImg.src = currentImages[prevIndex];
-    }
-  }
-  
-  // Preload adjacent images when current image is loaded
-  document.getElementById('fullImage')?.addEventListener('load', () => {
-    preloadAdjacentImages();
-  });
+
+  // Initial setup
+  setupFullscreenHandlers();
 </script>
 
 <style>
