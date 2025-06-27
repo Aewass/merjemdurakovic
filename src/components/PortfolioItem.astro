@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-astro';
+import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-astro';
 import { preloadImages } from '../utils/imageCache';
 
 interface Props {
@@ -18,7 +18,7 @@ interface Props {
   singleImageDesign?: boolean;
 }
 
-const { number, category, title, description, tags, color, images, name = "", catalogs = [], singleImageDesign = false } = Astro.props;
+const { number, category, title, color, images, name = "", catalogs = [] } = Astro.props;
 
 const colorClasses = {
   purple: {
@@ -71,14 +71,12 @@ const isPrintMedia = name === 'print-media';
 const isBranding = name === 'branding';
 const isSocialMedia = name === 'social-media';
 
-// Select images based on category
-let displayImages: Array<{ src: string; alt: string; }> = [];
+// Select showcase images based on category (keeping existing logic)
+let displayImages: Array<{ src: string; alt: string; year?: string; }> = [];
 
-// Get feature images for each category
 if (catalogs && catalogs.length > 0) {
   // Special selection for print media to showcase variety
   if (isPrintMedia) {
-    // Show a mix of different items
     displayImages = [
       catalogs[0].images[0], // fascicle
       catalogs[6].images[0], // trifold
@@ -100,6 +98,12 @@ if (catalogs && catalogs.length > 0) {
       catalogs[0].images[2]  // Marketing materials
     ];
   }
+  // Social media shows selected images from different companies
+  else if (isSocialMedia) {
+    // Show first few images from different companies
+    displayImages = catalogs.slice(0, Math.min(6, catalogs.length))
+      .map(catalog => catalog.images[0]);
+  }
   // Visit cards and catalogs show first image from first few catalogs
   else {
     displayImages = catalogs.slice(0, Math.min(5, catalogs.length))
@@ -109,6 +113,27 @@ if (catalogs && catalogs.length > 0) {
   displayImages = images;
 }
 
+// Special handling for ZGI to add year labels
+if (name === 'catalogs' && catalogs) {
+  const zgiCatalog = catalogs.find(cat => cat.name === 'zgi');
+  const zgi2Catalog = catalogs.find(cat => cat.name === 'zgi2');
+  
+  if (zgiCatalog && zgi2Catalog) {
+    // For catalogs category, we need to find ZGI images in displayImages and add year labels
+    displayImages = displayImages.map(img => {
+      // Check if this image is from ZGI 2023 (catalog-zgi folder)
+      if (img.src.includes('/catalog-zgi/')) {
+        return { ...img, year: '2023' };
+      }
+      // Check if this image is from ZGI 2024 (catalog-zgi2 folder)  
+      if (img.src.includes('/catalog-zgi2/')) {
+        return { ...img, year: '2024' };
+      }
+      return img;
+    });
+  }
+}
+
 // Preload images when component is mounted
 if (typeof window !== 'undefined') {
   const imageUrls = displayImages.map(img => img.src);
@@ -116,28 +141,24 @@ if (typeof window !== 'undefined') {
 }
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-  {/* Project Info - Left Side */}
-  <div>
-    <span class={`${colorClasses[color].text} mb-4 block flex items-center gap-2`}>
-      <span class="font-mono">{number}</span>
-      <span class="text-gray-300">—</span>
-      <span>{category}</span>
-    </span>
-    
-    <h3 class="text-4xl font-bold mb-4">{title}</h3>
-    <p class="text-gray-600 text-lg mb-8 max-w-2xl">{description}</p>
-    
-    {/* Tags */}
-    <div class="flex flex-wrap gap-3 mb-8">
-      {tags.map(tag => (
-        <span class={`px-4 py-2 ${colorClasses[color].tag} rounded-full text-gray-900 text-sm`}>
-          {tag}
-        </span>
-      ))}
+<div class="space-y-8">
+  {/* Header Section */}
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div class="flex-1">
+      <span class={`${colorClasses[color].text} mb-3 block flex items-center gap-2 text-sm sm:text-base`}>
+        <span class="font-mono">{number}</span>
+        <span class="text-gray-300">—</span>
+        <span>{category}</span>
+      </span>
+      
+      <a href={`/category/${name}`} class="block group" style={`--hover-color: ${color === 'purple' ? '#9333ea' : color === 'rose' ? '#e11d48' : color === 'emerald' ? '#059669' : color === 'amber' ? '#d97706' : color === 'indigo' ? '#4f46e5' : '#0891b2'}`}>
+        <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold cursor-pointer transition-all duration-300 hover-title">
+          {title}
+        </h3>
+      </a>
     </div>
 
-    {/* Add View Category Button */}
+    {/* View Category Button */}
     <a
       href={`/category/${name}`}
       class={`
@@ -146,179 +167,69 @@ if (typeof window !== 'undefined') {
         gap-2
         ${colorClasses[color].text}
         font-medium
-        text-lg
+        text-base
+        sm:text-lg
         hover:opacity-80
         transition-all
         duration-300
         group
+        flex-shrink-0
       `}
     >
       <span>View Category</span>
-      <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+      <ArrowRight class="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
     </a>
   </div>
 
-  {/* Project Images - Right Side */}
-  <div class="relative">
-    {isSocialMedia ? (
-      <div class="social-media-carousel relative aspect-[4/3] rounded-lg overflow-hidden group">
-        <button 
-          id="carousel-fullscreen-btn"
-          class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-20"
-        >
-          <Maximize2 class={`w-5 h-5 ${colorClasses[color].text}`} />
-        </button>
-        <div 
-          class="swiper-container h-full"
-          data-catalogs={JSON.stringify(catalogs)}
-          data-category="social-media"
-        >
-          <div class="swiper-wrapper">
-            {catalogs?.flatMap((company) => 
-              company.images.map((image) => (
-                <div class="swiper-slide">
-                  <div class="relative">
-                    <img 
-                      src={image.src} 
-                      alt={image.alt} 
-                      class="max-w-full max-h-full w-auto h-auto object-contain transition-all duration-300"
-                      data-fullview={image.src}
-                      data-alt={image.alt}
-                      data-category="social-media"
-                    />
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
-          
-          {/* Minimal Top Left Style */}
-          <div class="company-name absolute top-4 left-4 z-10 bg-white/95 backdrop-blur-sm px-4 py-2 rounded-lg text-gray-800 text-base font-semibold border border-gray-100/50 shadow-lg transition-all duration-300"></div>
-
-          <button class="swiper-button-prev !bg-white/95 backdrop-blur-sm border border-gray-100/50 !w-10 !h-10 shadow-lg after:!content-[''] flex items-center justify-center">
-            <ChevronLeft class="w-5 h-5 text-cyan-600" />
-          </button>
-          <button class="swiper-button-next !bg-white/95 backdrop-blur-sm border border-gray-100/50 !w-10 !h-10 shadow-lg after:!content-[''] flex items-center justify-center">
-            <ChevronRight class="w-5 h-5 text-cyan-600" />
-          </button>
-        </div>
-      </div>
-    ) : (
-      <div class="grid grid-cols-3 gap-3 aspect-[4/3]">
+  {/* Swiper Carousel */}
+  <div class="portfolio-swiper relative">
+    <div class="swiper-container aspect-[4/3] rounded-2xl overflow-hidden">
+      <div class="swiper-wrapper">
         {displayImages.map((image, index) => (
-          <div 
-            class={`
-              mosaic-item
-              overflow-hidden 
-              rounded-lg 
-              bg-white 
-              shadow-md 
-              border 
-              ${colorClasses[color].border}
-              transition-all
-              duration-300
-              hover:shadow-xl
-              hover:-translate-y-2
-              hover:z-10
-              relative
-              ${index === 0 ? 'col-span-2 row-span-2' : ''}
-            `}
-          >
-            <div class="w-full h-full relative overflow-hidden group">
+          <div class="swiper-slide">
+            <div class="relative w-full h-full">
               <img 
                 src={image.src} 
                 alt={image.alt} 
-                class="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
-                data-fullview={image.src}
-                data-alt={image.alt}
+                class="w-full h-full object-cover"
               />
-              <button 
-                class="fullscreen-btn absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
-                data-fullview={image.src}
-                data-alt={image.alt}
-              >
-                <Maximize2 class={`w-4 h-4 ${colorClasses[color].text}`} />
-              </button>
+              {image.year && (
+                <div class="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow-lg">
+                  Carbon footprint report {image.year}
+                </div>
+              )}
             </div>
-            
-            {/* Decorative corner accent */}
-            <div class={`
-              absolute 
-              top-0 
-              right-0 
-              w-12 
-              h-12 
-              bg-gradient-to-bl 
-              ${colorClasses[color].gradient} 
-              to-transparent
-              opacity-60
-              rounded-bl-xl
-            `}></div>
           </div>
         ))}
-        
-        {/* Background Element */}
-        <div class={`
-          absolute 
-          -bottom-4 
-          -right-4 
-          -z-10 
-          w-full 
-          h-full 
-          bg-gradient-to-r 
-          rounded-lg 
-          opacity-20 
-          ${colorClasses[color].gradient}
-        `}></div>
       </div>
-    )}
+      
+      {/* Navigation buttons */}
+      <button class="swiper-button-prev portfolio-nav-btn portfolio-nav-prev">
+        <ChevronLeft class={`w-6 h-6 ${colorClasses[color].text}`} />
+      </button>
+      <button class="swiper-button-next portfolio-nav-btn portfolio-nav-next">
+        <ChevronRight class={`w-6 h-6 ${colorClasses[color].text}`} />
+      </button>
+      
+      {/* Pagination dots */}
+      <div class={`swiper-pagination !bottom-6 pagination-${color}`}></div>
+    </div>
   </div>
 </div>
 
-<!-- Full-size image viewer (hidden by default) -->
-<div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
-  <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
-      <line x1="18" y1="6" x2="6" y2="18"></line>
-      <line x1="6" y1="6" x2="18" y2="18"></line>
-    </svg>
-  </button>
-  <button id="prevImage" class="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-  </button>
-  <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
-  <button id="nextImage" class="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-  </button>
-</div>
-
 <style>
-  .mosaic-item {
-    transform-origin: center center;
-    backface-visibility: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .mosaic-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Carousel Styles */
-  .social-media-carousel {
+  /* Swiper Container */
+  .portfolio-swiper {
     position: relative;
-    background: #f8f9fa;
-    border-radius: 0.5rem;
-    overflow: hidden;
   }
 
   .swiper-container {
     width: 100%;
-    height: 100%;
+    background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 50%, #dadce0 100%);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
   .swiper-slide {
@@ -326,562 +237,244 @@ if (typeof window !== 'undefined') {
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: 2rem;
-  }
-
-  .swiper-slide > div {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: transparent;
   }
 
   .swiper-slide img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+  }
+
+  .swiper-slide img:hover {
+    filter: brightness(1.05);
   }
 
   /* Navigation buttons */
-  .swiper-button-prev,
-  .swiper-button-next {
-    color: #0891b2 !important; /* Cyan-600 */
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 50%;
-    width: 40px !important;
-    height: 40px !important;
-    opacity: 1 !important;
+  .portfolio-nav-btn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-radius: 50% !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    pointer-events: auto !important;
     cursor: pointer !important;
     z-index: 20 !important;
-    transition: all 0.2s ease;
+    opacity: 0 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
   }
 
-  .swiper-button-prev:hover,
-  .swiper-button-next:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.15);
+  .portfolio-nav-prev {
+    left: 16px !important;
   }
 
-  .swiper-button-prev:hover svg,
-  .swiper-button-next:hover svg {
-    transform: scale(1.1);
+  .portfolio-nav-next {
+    right: 16px !important;
   }
 
-  .swiper-button-prev svg,
-  .swiper-button-next svg {
-    transition: transform 0.2s ease;
+  .portfolio-swiper:hover .portfolio-nav-btn {
+    opacity: 1 !important;
   }
 
-  /* Remove default swiper button content */
+  .portfolio-nav-btn:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-50%) scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  /* Remove default swiper button styles */
   .swiper-button-prev:after,
   .swiper-button-next:after {
     display: none !important;
   }
 
-  .company-name {
-    font-size: 1rem;
-    letter-spacing: 0.025em;
-    transform: translateY(0);
-    opacity: 1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  }
-
-  .company-name:hover {
-    transform: translateY(-1px);
-    background-color: rgba(255, 255, 255, 1);
-    box-shadow: 0 6px 16px rgba(8, 145, 178, 0.15);
-  }
-
-  /* Navigation buttons - larger size */
-  .swiper-button-prev,
-  .swiper-button-next {
-    width: 40px !important;
-    height: 40px !important;
-  }
-
-  .swiper-button-prev:after,
-  .swiper-button-next:after {
-    font-size: 16px !important;
-  }
-
-  /* Image loading styles */
-  .loading-indicator {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f3f4f6;
-    z-index: 1;
-    overflow: hidden;
-  }
-  
-  .loading-indicator::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-    animation: shimmer 1.5s infinite;
-    transform: translateX(-100%);
-  }
-  
-  .fullscreen-loading {
-    background-color: transparent;
-  }
-  
-  .fullscreen-loading::after {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-  }
-
-  img {
+  /* Pagination dots */
+  .swiper-pagination {
+    text-align: center;
     opacity: 0;
     transition: opacity 0.3s ease;
-    position: relative;
-    z-index: 2;
   }
 
-  img.loaded {
+  .portfolio-swiper:hover .swiper-pagination {
     opacity: 1;
   }
 
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
+  .swiper-pagination-bullet {
+    width: 8px !important;
+    height: 8px !important;
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    opacity: 1 !important;
+    margin: 0 4px !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    transform: scale(1.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Color-specific pagination styles - Override Swiper defaults */
+  .portfolio-swiper .pagination-purple .swiper-pagination-bullet-active {
+    background-color: #9333ea !important;
+    border-color: #9333ea !important;
+  }
+
+  .portfolio-swiper .pagination-rose .swiper-pagination-bullet-active {
+    background-color: #e11d48 !important;
+    border-color: #e11d48 !important;
+  }
+
+  .portfolio-swiper .pagination-emerald .swiper-pagination-bullet-active {
+    background-color: #059669 !important;
+    border-color: #059669 !important;
+  }
+
+  .portfolio-swiper .pagination-amber .swiper-pagination-bullet-active {
+    background-color: #d97706 !important;
+    border-color: #d97706 !important;
+  }
+
+  .portfolio-swiper .pagination-indigo .swiper-pagination-bullet-active {
+    background-color: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+  }
+
+  .portfolio-swiper .pagination-cyan .swiper-pagination-bullet-active {
+    background-color: #0891b2 !important;
+    border-color: #0891b2 !important;
+  }
+
+  /* Override Swiper's default blue color completely */
+  .portfolio-swiper .swiper-pagination-bullet-active {
+    background-color: inherit !important;
+  }
+
+  /* Additional overrides for stubborn Swiper defaults */
+  .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    background: inherit !important;
+  }
+  
+  .portfolio-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
+    opacity: 1 !important;
+  }
+
+  .hover-title:hover {
+    color: var(--hover-color);
+  }
+
+  /* Touch/mobile improvements */
+  @media (max-width: 768px) {
+    .portfolio-nav-btn {
+      opacity: 1 !important;
+      width: 40px !important;
+      height: 40px !important;
     }
-  }
+    
+    .swiper-pagination {
+      opacity: 1;
+    }
 
-  #fullImage {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  #fullImage.loaded {
-    opacity: 1;
+    .swiper-container {
+      border-radius: 0.75rem;
+    }
   }
 </style>
 
 <script>
   import Swiper from 'swiper';
-  import { Navigation } from 'swiper/modules';
+  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
   import 'swiper/css';
   import 'swiper/css/navigation';
-  import { preloadImage, getCachedImage } from '../utils/imageCache';
+  import 'swiper/css/pagination';
 
   document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Swiper for social media carousel
-    const swiperContainer = document.querySelector('.swiper-container');
-    let swiper: Swiper | null = null;
+    // Color mapping for pagination
+    const colorMap = {
+      'pagination-purple': '#9333ea',
+      'pagination-rose': '#e11d48', 
+      'pagination-emerald': '#059669',
+      'pagination-amber': '#d97706',
+      'pagination-indigo': '#4f46e5',
+      'pagination-cyan': '#0891b2'
+    };
+
+    // Initialize all Swiper instances
+    const swiperContainers = document.querySelectorAll('.swiper-container');
     
-    if (swiperContainer) {
-      // Get all catalogs data
-      const catalogsData = JSON.parse(swiperContainer.getAttribute('data-catalogs') || '[]');
+    swiperContainers.forEach((container) => {
+      const paginationEl = container.querySelector('.swiper-pagination') as HTMLElement;
+      let currentColor = '#9333ea'; // default purple
       
-      // Create an array to track which company each slide belongs to
-      const slideToCompany: { index: number; name: string; }[] = [];
-      
-      // Map each slide to its company
-      catalogsData.forEach((company: any) => {
-        company.images.forEach(() => {
-          slideToCompany.push({ name: company.name, index: slideToCompany.length });
-        });
-      });
-
-      const updateCompanyName = (realIndex: number) => {
-        const companyNameElement = document.querySelector('.company-name');
-        if (!companyNameElement) return;
-
-        // Calculate the actual index considering the total number of slides
-        const totalSlides = slideToCompany.length;
-        const normalizedIndex = ((realIndex % totalSlides) + totalSlides) % totalSlides;
-        
-        const company = slideToCompany[normalizedIndex];
-        if (company) {
-          companyNameElement.textContent = company.name;
+      // Get the color from pagination class
+      if (paginationEl) {
+        for (const [className, color] of Object.entries(colorMap)) {
+          if (paginationEl.classList.contains(className)) {
+            currentColor = color;
+            break;
+          }
         }
-      };
+      }
 
-      swiper = new Swiper(swiperContainer as HTMLElement, {
-        modules: [Navigation],
+      const swiper = new Swiper(container as HTMLElement, {
+        modules: [Navigation, Pagination, Autoplay],
         slidesPerView: 1,
-        spaceBetween: 30,
+        spaceBetween: 0,
         grabCursor: true,
         touchRatio: 1,
         resistance: true,
         resistanceRatio: 0.85,
         loop: true,
+        speed: 600,
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        },
         navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: container.querySelector('.swiper-button-next') as HTMLElement,
+          prevEl: container.querySelector('.swiper-button-prev') as HTMLElement,
+        },
+        pagination: {
+          el: paginationEl,
+          clickable: true,
+          dynamicBullets: false,
         },
         on: {
-          init: function(swiper) {
-            updateCompanyName(swiper.realIndex);
+          init: function() {
+            // Apply colors after initialization
+            setTimeout(() => {
+              const bullets = container.querySelectorAll('.swiper-pagination-bullet');
+              bullets.forEach((bullet: Element) => {
+                const htmlBullet = bullet as HTMLElement;
+                if (htmlBullet.classList.contains('swiper-pagination-bullet-active')) {
+                  htmlBullet.style.backgroundColor = currentColor;
+                  htmlBullet.style.borderColor = currentColor;
+                }
+              });
+            }, 100);
           },
-          slideChange: function(swiper) {
-            updateCompanyName(swiper.realIndex);
-          }
-        }
-      });
-
-      // Handle fullscreen button click for carousel
-      const carouselFullscreenBtn = document.getElementById('carousel-fullscreen-btn');
-      if (carouselFullscreenBtn) {
-        carouselFullscreenBtn.addEventListener('click', () => {
-          const currentSlide = swiperContainer.querySelector('.swiper-slide-active img');
-          if (currentSlide) {
-            const fullview = currentSlide.getAttribute('data-fullview');
-            const alt = currentSlide.getAttribute('data-alt');
-            openFullscreenViewer(fullview, alt);
-          }
-        });
-      }
-    }
-
-    // Initialize image viewer functionality
-    let currentImages: string[] = [];
-    let currentIndex = 0;
-    
-    // Setup touch variables
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    // Handle swipe direction
-    function handleSwipe() {
-      const viewer = document.getElementById('imageViewer');
-      if (viewer && !viewer.classList.contains('hidden') && currentImages.length > 1) {
-        // Minimum swipe distance (in pixels) to trigger navigation
-        const swipeThreshold = 50;
-        const swipeDistance = touchEndX - touchStartX;
-        
-        // Right to left swipe (next image)
-        if (swipeDistance < -swipeThreshold) {
-          currentIndex = (currentIndex + 1) % currentImages.length;
-          updateViewerImage();
-        }
-        // Left to right swipe (previous image)
-        else if (swipeDistance > swipeThreshold) {
-          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-          updateViewerImage();
-        }
-      }
-    }
-    
-    // Setup touch events for fullscreen navigation
-    function setupTouchEvents() {
-      const fullImage = document.getElementById('fullImage');
-      if (fullImage) {
-        // Clean up previous listeners if any
-        fullImage.removeEventListener('touchstart', handleTouchStart);
-        fullImage.removeEventListener('touchend', handleTouchEnd);
-        
-        // Add new listeners
-        fullImage.addEventListener('touchstart', handleTouchStart, { passive: true });
-        fullImage.addEventListener('touchend', handleTouchEnd, { passive: true });
-      }
-    }
-    
-    // Touch event handlers
-    function handleTouchStart(e: TouchEvent) {
-      touchStartX = e.changedTouches[0].screenX;
-    }
-    
-    function handleTouchEnd(e: TouchEvent) {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }
-    
-    // Setup image loading
-    document.querySelectorAll('img[data-fullview]').forEach(img => {
-      // Create and add loading indicator
-      const parent = img.parentElement;
-      if (parent) {
-        // Add a loading indicator div
-        const loadingDiv = document.createElement('div');
-        loadingDiv.className = 'loading-indicator';
-        parent.appendChild(loadingDiv);
-        
-        // Handler to remove loading indicator
-        const removeLoading = () => {
-          img.classList.add('loaded');
-          loadingDiv.remove();
-        };
-        
-        // Add load event to remove loading state
-        img.addEventListener('load', removeLoading);
-        
-        // For already loaded images
-        if ((img as HTMLImageElement).complete) {
-          removeLoading();
-        }
-      }
-    });
-    
-    // Setup fullscreen buttons
-    document.querySelectorAll('.fullscreen-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const fullview = btn.getAttribute('data-fullview');
-        const alt = btn.getAttribute('data-alt');
-        openFullscreenViewer(fullview, alt);
-      });
-    });
-    
-    // Setup image click for fullscreen
-    document.querySelectorAll('img[data-fullview]').forEach(img => {
-      img.addEventListener('click', () => {
-        const fullview = img.getAttribute('data-fullview');
-        const alt = img.getAttribute('alt');
-        openFullscreenViewer(fullview, alt);
-      });
-    });
-    
-    // Function to open fullscreen viewer
-    function openFullscreenViewer(fullview: string | null, alt: string | null) {
-      if (!fullview) return;
-      
-      const viewer = document.getElementById('imageViewer');
-      const fullImage = document.getElementById('fullImage') as HTMLImageElement;
-      
-      if (viewer && fullImage) {
-        // Reset the loaded class
-        fullImage.classList.remove('loaded');
-        
-        // Add loading indicator for fullscreen view
-        const fullImageContainer = fullImage.parentElement;
-        let loadingIndicator = document.getElementById('fullImageLoading');
-        
-        if (!loadingIndicator && fullImageContainer) {
-          loadingIndicator = document.createElement('div');
-          loadingIndicator.id = 'fullImageLoading';
-          loadingIndicator.className = 'loading-indicator fullscreen-loading';
-          fullImageContainer.appendChild(loadingIndicator);
-        }
-        
-        // Get the category name from the current URL or from the clicked image's path
-        let categoryName = '';
-        const pathParts = fullview.split('/');
-        if (pathParts.length >= 2) {
-          categoryName = pathParts[1]; // This should be the category folder name
-        }
-        
-        // Check if this is a social media image
-        const clickedImage = document.querySelector(`img[data-fullview="${fullview}"]`);
-        const isSocialMedia = clickedImage?.hasAttribute('data-category') && 
-                             clickedImage.getAttribute('data-category') === 'social-media';
-        
-        // Collect all images from the same category
-        currentImages = [];
-        
-        if (isSocialMedia) {
-          // For social media, collect all images from the swiper container
-          const swiperContainer = document.querySelector('.swiper-container');
-          if (swiperContainer) {
-            swiperContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-              const imgSrc = itemImg.getAttribute('data-fullview');
-              if (imgSrc && !currentImages.includes(imgSrc)) {
-                currentImages.push(imgSrc);
-              }
-            });
-          }
-        } else {
-          // For other categories, collect all images from the same category
-          // First try to get all images from the same category in the current portfolio item
-          const portfolioItem = document.querySelector('.grid.grid-cols-3');
-          if (portfolioItem) {
-            // Get all images from the same category
-            document.querySelectorAll(`img[data-fullview*="/${categoryName}/"]`).forEach(itemImg => {
-              const imgSrc = itemImg.getAttribute('data-fullview');
-              if (imgSrc && !currentImages.includes(imgSrc)) {
-                currentImages.push(imgSrc);
-              }
-            });
-          }
-          
-          // If we didn't find any images, fall back to the original method
-          if (currentImages.length === 0 && portfolioItem) {
-            portfolioItem.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-              const imgSrc = itemImg.getAttribute('data-fullview');
-              if (imgSrc) {
-                currentImages.push(imgSrc);
+          slideChange: function() {
+            // Reapply colors on slide change
+            const bullets = container.querySelectorAll('.swiper-pagination-bullet');
+            bullets.forEach((bullet: Element) => {
+              const htmlBullet = bullet as HTMLElement;
+              if (htmlBullet.classList.contains('swiper-pagination-bullet-active')) {
+                htmlBullet.style.backgroundColor = currentColor;
+                htmlBullet.style.borderColor = currentColor;
+              } else {
+                htmlBullet.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+                htmlBullet.style.borderColor = 'rgba(255, 255, 255, 0.8)';
               }
             });
           }
         }
-        
-        // Set current index to clicked image
-        currentIndex = currentImages.indexOf(fullview);
-        
-        // Set image source
-        fullImage.src = fullview;
-        fullImage.alt = alt || 'Full size image';
-        
-        // Add load event for fullscreen image
-        fullImage.onload = () => {
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          // Setup touch events after image has loaded
-          setupTouchEvents();
-        };
-        
-        // For cached images
-        if (fullImage.complete) {
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          // Setup touch events for cached images
-          setupTouchEvents();
-        } else if (loadingIndicator) {
-          loadingIndicator.style.display = 'block';
-        }
-        
-        viewer.classList.remove('hidden');
-        viewer.classList.add('flex');
-        
-        // Prevent scrolling on body
-        document.body.style.overflow = 'hidden';
-        
-        // Update navigation button visibility based on number of images
-        const prevButton = document.getElementById('prevImage');
-        const nextButton = document.getElementById('nextImage');
-        if (prevButton && nextButton) {
-          if (currentImages.length <= 1) {
-            prevButton.style.display = 'none';
-            nextButton.style.display = 'none';
-          } else {
-            prevButton.style.display = '';
-            nextButton.style.display = '';
-          }
-        }
-      }
-    }
-    
-    // Navigate to previous image
-    document.getElementById('prevImage')?.addEventListener('click', () => {
-      if (currentImages.length > 1) {
-        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-        updateViewerImage();
-      }
-    });
-    
-    // Navigate to next image
-    document.getElementById('nextImage')?.addEventListener('click', () => {
-      if (currentImages.length > 1) {
-        currentIndex = (currentIndex + 1) % currentImages.length;
-        updateViewerImage();
-      }
-    });
-    
-    // Function to preload adjacent images
-    async function preloadAdjacentImages() {
-      if (currentImages.length <= 1) return;
-      
-      const nextIndex = (currentIndex + 1) % currentImages.length;
-      const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-      
-      await Promise.all([
-        preloadImage(currentImages[nextIndex]),
-        preloadImage(currentImages[prevIndex])
-      ]);
-    }
-    
-    // Update the viewer image based on current index
-    async function updateViewerImage() {
-      const fullImage = document.getElementById('fullImage') as HTMLImageElement;
-      const loadingIndicator = document.getElementById('fullImageLoading');
-      
-      if (fullImage && currentImages[currentIndex]) {
-        // Reset loaded state
-        fullImage.classList.remove('loaded');
-        
-        // Show loading indicator
-        if (loadingIndicator) {
-          loadingIndicator.style.display = 'block';
-        }
-        
-        // Try to get cached image first
-        const cachedResponse = await getCachedImage(currentImages[currentIndex]);
-        if (cachedResponse) {
-          const blob = await cachedResponse.blob();
-          const objectUrl = URL.createObjectURL(blob);
-          fullImage.src = objectUrl;
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          // Clean up object URL after image loads
-          fullImage.onload = () => {
-            URL.revokeObjectURL(objectUrl);
-            preloadAdjacentImages();
-          };
-        } else {
-          // If not cached, load normally and cache for next time
-          fullImage.src = currentImages[currentIndex];
-          fullImage.onload = async () => {
-            fullImage.classList.add('loaded');
-            if (loadingIndicator) {
-              loadingIndicator.style.display = 'none';
-            }
-            await preloadImage(currentImages[currentIndex]);
-            preloadAdjacentImages();
-          };
-        }
-        
-        // Find the original image to get its alt text
-        document.querySelectorAll('img[data-fullview]').forEach(img => {
-          if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
-            fullImage.alt = (img as HTMLImageElement).alt;
-          }
-        });
-      }
-    }
-    
-    // Close viewer
-    document.getElementById('closeViewer')?.addEventListener('click', () => {
-      const viewer = document.getElementById('imageViewer');
-      if (viewer) {
-        viewer.classList.add('hidden');
-        viewer.classList.remove('flex');
-        
-        // Restore scrolling
-        document.body.style.overflow = '';
-      }
-    });
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      const viewer = document.getElementById('imageViewer');
-      if (viewer && !viewer.classList.contains('hidden')) {
-        if (e.key === 'Escape') {
-          viewer.classList.add('hidden');
-          viewer.classList.remove('flex');
-          document.body.style.overflow = '';
-        } else if (e.key === 'ArrowLeft') {
-          if (currentImages.length > 1) {
-            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-            updateViewerImage();
-          }
-        } else if (e.key === 'ArrowRight') {
-          if (currentImages.length > 1) {
-            currentIndex = (currentIndex + 1) % currentImages.length;
-            updateViewerImage();
-          }
-        }
-      }
+      });
     });
   });
 </script> 

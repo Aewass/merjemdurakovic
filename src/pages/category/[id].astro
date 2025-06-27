@@ -31,7 +31,7 @@ export function getStaticPaths() {
       params: { id: 'branding' },
       props: {
         category: {
-          number: "01",
+          number: "05",
           title: "Branding",
           category: "Category",
           description: "My branding work focuses on creating distinctive and memorable brand identities that resonate with target audiences. Each project combines strategic thinking with creative design, encompassing logo development, visual identity systems, and comprehensive brand guidelines. I ensure that every element works harmoniously to communicate the brand's values and story effectively.",
@@ -75,10 +75,10 @@ export function getStaticPaths() {
       params: { id: 'catalogs' },
       props: {
         category: {
-          number: "02",
+          number: "01",
           title: "Brochures and Catalogs",
           category: "Category",
-          description: "This section showcases my designs for catalogs and brochures, including reports, travel guides, and product brochures. I focus on creating clear and engaging layouts that effectively communicate the client's message, ensuring a balance of aesthetics and functionality. These designs reflect my ability to adapt to different industries while maintaining a strong and consistent visual style.",
+          description: "This section features print materials such as brochures, catalogs, reports, and guides from various fields. Each project reflects the brand’s style, tone, and visual language tailored to its context.",
           items: [
             {
               name: "iForm",
@@ -111,14 +111,12 @@ export function getStaticPaths() {
               images: [
                 { src: "/catalogs/catalog-mega/1.png", alt: "Mega catalog page 1" },
                 { src: "/catalogs/catalog-mega/2.png", alt: "Mega catalog page 2" },
-                { src: "/catalogs/catalog-mega/3.png", alt: "Mega catalog page 3" }
               ]
             },
             {
               name: "Shams Travel",
               description: "Catalog for the Travel Agency and Their Offers",
               images: [
-                { src: "/catalogs/catalog-shams/1.png", alt: "Shams catalog page 1" },
                 { src: "/catalogs/catalog-shams/2.png", alt: "Shams catalog page 2" },
                 { src: "/catalogs/catalog-shams/3.png", alt: "Shams catalog page 3" }
               ]
@@ -128,7 +126,6 @@ export function getStaticPaths() {
               description: "Carbon Footprint Report for Stanić",
               images: [
                 { src: "/catalogs/catalog-stanic/1.png", alt: "Stanic catalog page 1" },
-                { src: "/catalogs/catalog-stanic/2.png", alt: "Stanic catalog page 2" },
                 { src: "/catalogs/catalog-stanic/3.jpg", alt: "Stanic catalog page 3" },
               ]
             },
@@ -153,13 +150,13 @@ export function getStaticPaths() {
       params: { id: 'visit-cards' },
       props: {
         category: {
-          number: "03",
+          number: "02",
           title: "Visit Cards",
           category: "Category",
           description: "My business card designs blend form and function to create lasting first impressions. Each design is carefully crafted to reflect the client's brand identity while ensuring optimal readability and professional presentation. I focus on innovative layouts, typography, and material choices to make each card a powerful networking tool that stands out in today's digital age.",
           items: [
             {
-              name: "Ležaj Trade",
+              name: "Ležaj Trade Business Card Design",
               description: "A business card that reflects the identity of Ležaj Trade, a company specializing in the retail and wholesale of industrial bearings, accessories, and related products. The design focuses on clarity and functionality, with easily accessible contact information. A cohesive layout and consistent branding ensure a professional appearance.",
               images: [
                 { 
@@ -170,7 +167,7 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "ZerroMax",
+              name: "ZerroMax Business Card Design",
               description: "This business card for Zerromax incorporates design elements that evoke foundations and construction, reflecting their modular home building focus. The minimalist style with subtle dynamic details symbolizes the company's progress and innovation.",
               images: [
                 { 
@@ -188,7 +185,7 @@ export function getStaticPaths() {
       params: { id: 'books' },
       props: {
         category: {
-          number: "04",
+          number: "03",
           title: "Books",
           category: "Category",
           description: "My book design work combines artistic vision with practical functionality to create engaging reading experiences. Each project carefully considers typography, layout, and visual hierarchy to enhance readability while maintaining aesthetic appeal. I specialize in creating covers and internal layouts that capture the essence of the content while meeting industry standards for both print and digital formats.",
@@ -222,13 +219,13 @@ export function getStaticPaths() {
       params: { id: 'print-media' },
       props: {
         category: {
-          number: "05",
+          number: "04",
           title: "Various Print Media Works",
           category: "Category",
           description: "My print media portfolio showcases versatile design solutions across various formats including flyers, folders, and trifold brochures. Each piece is thoughtfully designed to effectively communicate the client's message through strategic use of layout, typography, and visual elements. I prioritize both aesthetic appeal and practical functionality, ensuring that each design serves its intended purpose while maintaining visual impact.",
           items: [
             {
-              name: "Folder ZerroMax",
+              name: "ZerroMax Folder Design",
               description: "Folder design for Zerromax",
               images: [
                 { 
@@ -244,7 +241,7 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Flyer AdBlue",
+              name: "AdBlue Flyer Design",
               description: "Promotional flyer for AdBlue",
               images: [
                 { 
@@ -255,7 +252,7 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Flyer Palma Pogrebno",
+              name: "Palma Pogrebno Flyer Design",
               description: "Promotional flyer for Palma Pogrebno",
               images: [
                 { 
@@ -266,7 +263,7 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Flyer Phoenix Restaurant",
+              name: "Phoenix Restaurant Flyer Design",
               description: "Promotional flyer for Phoenix Restaurant",
               images: [
                 { 
@@ -277,7 +274,7 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Flyer Shams Travel",
+              name: "Shams Travel Flyer Design",
               description: "Promotional flyer for Shams Travel",
               images: [
                 { 
@@ -449,14 +446,11 @@ const { category } = Astro.props;
                 id === 'branding' ? 'text-indigo-600' :
                 id === 'social-media' ? 'text-cyan-600' :
                 'text-purple-600'
-              } mb-4`}>
+              } mb-6`}>
                 <span class="font-mono">{category.number}</span>
                 <span class="text-gray-300">—</span>
-                <span>{category.category}</span>
+                <span>{category.title}</span>
               </div>
-              <h1 class="text-5xl font-bold mb-6">
-                {category.title}
-              </h1>
               <p class="text-xl text-gray-600 max-w-2xl">
                 {category.description}
               </p>
@@ -559,6 +553,12 @@ const { category } = Astro.props;
                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                 data-fullview={image.src}
                               />
+                              {/* Year label for ZGI images */}
+                              {item.name === 'ZGI' && (
+                                <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-medium shadow-md z-20">
+                                  {image.src.includes('/catalog-zgi2/') ? '2024' : '2023'}
+                                </div>
+                              )}
                               <button 
                                 class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
                                 data-fullview={image.src}
