@@ -1,24 +1,17 @@
 ---
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-astro';
+import { ArrowRight } from 'lucide-astro';
 import { preloadImages } from '../utils/imageCache';
 
 interface Props {
   number: string;
   category: string;
   title: string;
-  description: string;
-  tags: string[];
+  titleImage: string;
   color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo' | 'cyan';
-  images: Array<{ src: string; alt: string; }>;
   name?: string;
-  catalogs?: Array<{
-    name: string;
-    images: Array<{ src: string; alt: string; }>;
-  }>;
-  singleImageDesign?: boolean;
 }
 
-const { number, category, title, color, images, name = "", catalogs = [] } = Astro.props;
+const { number, category, title, color, titleImage, name = "" } = Astro.props;
 
 const colorClasses = {
   purple: {
@@ -26,124 +19,56 @@ const colorClasses = {
     border: "border-purple-200",
     shadow: "shadow-purple-200/20",
     gradient: "from-purple-400/20 to-purple-200/20",
-    tag: "bg-purple-50"
+    tag: "bg-purple-50",
+    button: "bg-purple-600 hover:bg-purple-700"
   },
   rose: {
     text: "text-rose-600",
     border: "border-rose-200",
     shadow: "shadow-rose-200/20",
     gradient: "from-rose-400/20 to-rose-200/20",
-    tag: "bg-rose-50"
+    tag: "bg-rose-50",
+    button: "bg-rose-600 hover:bg-rose-700"
   },
   emerald: {
     text: "text-emerald-600",
     border: "border-emerald-200",
     shadow: "shadow-emerald-200/20",
     gradient: "from-emerald-400/20 to-emerald-200/20",
-    tag: "bg-emerald-50"
+    tag: "bg-emerald-50",
+    button: "bg-emerald-600 hover:bg-emerald-700"
   },
   amber: {
     text: "text-amber-600",
     border: "border-amber-200",
     shadow: "shadow-amber-200/20",
     gradient: "from-amber-400/20 to-amber-200/20",
-    tag: "bg-amber-50"
+    tag: "bg-amber-50",
+    button: "bg-amber-600 hover:bg-amber-700"
   },
   indigo: {
     text: "text-indigo-600",
     border: "border-indigo-200",
     shadow: "shadow-indigo-200/20",
     gradient: "from-indigo-400/20 to-indigo-200/20",
-    tag: "bg-indigo-50"
+    tag: "bg-indigo-50",
+    button: "bg-indigo-600 hover:bg-indigo-700"
   },
   cyan: {
     text: "text-cyan-600",
     border: "border-cyan-200",
     shadow: "shadow-cyan-200/20",
     gradient: "from-cyan-400/20 to-cyan-200/20",
-    tag: "bg-cyan-50"
+    tag: "bg-cyan-50",
+    button: "bg-cyan-600 hover:bg-cyan-700"
   }
 };
 
-// For different category types
-const isBooks = name === 'books';
-const isPrintMedia = name === 'print-media';
-const isBranding = name === 'branding';
-const isSocialMedia = name === 'social-media';
-
-// Select showcase images based on category (keeping existing logic)
-let displayImages: Array<{ src: string; alt: string; year?: string; }> = [];
-
-if (catalogs && catalogs.length > 0) {
-  // Special selection for print media to showcase variety
-  if (isPrintMedia) {
-    displayImages = [
-      catalogs[0].images[0], // fascicle
-      catalogs[6].images[0], // trifold
-      catalogs[1].images[0], // flyer adblue
-      catalogs[2].images[0], // flyer doma
-      catalogs[4].images[0], // flyer phoenix
-      catalogs[5].images[0]  // flyer shams
-    ];
-  } 
-  // Books should show all images from the first book
-  else if (isBooks) {
-    displayImages = catalogs[0].images;
-  }
-  // Branding projects should show selected images for better visual representation
-  else if (isBranding && catalogs[0].images.length >= 3) {
-    displayImages = [
-      catalogs[0].images[0], // Logo/main brand identity
-      catalogs[0].images[1], // Brand applications
-      catalogs[0].images[2]  // Marketing materials
-    ];
-  }
-  // Social media shows selected images from different companies
-  else if (isSocialMedia) {
-    // Show first few images from different companies
-    displayImages = catalogs.slice(0, Math.min(6, catalogs.length))
-      .map(catalog => catalog.images[0]);
-  }
-  // Visit cards and catalogs show first image from first few catalogs
-  else {
-    displayImages = catalogs.slice(0, Math.min(5, catalogs.length))
-      .map(catalog => catalog.images[0]);
-  }
-} else {
-  displayImages = images;
-}
-
-// Special handling for ZGI to add year labels
-if (name === 'catalogs' && catalogs) {
-  const zgiCatalog = catalogs.find(cat => cat.name === 'zgi');
-  const zgi2Catalog = catalogs.find(cat => cat.name === 'zgi2');
-  
-  if (zgiCatalog && zgi2Catalog) {
-    // For catalogs category, we need to find ZGI images in displayImages and add year labels
-    displayImages = displayImages.map(img => {
-      // Check if this image is from ZGI 2023 (catalog-zgi folder)
-      if (img.src.includes('/catalog-zgi/')) {
-        return { ...img, year: '2023' };
-      }
-      // Check if this image is from ZGI 2024 (catalog-zgi2 folder)  
-      if (img.src.includes('/catalog-zgi2/')) {
-        return { ...img, year: '2024' };
-      }
-      return img;
-    });
-  }
-}
-
-// Preload images when component is mounted
-if (typeof window !== 'undefined') {
-  const imageUrls = displayImages.map(img => img.src);
-  preloadImages(imageUrls);
-}
 ---
 
 <div class="space-y-8">
   {/* Header Section */}
-  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+  <div class="flex items-center justify-between gap-4">
     <div class="flex-1">
       <span class={`${colorClasses[color].text} mb-3 block flex items-center gap-2 text-sm sm:text-base`}>
         <span class="font-mono">{number}</span>
@@ -174,6 +99,7 @@ if (typeof window !== 'undefined') {
         duration-300
         group
         flex-shrink-0
+        self-end
       `}
     >
       <span>View Category</span>
@@ -181,300 +107,76 @@ if (typeof window !== 'undefined') {
     </a>
   </div>
 
-  {/* Swiper Carousel */}
-  <div class="portfolio-swiper relative">
-    <div class="swiper-container aspect-[4/3] rounded-2xl overflow-hidden">
-      <div class="swiper-wrapper">
-        {displayImages.map((image, index) => (
-          <div class="swiper-slide">
-            <div class="relative w-full h-full">
-              <img 
-                src={image.src} 
-                alt={image.alt} 
-                class="w-full h-full object-cover"
-              />
-              {image.year && (
-                <div class="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow-lg">
-                  Carbon footprint report {image.year}
-                </div>
-              )}
+  {/* Portfolio Image */}
+  {titleImage && (
+    <div class="portfolio-image-container relative group cursor-pointer">
+      <a href={`/category/${name}`} class="block">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden relative">
+          <img 
+            src={titleImage} 
+            alt={titleImage} 
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover transition-all duration-300 group-hover:scale-105"
+          />          
+          
+          {/* Hover overlay with View Category button */}
+          <div class="absolute inset-0 bg-black/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+            <div class={`
+              ${colorClasses[color].button}
+              text-white
+              px-6
+              py-3
+              rounded-lg
+              font-medium
+              text-lg
+              inline-flex
+              items-center
+              gap-2
+              transition-all
+              duration-300
+              transform
+              translate-y-2
+              group-hover:translate-y-0
+              shadow-lg
+            `}>
+              <span>View Category</span>
+              <ArrowRight class="w-5 h-5" />
             </div>
           </div>
-        ))}
-      </div>
-      
-      {/* Navigation buttons */}
-      <button class="swiper-button-prev portfolio-nav-btn portfolio-nav-prev">
-        <ChevronLeft class={`w-6 h-6 ${colorClasses[color].text}`} />
-      </button>
-      <button class="swiper-button-next portfolio-nav-btn portfolio-nav-next">
-        <ChevronRight class={`w-6 h-6 ${colorClasses[color].text}`} />
-      </button>
-      
-      {/* Pagination dots */}
-      <div class={`swiper-pagination !bottom-6 pagination-${color}`}></div>
+        </div>
+      </a>
     </div>
-  </div>
+  )}
 </div>
 
 <style>
-  /* Swiper Container */
-  .portfolio-swiper {
-    position: relative;
-  }
-
-  .swiper-container {
-    width: 100%;
+  .portfolio-image-container {
     background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 50%, #dadce0 100%);
+    border-radius: 1rem;
     box-shadow: 
       0 4px 6px -1px rgba(0, 0, 0, 0.1), 
       0 2px 4px -1px rgba(0, 0, 0, 0.06),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
 
-  .swiper-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    background: transparent;
+  .portfolio-image-container img {
+    transition: transform 0.3s ease-out, filter 0.15s ease-out;
+    will-change: transform, filter;
   }
 
-  .swiper-slide img {
-    transition: opacity 0.3s ease, filter 0.3s ease;
-  }
-
-  .swiper-slide img:hover {
-    filter: brightness(1.05);
-  }
-
-  /* Navigation buttons */
-  .portfolio-nav-btn {
-    position: absolute !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 48px !important;
-    height: 48px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    backdrop-filter: blur(8px) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer !important;
-    z-index: 20 !important;
-    opacity: 0 !important;
-    transition: all 0.3s ease !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-  }
-
-  .portfolio-nav-prev {
-    left: 16px !important;
-  }
-
-  .portfolio-nav-next {
-    right: 16px !important;
-  }
-
-  .portfolio-swiper:hover .portfolio-nav-btn {
-    opacity: 1 !important;
-  }
-
-  .portfolio-nav-btn:hover {
-    background: rgba(255, 255, 255, 1) !important;
-    transform: translateY(-50%) scale(1.05) !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-  }
-
-  /* Remove default swiper button styles */
-  .swiper-button-prev:after,
-  .swiper-button-next:after {
-    display: none !important;
-  }
-
-  /* Pagination dots */
-  .swiper-pagination {
-    text-align: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .portfolio-swiper:hover .swiper-pagination {
-    opacity: 1;
-  }
-
-  .swiper-pagination-bullet {
-    width: 8px !important;
-    height: 8px !important;
-    background: rgba(255, 255, 255, 0.6) !important;
-    border: 2px solid rgba(255, 255, 255, 0.8) !important;
-    opacity: 1 !important;
-    margin: 0 4px !important;
-    transition: all 0.3s ease !important;
-  }
-
-  .swiper-pagination-bullet-active {
-    transform: scale(1.2);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-
-  /* Color-specific pagination styles - Override Swiper defaults */
-  .portfolio-swiper .pagination-purple .swiper-pagination-bullet-active {
-    background-color: #9333ea !important;
-    border-color: #9333ea !important;
-  }
-
-  .portfolio-swiper .pagination-rose .swiper-pagination-bullet-active {
-    background-color: #e11d48 !important;
-    border-color: #e11d48 !important;
-  }
-
-  .portfolio-swiper .pagination-emerald .swiper-pagination-bullet-active {
-    background-color: #059669 !important;
-    border-color: #059669 !important;
-  }
-
-  .portfolio-swiper .pagination-amber .swiper-pagination-bullet-active {
-    background-color: #d97706 !important;
-    border-color: #d97706 !important;
-  }
-
-  .portfolio-swiper .pagination-indigo .swiper-pagination-bullet-active {
-    background-color: #4f46e5 !important;
-    border-color: #4f46e5 !important;
-  }
-
-  .portfolio-swiper .pagination-cyan .swiper-pagination-bullet-active {
-    background-color: #0891b2 !important;
-    border-color: #0891b2 !important;
-  }
-
-  /* Override Swiper's default blue color completely */
-  .portfolio-swiper .swiper-pagination-bullet-active {
-    background-color: inherit !important;
-  }
-
-  /* Additional overrides for stubborn Swiper defaults */
-  .swiper-pagination-bullet.swiper-pagination-bullet-active {
-    background: inherit !important;
-  }
-  
-  .portfolio-swiper .swiper-pagination-bullet.swiper-pagination-bullet-active {
-    opacity: 1 !important;
+  .portfolio-image-container:hover img {
+    filter: brightness(0.9);
   }
 
   .hover-title:hover {
     color: var(--hover-color);
   }
 
-  /* Touch/mobile improvements */
+  /* Mobile optimizations */
   @media (max-width: 768px) {
-    .portfolio-nav-btn {
-      opacity: 1 !important;
-      width: 40px !important;
-      height: 40px !important;
-    }
-    
-    .swiper-pagination {
-      opacity: 1;
-    }
-
-    .swiper-container {
+    .portfolio-image-container {
       border-radius: 0.75rem;
     }
   }
-</style>
-
-<script>
-  import Swiper from 'swiper';
-  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
-  import 'swiper/css';
-  import 'swiper/css/navigation';
-  import 'swiper/css/pagination';
-
-  document.addEventListener('DOMContentLoaded', () => {
-    // Color mapping for pagination
-    const colorMap = {
-      'pagination-purple': '#9333ea',
-      'pagination-rose': '#e11d48', 
-      'pagination-emerald': '#059669',
-      'pagination-amber': '#d97706',
-      'pagination-indigo': '#4f46e5',
-      'pagination-cyan': '#0891b2'
-    };
-
-    // Initialize all Swiper instances
-    const swiperContainers = document.querySelectorAll('.swiper-container');
-    
-    swiperContainers.forEach((container) => {
-      const paginationEl = container.querySelector('.swiper-pagination') as HTMLElement;
-      let currentColor = '#9333ea'; // default purple
-      
-      // Get the color from pagination class
-      if (paginationEl) {
-        for (const [className, color] of Object.entries(colorMap)) {
-          if (paginationEl.classList.contains(className)) {
-            currentColor = color;
-            break;
-          }
-        }
-      }
-
-      const swiper = new Swiper(container as HTMLElement, {
-        modules: [Navigation, Pagination, Autoplay],
-        slidesPerView: 1,
-        spaceBetween: 0,
-        grabCursor: true,
-        touchRatio: 1,
-        resistance: true,
-        resistanceRatio: 0.85,
-        loop: true,
-        speed: 600,
-        autoplay: {
-          delay: 5000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        },
-        navigation: {
-          nextEl: container.querySelector('.swiper-button-next') as HTMLElement,
-          prevEl: container.querySelector('.swiper-button-prev') as HTMLElement,
-        },
-        pagination: {
-          el: paginationEl,
-          clickable: true,
-          dynamicBullets: false,
-        },
-        on: {
-          init: function() {
-            // Apply colors after initialization
-            setTimeout(() => {
-              const bullets = container.querySelectorAll('.swiper-pagination-bullet');
-              bullets.forEach((bullet: Element) => {
-                const htmlBullet = bullet as HTMLElement;
-                if (htmlBullet.classList.contains('swiper-pagination-bullet-active')) {
-                  htmlBullet.style.backgroundColor = currentColor;
-                  htmlBullet.style.borderColor = currentColor;
-                }
-              });
-            }, 100);
-          },
-          slideChange: function() {
-            // Reapply colors on slide change
-            const bullets = container.querySelectorAll('.swiper-pagination-bullet');
-            bullets.forEach((bullet: Element) => {
-              const htmlBullet = bullet as HTMLElement;
-              if (htmlBullet.classList.contains('swiper-pagination-bullet-active')) {
-                htmlBullet.style.backgroundColor = currentColor;
-                htmlBullet.style.borderColor = currentColor;
-              } else {
-                htmlBullet.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-                htmlBullet.style.borderColor = 'rgba(255, 255, 255, 0.8)';
-              }
-            });
-          }
-        }
-      });
-    });
-  });
-</script> 
+</style> 

@@ -1,82 +1,296 @@
-<section id="home" class="min-h-[90vh] flex items-center relative scroll-mt-20 pt-24 sm:pt-0">
-  <div class="max-w-6xl mx-auto px-6 sm:px-8 w-full">
-    <div class="relative z-10">
+---
+import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
+---
+
+<section id="home" class="min-h-screen flex items-center relative scroll-mt-20 overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0">
+    <div class="absolute inset-0 bg-gradient-to-br from-rose-50 via-violet-50 to-cyan-50"></div>
+    
+    <!-- Floating geometric shapes -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="floating-shape absolute top-20 left-20 w-40 h-40 bg-rose-200/30 rounded-full blur-2xl"></div>
+      <div class="floating-shape absolute top-40 right-32 w-32 h-32 bg-violet-300/25 rounded-2xl blur-xl rotate-45" style="animation-delay: 2s;"></div>
+      <div class="floating-shape absolute bottom-32 left-1/3 w-24 h-24 bg-cyan-400/30 rounded-full blur-lg" style="animation-delay: 4s;"></div>
+      <div class="floating-shape absolute top-1/2 left-1/4 w-16 h-16 bg-emerald-300/35 rounded-full blur-md" style="animation-delay: 6s;"></div>
+      <div class="floating-shape absolute bottom-20 right-20 w-28 h-28 bg-amber-300/25 rounded-2xl blur-xl rotate-12" style="animation-delay: 1s;"></div>
+    </div>
+    
+    <!-- Grid pattern overlay -->
+    <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.3) 1px, transparent 0); background-size: 50px 50px;"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 w-full relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[80vh]">
       
-      <h1 class="text-5xl sm:text-7xl md:text-8xl font-bold text-gray-900 mb-10 leading-tight">
+      <!-- Text Content -->
+      <div class="lg:col-span-7 space-y-8">
+
+        
+        <!-- Main heading with creative styling -->
+        <div class="space-y-4">
+          <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black text-gray-900 leading-tight tracking-tight">
         Hello, I'm 
-        <span class="relative inline-block">
-          <span class="relative z-10">Merjem</span>
-          <div class="absolute -bottom-1 left-0 w-full h-3 bg-rose-200/80 -rotate-1 z-0"></div>
-        </span>
+                        <span class="relative inline-block hero-name">
+              Merjem
+            </span>
       </h1>
+        </div>
 
-      <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mb-14 leading-relaxed">
-        I'm a Visual Artist and Graphic Designer working across various design areas. My favorite is creating print media, brochures, catalogs, flyers, etc., but I'm also happy to work on social media and web design elements. I love color and impactful design that makes a strong impression with minimal elements.
-      </p>
+        <!-- Enhanced description -->
+        <div class="max-w-2xl space-y-6">
+          <p class="text-lg sm:text-xl text-gray-700 leading-relaxed font-light">
+            A graphic designer and visual artist crafting purposeful, visually coherent identities. My work spans across <span class="font-medium text-indigo-600">brand development</span>, <span class="font-medium text-cyan-600">digital</span> and <span class="font-medium text-rose-600">print media</span>, with a refined sense for <span class="font-medium text-violet-600">typographic systems</span> and <span class="font-medium text-emerald-600">color dynamics</span>. I create everything from <span class="font-medium text-amber-600">logos</span> and <span class="font-medium text-cyan-600">social media content</span> to <span class="font-medium text-rose-600">brochures</span>, <span class="font-medium text-purple-600">catalogs</span>, and <span class="font-medium text-indigo-600">editorial design</span> — always with clarity, function, and aesthetic balance in mind.
+          </p>
+        </div>
 
-      <div class="flex flex-row gap-4 sm:gap-6 max-w-md">
+        <!-- Enhanced CTA buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 pt-8">
         <a 
           href="#portfolio" 
-          class="
-            w-1/2
-            flex
-            items-center
-            justify-center
-            px-6
-            py-3.5
-            bg-gray-950
-            text-white
-            rounded-2xl
-            font-medium
-            hover:bg-gradient-to-r
-            hover:from-violet-500
-            hover:to-rose-400
-            hover:shadow-lg
-            hover:-translate-y-0.5
-            transition-all
-            duration-300
-          "
-        >
+            class="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white rounded-2xl font-semibold text-lg overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+          >
+            <div class="absolute inset-0 bg-gradient-to-r from-rose-500 via-violet-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <span class="relative z-10 flex items-center gap-3">
+              <Layers class="w-5 h-5" />
           View My Work
+            </span>
+            <div class="absolute -inset-1 bg-gradient-to-r from-rose-500 via-violet-500 to-cyan-500 rounded-2xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10"></div>
         </a>
         
         <a 
           href="#contact" 
-          class="
-            w-1/2
-            flex
-            items-center
-            justify-center
-            px-6
-            py-3.5
-            bg-rose-100
-            text-gray-900
-            rounded-2xl
-            font-medium
-            hover:bg-rose-200
-            hover:shadow-lg
-            hover:-translate-y-0.5
-            transition-all
-            duration-300
-          "
-        >
+            class="group relative inline-flex items-center justify-center px-8 py-4 bg-white border-2 border-gray-200 text-gray-900 rounded-2xl font-semibold text-lg transition-all duration-500 hover:border-rose-300 hover:bg-rose-50 hover:scale-105 hover:shadow-xl backdrop-blur-sm"
+          >
+            <span class="flex items-center gap-3">
+              <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
           Let's Talk
-        </a>
+            </span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Redesigned Creative Visual Element -->
+      <div class="lg:col-span-5 relative hidden lg:block">
+        <div class="relative h-[600px] w-full">
+          <!-- Main showcase container -->
+          <div class="creative-showcase relative h-full">
+            
+            <!-- Large Featured Portfolio Piece -->
+            <div class="floating-card-1 absolute top-8 right-4 w-72 h-80 bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden z-30">
+              <div class="relative h-full">
+                <img src="/catalogs/catalog-shams/2.png" alt="Featured catalog design" loading="eager" fetchpriority="high" decoding="async" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6">
+                  <div class="flex items-center gap-3 mb-3">
+                    <div class="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                      <Palette class="w-5 h-5 text-white" />
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full">
+                      <span class="text-white font-semibold text-sm">Featured Work</span>
+                    </div>
+                  </div>
+                  <h3 class="text-white font-bold text-xl mb-1">Travel Catalog</h3>
+                  <p class="text-white/80 text-sm">Professional brochure design</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Creative Branding Stack -->
+            <div class="floating-card-2 absolute top-12 left-8 w-56 h-44 bg-white rounded-3xl shadow-2xl overflow-hidden z-20">
+              <div class="relative h-full">
+                <img src="/branding/branding-ac-mint/1.jpg" alt="Branding showcase" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-rose-600/80 via-rose-400/30 to-transparent"></div>
+                <div class="absolute top-4 left-4 right-4">
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                      <Sparkles class="w-4 h-4 text-white" />
+                    </div>
+                    <span class="text-white font-bold text-sm">Brand Identity</span>
+                  </div>
+                </div>
+                <div class="absolute bottom-4 left-4">
+                  <p class="text-white font-semibold">AC Mint</p>
+                  <p class="text-white/80 text-xs">Complete brand system</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social Media Mosaic -->
+            <div class="floating-card-3 absolute bottom-16 left-4 w-64 h-56 bg-white rounded-3xl shadow-2xl overflow-hidden z-25">
+              <div class="h-full bg-gradient-to-br from-cyan-50 to-blue-50 p-5">
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 bg-cyan-500 rounded-xl flex items-center justify-center">
+                    <Layers class="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <span class="text-cyan-700 font-bold text-sm block">Social Media</span>
+                    <span class="text-cyan-600 text-xs">Creative campaigns</span>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 h-36">
+                  <div class="space-y-2">
+                    <img src="/social-media/social-adblue/1.png" alt="Social design 1" loading="lazy" decoding="async" class="w-full h-16 object-cover rounded-lg shadow-sm" />
+                    <img src="/social-media/social-green-servis/2.png" alt="Social design 2" loading="lazy" decoding="async" class="w-full h-16 object-cover rounded-lg shadow-sm" />
+                  </div>
+                  <div class="space-y-2">
+                    <img src="/social-media/social-artane/1.png" alt="Social design 3" loading="lazy" decoding="async" class="w-full h-16 object-cover rounded-lg shadow-sm" />
+                    <img src="/social-media/social-adblue/4.png" alt="Social design 4" loading="lazy" decoding="async" class="w-full h-16 object-cover rounded-lg shadow-sm" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Print Design Showcase -->
+            <div class="floating-card-4 absolute bottom-4 right-12 w-52 h-40 bg-white rounded-3xl shadow-2xl overflow-hidden z-15">
+              <div class="relative h-full">
+                <img src="/print-media/trifold-artane/2.jpg" alt="Print design showcase" loading="lazy" decoding="async" class="w-full h-full object-cover" />
+                <div class="absolute inset-0 bg-gradient-to-t from-amber-600/80 via-amber-400/20 to-transparent"></div>
+                <div class="absolute bottom-4 left-4 right-4">
+                  <div class="flex items-center gap-2 mb-2">
+                    <div class="w-7 h-7 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
+                      <ArrowDown class="w-3 h-3 text-white" />
+                    </div>
+                    <span class="text-white font-semibold text-sm">Print Media</span>
+                  </div>
+                  <p class="text-white/90 text-xs">Trifold brochures & flyers</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Floating Design Elements -->
+            <div class="absolute top-24 left-24 w-16 h-16 bg-gradient-to-br from-purple-400/40 to-pink-400/40 rounded-full blur-lg animate-pulse"></div>
+            <div class="absolute bottom-28 right-28 w-12 h-12 bg-gradient-to-br from-cyan-400/30 to-blue-400/30 rounded-full blur-md animate-pulse" style="animation-delay: 2s;"></div>
+            <div class="absolute top-40 right-8 w-8 h-8 bg-gradient-to-br from-rose-400/50 to-orange-400/50 rounded-full blur-sm animate-pulse" style="animation-delay: 4s;"></div>
+            <div class="absolute bottom-48 left-16 w-6 h-6 bg-gradient-to-br from-emerald-400/40 to-teal-400/40 rounded-full blur-sm animate-pulse" style="animation-delay: 6s;"></div>
+            
+            <!-- Central energy element -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-br from-rose-400/20 via-violet-400/20 to-cyan-400/20 rounded-full blur-3xl animate-pulse -z-10"></div>
+          </div>
+        </div>
       </div>
     </div>
-
-    {/* Decorative Elements */}
-    <div class="absolute top-1/2 right-8 md:right-24 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-violet-200/50 to-rose-200/50 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-24 left-12 w-40 h-40 bg-gradient-to-br from-blue-200/50 to-emerald-200/50 rounded-full blur-2xl"></div>
-    
-    {/* 3 Pink elements cut off at screen borders */}
-    {/* Top element - with your specific values */}
-    <div class="absolute top-8 right-20 w-20 h-40 bg-rose-100 rounded-3xl rotate-12 hidden md:block"></div>
-    
-    {/* Middle element - extends beyond right edge */}
-    <div class="absolute top-1/2 -right-16 w-64 h-20 bg-rose-100 rounded-3xl -rotate-12 -translate-y-1/2 hidden md:block"></div>
-    
-    {/* Bottom element - with your specific values */}
-    <div class="absolute right-0 -bottom-8 w-40 h-48 bg-rose-100 rounded-3xl -rotate-[63deg] hidden md:block"></div>
   </div>
 </section> 
+
+<style>
+  /* Floating animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-15px) rotate(1deg); }
+    66% { transform: translateY(-8px) rotate(-1deg); }
+  }
+  
+  @keyframes floatReverse {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(-1deg); }
+    66% { transform: translateY(-20px) rotate(1deg); }
+  }
+  
+  .floating-shape {
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  .floating-shape:nth-child(2) {
+    animation: floatReverse 10s ease-in-out infinite;
+  }
+  
+  .floating-shape:nth-child(3) {
+    animation: float 12s ease-in-out infinite;
+  }
+  
+  .floating-shape:nth-child(4) {
+    animation: floatReverse 9s ease-in-out infinite;
+  }
+  
+  .floating-shape:nth-child(5) {
+    animation: float 11s ease-in-out infinite;
+  }
+
+  /* Smooth floating card animations */
+  .floating-card-1 {
+    animation: smoothFloat1 12s ease-in-out infinite;
+  }
+  
+  .floating-card-2 {
+    animation: smoothFloat2 14s ease-in-out infinite;
+  }
+  
+  .floating-card-3 {
+    animation: smoothFloat3 16s ease-in-out infinite;
+  }
+  
+  .floating-card-4 {
+    animation: smoothFloat4 13s ease-in-out infinite;
+  }
+  
+  @keyframes smoothFloat1 {
+    0%, 100% { 
+      transform: translateY(0px) translateX(0px) rotate(3deg) scale(1);
+    }
+    25% { 
+      transform: translateY(-8px) translateX(3px) rotate(4deg) scale(1.01);
+    }
+    50% { 
+      transform: translateY(-12px) translateX(-2px) rotate(2deg) scale(1.02);
+    }
+    75% { 
+      transform: translateY(-6px) translateX(4px) rotate(5deg) scale(1.01);
+    }
+  }
+  
+  @keyframes smoothFloat2 {
+    0%, 100% { 
+      transform: translateY(0px) translateX(0px) rotate(-6deg) scale(1);
+    }
+    30% { 
+      transform: translateY(-10px) translateX(-4px) rotate(-4deg) scale(1.01);
+    }
+    60% { 
+      transform: translateY(-15px) translateX(2px) rotate(-7deg) scale(1.02);
+    }
+    80% { 
+      transform: translateY(-5px) translateX(-3px) rotate(-5deg) scale(1.01);
+    }
+  }
+  
+  @keyframes smoothFloat3 {
+    0%, 100% { 
+      transform: translateY(0px) translateX(0px) rotate(2deg) scale(1);
+    }
+    20% { 
+      transform: translateY(-6px) translateX(5px) rotate(3deg) scale(1.01);
+    }
+    45% { 
+      transform: translateY(-14px) translateX(-3px) rotate(1deg) scale(1.02);
+    }
+    70% { 
+      transform: translateY(-8px) translateX(2px) rotate(4deg) scale(1.01);
+    }
+  }
+  
+  @keyframes smoothFloat4 {
+    0%, 100% { 
+      transform: translateY(0px) translateX(0px) rotate(-4deg) scale(1);
+    }
+    35% { 
+      transform: translateY(-9px) translateX(-2px) rotate(-2deg) scale(1.01);
+    }
+    65% { 
+      transform: translateY(-13px) translateX(4px) rotate(-6deg) scale(1.02);
+    }
+    85% { 
+      transform: translateY(-4px) translateX(-1px) rotate(-3deg) scale(1.01);
+    }
+  }
+
+  /* Hero name animation */
+  .hero-name {
+    animation: nameGlow 4s ease-in-out infinite;
+  }
+  
+  @keyframes nameGlow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.05); }
+  }
+</style> 

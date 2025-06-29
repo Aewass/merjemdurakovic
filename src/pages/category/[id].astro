@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Footer from '../../components/Footer.astro';
-import { ArrowLeft, Maximize2 } from 'lucide-astro';
+import { ArrowLeft, Maximize2, ChevronLeft, ChevronRight, X } from 'lucide-astro';
 import { preloadImages } from '../../utils/imageCache';
 
 // Update the types for our data structure
@@ -31,39 +31,139 @@ export function getStaticPaths() {
       params: { id: 'branding' },
       props: {
         category: {
-          number: "05",
+          number: "01",
           title: "Branding",
           category: "Category",
-          description: "My branding work focuses on creating distinctive and memorable brand identities that resonate with target audiences. Each project combines strategic thinking with creative design, encompassing logo development, visual identity systems, and comprehensive brand guidelines. I ensure that every element works harmoniously to communicate the brand's values and story effectively.",
+          description: "Visual identity system for Auto Centar Mint, based on an existing logo and color palette. Expanded into a full brand guidelines book with defined typography, layout, iconography, visual elements, and usage rules. Applied across business cards, letterheads, branded materials like mugs and clothing.",
           items: [
             {
-              name: "Harvest Harmony",
-              description: "Brand identity design for Harvest Harmony",
+              name: "AC Mint",
+              description: "Brand identity",
               images: [
                 { 
-                  src: "/branding/branding-harvest-harmony/1.jpg", 
-                  alt: "Harvest Harmony brand identity",
+                  src: "/branding/branding-ac-mint/1.jpg", 
+                  alt: "AC Mint brand identity",
                   caption: "Logo design and visual identity" 
                 },
                 { 
-                  src: "/branding/branding-harvest-harmony/2.jpg", 
-                  alt: "Harvest Harmony logo design",
+                  src: "/branding/branding-ac-mint/2.jpg", 
+                  alt: "AC Mint logo design",
                   caption: "Logo variations and applications" 
                 },
                 { 
-                  src: "/branding/branding-harvest-harmony/3.jpg", 
-                  alt: "Harvest Harmony brand applications",
+                  src: "/branding/branding-ac-mint/3.jpg", 
+                  alt: "AC Mint brand applications",
                   caption: "Brand applications and stationery" 
                 },
                 { 
-                  src: "/branding/branding-harvest-harmony/4.jpg", 
-                  alt: "Harvest Harmony packaging design",
+                  src: "/branding/branding-ac-mint/4.jpg", 
+                  alt: "AC Mint packaging design",
                   caption: "Packaging design solutions" 
                 },
                 { 
-                  src: "/branding/branding-harvest-harmony/5.jpg", 
-                  alt: "Harvest Harmony brand guidelines",
+                  src: "/branding/branding-ac-mint/5.jpg", 
+                  alt: "AC Mint brand guidelines",
                   caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/6.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/7.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/8.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/9.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/10.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/11.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/12.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/13.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/14.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/15.jpg", 
+                  alt: "AC Mint brand guidelines",    
+                  caption: "Brand style guide and standards" 
+                },
+                { 
+                  src: "/branding/branding-ac-mint/16.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },
+                { 
+                  src: "/branding/branding-ac-mint/17.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },  
+                { 
+                  src: "/branding/branding-ac-mint/18.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },
+                { 
+                  src: "/branding/branding-ac-mint/19.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },
+                { 
+                  src: "/branding/branding-ac-mint/20.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },
+                { 
+                  src: "/branding/branding-ac-mint/21.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },
+                { 
+                  src: "/branding/branding-ac-mint/22.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },
+                { 
+                  src: "/branding/branding-ac-mint/23.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"    
+                },
+                { 
+                  src: "/branding/branding-ac-mint/24.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
+                },
+                { 
+                  src: "/branding/branding-ac-mint/25.jpg", 
+                  alt: "AC Mint brand guidelines",
+                  caption: "Brand style guide and standards"  
                 }
               ]
             }
@@ -75,14 +175,14 @@ export function getStaticPaths() {
       params: { id: 'catalogs' },
       props: {
         category: {
-          number: "01",
+          number: "02",
           title: "Brochures and Catalogs",
           category: "Category",
-          description: "This section features print materials such as brochures, catalogs, reports, and guides from various fields. Each project reflects the brand’s style, tone, and visual language tailored to its context.",
+          description: "This section features print materials such as brochures, catalogs, reports, and guides from various fields. Each project reflects the brand's style, tone, and visual language tailored to its context.",
           items: [
             {
               name: "iForm",
-              description: "Carbon Footprint Report for iForm",
+              description: "Carbon Footprint Report",
               images: [
                 { 
                   src: "/catalogs/catalog-iform/1.png", 
@@ -107,7 +207,7 @@ export function getStaticPaths() {
             },
             {
               name: "Mega Trans",
-              description: "Carbon Footprint Report for Mega Trans",
+              description: "Carbon Footprint Report",
               images: [
                 { src: "/catalogs/catalog-mega/1.png", alt: "Mega catalog page 1" },
                 { src: "/catalogs/catalog-mega/2.png", alt: "Mega catalog page 2" },
@@ -123,7 +223,7 @@ export function getStaticPaths() {
             },
             {
               name: "Stanić",
-              description: "Carbon Footprint Report for Stanić",
+              description: "Carbon Footprint Report",
               images: [
                 { src: "/catalogs/catalog-stanic/1.png", alt: "Stanic catalog page 1" },
                 { src: "/catalogs/catalog-stanic/3.jpg", alt: "Stanic catalog page 3" },
@@ -153,11 +253,11 @@ export function getStaticPaths() {
           number: "02",
           title: "Visit Cards",
           category: "Category",
-          description: "My business card designs blend form and function to create lasting first impressions. Each design is carefully crafted to reflect the client's brand identity while ensuring optimal readability and professional presentation. I focus on innovative layouts, typography, and material choices to make each card a powerful networking tool that stands out in today's digital age.",
+          description: "Business card designs combining clear structure, strong typography, and material detail to leave a lasting impression. Each card reflects the brands identity while staying functional, readable, and visually distinct.",
           items: [
             {
               name: "Ležaj Trade Business Card Design",
-              description: "A business card that reflects the identity of Ležaj Trade, a company specializing in the retail and wholesale of industrial bearings, accessories, and related products. The design focuses on clarity and functionality, with easily accessible contact information. A cohesive layout and consistent branding ensure a professional appearance.",
+              description: "",
               images: [
                 { 
                   src: "/visit-cards/visit-card-lezaj-trade/1.jpg", 
@@ -168,7 +268,7 @@ export function getStaticPaths() {
             },
             {
               name: "ZerroMax Business Card Design",
-              description: "This business card for Zerromax incorporates design elements that evoke foundations and construction, reflecting their modular home building focus. The minimalist style with subtle dynamic details symbolizes the company's progress and innovation.",
+              description: "",
               images: [
                 { 
                   src: "/visit-cards/visit-card-zerro-max/2.jpg", 
@@ -186,7 +286,7 @@ export function getStaticPaths() {
       props: {
         category: {
           number: "03",
-          title: "Books",
+          title: "Cover Design",
           category: "Category",
           description: "My book design work combines artistic vision with practical functionality to create engaging reading experiences. Each project carefully considers typography, layout, and visual hierarchy to enhance readability while maintaining aesthetic appeal. I specialize in creating covers and internal layouts that capture the essence of the content while meeting industry standards for both print and digital formats.",
           items: [
@@ -225,8 +325,8 @@ export function getStaticPaths() {
           description: "My print media portfolio showcases versatile design solutions across various formats including flyers, folders, and trifold brochures. Each piece is thoughtfully designed to effectively communicate the client's message through strategic use of layout, typography, and visual elements. I prioritize both aesthetic appeal and practical functionality, ensuring that each design serves its intended purpose while maintaining visual impact.",
           items: [
             {
-              name: "ZerroMax Folder Design",
-              description: "Folder design for Zerromax",
+              name: "ZerroMax",
+              description: "Folder design",
               images: [
                 { 
                   src: "/print-media/fascicle-zerromax/1.jpg", 
@@ -241,8 +341,8 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "AdBlue Flyer Design",
-              description: "Promotional flyer for AdBlue",
+              name: "Begović BH d.o.o.",
+              description: "Promotional flyer",
               images: [
                 { 
                   src: "/print-media/flyer-adblue/1.jpg", 
@@ -252,8 +352,8 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Palma Pogrebno Flyer Design",
-              description: "Promotional flyer for Palma Pogrebno",
+              name: "Pogrebno Preduzeće Palma",
+              description: "Promotional flyer",
               images: [
                 { 
                   src: "/print-media/flyer-palma/1.jpg", 
@@ -263,8 +363,8 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Phoenix Restaurant Flyer Design",
-              description: "Promotional flyer for Phoenix Restaurant",
+              name: "Phoenix Restaurant",
+              description: "Promotional flyer",
               images: [
                 { 
                   src: "/print-media/flyer-phoenix/1.jpg", 
@@ -274,8 +374,8 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Shams Travel Flyer Design",
-              description: "Promotional flyer for Shams Travel",
+              name: "Shams Travel",
+              description: "Promotional flyer",
               images: [
                 { 
                   src: "/print-media/flyer-shams/1.jpg", 
@@ -285,8 +385,8 @@ export function getStaticPaths() {
               ]
             },
             {
-              name: "Trifold Artane",
-              description: "Trifold brochure design for Artane",
+              name: "Artane d.o.o. Sarajevo",
+              description: "Trifold brochure",
               images: [
                 { 
                   src: "/print-media/trifold-artane/1.jpg", 
@@ -313,69 +413,63 @@ export function getStaticPaths() {
       params: { id: 'social-media' },
       props: {
         category: {
-          number: "06",
+          number: "05",
           title: "Social Media Design",
           category: "Category",
           description: "My social media design work focuses on creating engaging and visually appealing content that effectively communicates brand messages across various platforms. Each design is crafted to capture attention, drive engagement, and maintain brand consistency while adapting to the unique requirements of different social media channels.",
           items: [
             {
-              name: "AdBlue",
-              description: "Social media designs for AdBlue's marketing campaign",
+              name: "Begović BH d.o.o.",
+              description: "Social media content",
               images: [
-                { src: "/social-media/social-adblue/1.png", alt: "AdBlue social media design 1" },
-                { src: "/social-media/social-adblue/2.png", alt: "AdBlue social media design 2" },
-                { src: "/social-media/social-adblue/3.png", alt: "AdBlue social media design 3" },
-                { src: "/social-media/social-adblue/4.png", alt: "AdBlue social media design 4" },
-                { src: "/social-media/social-adblue/5.png", alt: "AdBlue social media design 5" },
-                { src: "/social-media/social-adblue/6.png", alt: "AdBlue social media design 6" },
-                { src: "/social-media/social-adblue/7.png", alt: "AdBlue social media design 7" }
+                { src: "/social-media/social-adblue/1.jpg", alt: "AdBlue social media design 1" },
+                { src: "/social-media/social-adblue/2.jpg", alt: "AdBlue social media design 2" },
+                { src: "/social-media/social-adblue/3.jpg", alt: "AdBlue social media design 3" },
+                { src: "/social-media/social-adblue/4.jpg", alt: "AdBlue social media design 4" },
+                { src: "/social-media/social-adblue/5.jpg", alt: "AdBlue social media design 5" },
               ]
             },
             {
-              name: "Artane",
-              description: "Social media content for Artane",
+              name: "Doma d.o.o.",
+              description: "Social media content",
               images: [
-                { src: "/social-media/social-artane/1.png", alt: "Artane social media design 1" },
-                { src: "/social-media/social-artane/2.png", alt: "Artane social media design 2" }
+                { src: "/social-media/social-doma/1.jpg", alt: "Doma social media design 1" },
+                { src: "/social-media/social-doma/2.jpg", alt: "Doma social media design 2" },
+                { src: "/social-media/social-doma/3.jpg", alt: "Doma social media design 3" },
+                { src: "/social-media/social-doma/4.jpg", alt: "Doma social media design 4" },
+                { src: "/social-media/social-doma/5.jpg", alt: "Doma social media design 5" },
               ]
             },
             {
-              name: "Green Servis",
-              description: "Social media designs for Green Servis",
+              name: "Eurotim Company d.o.o.",
+              description: "Social media content",
               images: [
-                { src: "/social-media/social-green-servis/1.png", alt: "Green Servis social media design 1" },
-                { src: "/social-media/social-green-servis/2.png", alt: "Green Servis social media design 2" },
-                { src: "/social-media/social-green-servis/3.png", alt: "Green Servis social media design 3" },
-                { src: "/social-media/social-green-servis/4.png", alt: "Green Servis social media design 4" },
-                { src: "/social-media/social-green-servis/5.png", alt: "Green Servis social media design 5" },
-                { src: "/social-media/social-green-servis/6.png", alt: "Green Servis social media design 6" },
-                { src: "/social-media/social-green-servis/7.png", alt: "Green Servis social media design 7" },
-                { src: "/social-media/social-green-servis/8.png", alt: "Green Servis social media design 8" }
+                { src: "/social-media/social-eurotim/1.jpg", alt: "Eurotim social media design 1" },
+                { src: "/social-media/social-eurotim/2.jpg", alt: "Eurotim social media design 2" },
+                { src: "/social-media/social-eurotim/3.jpg", alt: "Eurotim social media design 3" },
+                { src: "/social-media/social-eurotim/4.jpg", alt: "Eurotim social media design 4" },
+                { src: "/social-media/social-eurotim/5.jpg", alt: "Eurotim social media design 5" },
               ]
             },
             {
-              name: "Shams Travel",
-              description: "Social media content for Shams Travel Agency",
+              name: "Mehanizmi.ba",
+              description: "Social media content",
               images: [
-                { src: "/social-media/social-shams-travel/1.jpg", alt: "Shams Travel social media design 1" },
-                { src: "/social-media/social-shams-travel/2.jpg", alt: "Shams Travel social media design 2" },
-                { src: "/social-media/social-shams-travel/3.jpg", alt: "Shams Travel social media design 3" },
-                { src: "/social-media/social-shams-travel/4.jpg", alt: "Shams Travel social media design 4" },
-                { src: "/social-media/social-shams-travel/5.jpg", alt: "Shams Travel social media design 5" },
-                { src: "/social-media/social-shams-travel/6.jpg", alt: "Shams Travel social media design 6" },
-                { src: "/social-media/social-shams-travel/7.jpg", alt: "Shams Travel social media design 7" },
-                { src: "/social-media/social-shams-travel/8.jpg", alt: "Shams Travel social media design 8" },
-                { src: "/social-media/social-shams-travel/9.jpg", alt: "Shams Travel social media design 9" },
-                { src: "/social-media/social-shams-travel/10.png", alt: "Shams Travel social media design 10" },
-                { src: "/social-media/social-shams-travel/11.png", alt: "Shams Travel social media design 11" },
-                { src: "/social-media/social-shams-travel/12.png", alt: "Shams Travel social media design 12" }
+                { src: "/social-media/social-mehanizmi/1.png", alt: "Mehanizmi social media design 1" },
+                { src: "/social-media/social-mehanizmi/2.png", alt: "Mehanizmi social media design 2" },
+                { src: "/social-media/social-mehanizmi/3.png", alt: "Mehanizmi social media design 3" },
+                { src: "/social-media/social-mehanizmi/4.png", alt: "Mehanizmi social media design 4" },
+                { src: "/social-media/social-mehanizmi/5.png", alt: "Mehanizmi social media design 5" },
               ]
             },
             {
-              name: "Web Content",
-              description: "Web design content for social media platforms",
+              name: "Rework",
+              description: "Social media content",
               images: [
-                { src: "/social-media/social-web-design/1.png", alt: "Web Design social media design 1" }
+                { src: "/social-media/social-rework/1.jpg", alt: "Rework social media design 1" },
+                { src: "/social-media/social-rework/2.jpg", alt: "Rework social media design 2" },
+                { src: "/social-media/social-rework/3.jpg", alt: "Rework social media design 3" },
+                { src: "/social-media/social-rework/4.jpg", alt: "Rework social media design 4" },
               ]
             }
           ]
@@ -408,7 +502,7 @@ const { category } = Astro.props;
     </div>
 
     <div class="relative">
-      <article class="pt-32 pb-24">
+      <article class="pt-24 pb-24">
         <div class="max-w-6xl mx-auto px-6 sm:px-8">
           <!-- Back Button -->
           <a 
@@ -459,115 +553,106 @@ const { category } = Astro.props;
 
           <!-- Catalogs List -->
           <div class="space-y-40">
-            {category.items.map(item => (
+            {category.items.map((item, itemIndex) => (
               <div class="catalog-item">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-start">
-                  <div>
-                    <h2 class="text-4xl font-bold mb-4">{item.name}</h2>
-                    <p class="text-lg text-gray-600 mb-8">{item.description}</p>
-                    <div class="flex items-center">
-                      <span class={`inline-flex items-center py-1.5 px-3 ${
-                        id === 'visit-cards' ? 'bg-rose-50/70' : 
-                        id === 'books' ? 'bg-emerald-50/70' : 
-                        id === 'print-media' ? 'bg-amber-50/70' :
-                        id === 'branding' ? 'bg-indigo-50/70' :
-                        id === 'social-media' ? 'bg-cyan-50/70' :
-                        'bg-purple-50/70'
-                      } text-sm text-gray-800 rounded-full`}>
-                        <span class={`w-1.5 h-1.5 ${
-                          id === 'visit-cards' ? 'bg-rose-500' : 
-                          id === 'books' ? 'bg-emerald-500' : 
-                          id === 'print-media' ? 'bg-amber-500' :
-                          id === 'branding' ? 'bg-indigo-500' :
-                          id === 'social-media' ? 'bg-cyan-500' :
-                          'bg-purple-500'
-                        } rounded-full mr-2`}></span>
-                        {item.images.length} {item.images.length === 1 ? 'image' : 'images'}
-                      </span>
-                    </div>
+                <!-- Text Section -->
+                <div class="mb-12">
+                  <h2 class="text-4xl font-bold mb-4">{item.name}</h2>
+                  <p class="text-lg text-gray-600 mb-8 max-w-4xl">{item.description}</p>
+                  <div class="flex items-center">
+                    <span class={`inline-flex items-center py-1.5 px-3 ${
+                      id === 'visit-cards' ? 'bg-rose-50/70' : 
+                      id === 'books' ? 'bg-emerald-50/70' : 
+                      id === 'print-media' ? 'bg-amber-50/70' :
+                      id === 'branding' ? 'bg-indigo-50/70' :
+                      id === 'social-media' ? 'bg-cyan-50/70' :
+                      'bg-purple-50/70'
+                    } text-sm text-gray-800 rounded-full`}>
+                      <span class={`w-1.5 h-1.5 ${
+                        id === 'visit-cards' ? 'bg-rose-500' : 
+                        id === 'books' ? 'bg-emerald-500' : 
+                        id === 'print-media' ? 'bg-amber-500' :
+                        id === 'branding' ? 'bg-indigo-500' :
+                        id === 'social-media' ? 'bg-cyan-500' :
+                        'bg-purple-500'
+                      } rounded-full mr-2`}></span>
+                      {item.images.length} {item.images.length === 1 ? 'image' : 'images'}
+                    </span>
                   </div>
-                  
-                  {/* Check if it's a visit card (single image) */}
-                  {id === 'visit-cards' ? (
-                    <div class="relative perspective-1000 max-w-lg mx-auto lg:mx-0">
-                      {item.images.map((image, index) => (
-                        <div 
-                          class="relative bg-white rounded-lg shadow-xl border border-rose-200 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
-                        >
-                          <div class="relative group cursor-pointer">
-                            <img 
-                              src={image.src} 
-                              alt={image.alt} 
-                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                              data-fullview={image.src}
-                            />
-                            <button 
-                              class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
-                              data-fullview={image.src}
-                              data-alt={image.alt}
-                            >
-                              <Maximize2 class="w-5 h-5 text-rose-600" />
-                            </button>
-                          </div>
+                </div>
+                
+                <!-- Swiper Carousel OR Social Media Grid -->
+                {id === 'social-media' ? (
+                  <!-- Social Media Grid Layout -->
+                  <div class={`social-media-grid images-${Math.min(item.images.length, 5)}`}>
+                    {item.images.slice(0, 5).map((image, index) => (
+                      <div class={`grid-item item-${index + 1}`}>
+                        <div class="relative w-full h-full group cursor-pointer overflow-hidden">
+                          <img 
+                            src={image.src} 
+                            alt={image.alt || `${item.name} image ${index + 1}`}
+                            loading={index === 0 ? "eager" : "lazy"}
+                            decoding="async"
+                            fetchpriority={index === 0 ? "high" : "auto"}
+                            class="w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-[1.02]"
+                            data-fullview={image.src}
+                          />
+                          
+                          {/* Subtle hover overlay */}
+                          <div class="absolute inset-0 bg-black/0 transition-all duration-500 ease-out group-hover:bg-black/5"></div>
+                          
+                          {/* Fullscreen button */}
+                          <button 
+                            class="fullscreen-btn absolute top-3 right-3 bg-white/90 backdrop-filter backdrop-blur-sm p-2 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out hover:bg-white hover:scale-105 hover:shadow-xl z-10"
+                            data-fullview={image.src}
+                            data-alt={image.alt}
+                          >
+                            <Maximize2 class="w-4 h-4 text-cyan-600" />
+                          </button>
                         </div>
-                      ))}
-                      <div class="absolute -bottom-4 -right-4 -z-10 w-full h-full bg-gradient-to-r from-rose-400/20 to-rose-200/20 rounded-lg"></div>
-                    </div>
-                  ) : id === 'social-media' ? (
-                    /* Special grid for social media (promotional materials) */
-                    <div class="image-mosaic relative">
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {item.images.map((image, index) => (
-                          <div class="overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl">
-                            <div class="relative group cursor-pointer block">
-                              <img 
-                                src={image.src} 
-                                alt={image.alt || `${item.name} image ${index + 1}`}
-                                class="w-full h-auto rounded-lg transition-transform duration-500 group-hover:scale-105"
-                                data-fullview={image.src}
-                              />
-                              <button 
-                                class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
-                                data-fullview={image.src}
-                                data-alt={image.alt}
-                              >
-                                <Maximize2 class="w-5 h-5 text-cyan-600" />
-                              </button>
-                            </div>
-                          </div>
-                        ))}
                       </div>
-                    </div>
-                  ) : (
-                    /* Mosaic Grid for other categories */
-                    <div class="image-mosaic relative">
-                      <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    ))}
+                  </div>
+                ) : (
+                  <!-- Original Swiper Carousel for other categories -->
+                  <div class={`category-swiper-${itemIndex} relative`}>
+                    <div class="swiper-container aspect-[4/3] rounded-2xl overflow-hidden">
+                      <div class="swiper-wrapper">
                         {item.images.map((image, index) => (
-                          <div class={`overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl ${
-                            index === 0 ? 'col-span-2 row-span-2' : ''
-                          }`}>
-                            <div class="relative group cursor-pointer aspect-[4/3]">
+                          <div class="swiper-slide">
+                            <div class="relative w-full h-full group cursor-pointer overflow-hidden">
                               <img 
                                 src={image.src} 
                                 alt={image.alt || `${item.name} image ${index + 1}`}
-                                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                loading={index === 0 ? "eager" : "lazy"}
+                                decoding="async"
+                                fetchpriority={index === 0 ? "high" : "auto"}
+                                class="w-full h-full object-cover transition-all duration-500 ease-out group-hover:scale-[1.02]"
                                 data-fullview={image.src}
                               />
-                              {/* Year label for ZGI images */}
+                              
+                              {/* Subtle hover overlay */}
+                              <div class="absolute inset-0 bg-black/0 transition-all duration-500 ease-out group-hover:bg-black/5"></div>
+                              
+                              {/* Subtle year badge for ZGI images */}
                               {item.name === 'ZGI' && (
-                                <div class="absolute top-3 left-3 bg-black/50 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-medium shadow-md z-20">
-                                  {image.src.includes('/catalog-zgi2/') ? '2024' : '2023'}
+                                <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-700 px-2 py-1 rounded-md text-xs font-medium shadow-sm border border-white/50 z-10">
+                                  {index < 3 ? '2023' : '2024'}
                                 </div>
                               )}
+                              
+                              {/* Fullscreen button */}
                               <button 
-                                class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-white hover:scale-110 z-10"
+                                class="fullscreen-btn absolute top-4 right-4 bg-white/90 backdrop-filter backdrop-blur-sm p-2.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out hover:bg-white hover:scale-105 hover:shadow-xl z-10"
                                 data-fullview={image.src}
                                 data-alt={image.alt}
                               >
                                 <Maximize2 class={`w-5 h-5 ${
+                                  id === 'visit-cards' ? 'text-rose-600' : 
                                   id === 'books' ? 'text-emerald-600' : 
                                   id === 'print-media' ? 'text-amber-600' :
                                   id === 'branding' ? 'text-indigo-600' :
+                                  id === 'social-media' ? 'text-cyan-600' :
                                   'text-purple-600'
                                 }`} />
                               </button>
@@ -575,376 +660,387 @@ const { category } = Astro.props;
                           </div>
                         ))}
                       </div>
+                      
+                      {/* Navigation buttons - only show if more than 1 image */}
+                      {item.images.length > 1 && (
+                        <>
+                          <button class={`swiper-button-prev category-nav-btn category-nav-prev-${itemIndex}`}>
+                            <ChevronLeft class={`w-6 h-6 ${
+                              id === 'visit-cards' ? 'text-rose-600' : 
+                              id === 'books' ? 'text-emerald-600' : 
+                              id === 'print-media' ? 'text-amber-600' :
+                              id === 'branding' ? 'text-indigo-600' :
+                              id === 'social-media' ? 'text-cyan-600' :
+                              'text-purple-600'
+                            }`} />
+                          </button>
+                          <button class={`swiper-button-next category-nav-btn category-nav-next-${itemIndex}`}>
+                            <ChevronRight class={`w-6 h-6 ${
+                              id === 'visit-cards' ? 'text-rose-600' : 
+                              id === 'books' ? 'text-emerald-600' : 
+                              id === 'print-media' ? 'text-amber-600' :
+                              id === 'branding' ? 'text-indigo-600' :
+                              id === 'social-media' ? 'text-cyan-600' :
+                              'text-purple-600'
+                            }`} />
+                          </button>
+                        </>
+                      )}
+                      
+                      {/* Pagination dots - only show if more than 1 image */}
+                      {item.images.length > 1 && (
+                        <div class={`swiper-pagination !bottom-6 pagination-${id}-${itemIndex}`}></div>
+                      )}
                     </div>
-                  )}
-                  
-                  <!-- Full-size image viewer (hidden by default) -->
-                  <div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
-                    <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                      </svg>
-                    </button>
-                    <button id="prevImage" class="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
-                        <polyline points="15 18 9 12 15 6"></polyline>
-                      </svg>
-                    </button>
-                    <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
-                    <button id="nextImage" class="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-8 h-8 md:w-10 md:h-10">
-                        <polyline points="9 18 15 12 9 6"></polyline>
-                      </svg>
-                    </button>
                   </div>
-                </div>
+                )}
               </div>
             ))}
           </div>
         </div>
       </article>
 
+      <!-- Full-size image viewer -->
+      <div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+        <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
+          <X class="w-8 h-8" />
+        </button>
+        <button id="prevImage" class="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+          <ChevronLeft class="w-8 h-8 md:w-10 md:h-10" />
+        </button>
+        <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
+        <button id="nextImage" class="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+          <ChevronRight class="w-8 h-8 md:w-10 md:h-10" />
+        </button>
+      </div>
+
       <Footer />
     </div>
   </main>
 </Layout>
 
-<script>
-  import { preloadImage, getCachedImage } from '../../utils/imageCache';
-
-  // Initialize image viewers for all images with data-fullview
-  let currentImages: string[] = [];
-  let currentIndex = 0;
-  
-  // Setup touch variables
-  let touchStartX = 0;
-  let touchEndX = 0;
-  
-  // Handle swipe direction
-  function handleSwipe() {
-    const viewer = document.getElementById('imageViewer');
-    if (viewer && !viewer.classList.contains('hidden') && currentImages.length > 1) {
-      // Minimum swipe distance (in pixels) to trigger navigation
-      const swipeThreshold = 50;
-      const swipeDistance = touchEndX - touchStartX;
-      
-      // Right to left swipe (next image)
-      if (swipeDistance < -swipeThreshold) {
-        currentIndex = (currentIndex + 1) % currentImages.length;
-        updateViewerImage();
-      }
-      // Left to right swipe (previous image)
-      else if (swipeDistance > swipeThreshold) {
-        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-        updateViewerImage();
-      }
-    }
-  }
-  
-  // Setup touch events for fullscreen navigation
-  function setupTouchEvents() {
-    const fullImage = document.getElementById('fullImage');
-    if (fullImage) {
-      // Clean up previous listeners if any
-      fullImage.removeEventListener('touchstart', handleTouchStart);
-      fullImage.removeEventListener('touchend', handleTouchEnd);
-      
-      // Add new listeners
-      fullImage.addEventListener('touchstart', handleTouchStart, { passive: true });
-      fullImage.addEventListener('touchend', handleTouchEnd, { passive: true });
-    }
-  }
-  
-  // Touch event handlers
-  function handleTouchStart(e: TouchEvent) {
-    touchStartX = e.changedTouches[0].screenX;
-  }
-  
-  function handleTouchEnd(e: TouchEvent) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }
-
-  // Setup click handlers for both images and fullscreen buttons
-  function setupFullscreenHandlers() {
-    // Image click handlers
-    document.querySelectorAll('img[data-fullview]').forEach(img => {
-      img.addEventListener('click', () => {
-        openFullscreenViewer(img as HTMLImageElement);
-      });
-    });
-
-    // Fullscreen button click handlers
-    document.querySelectorAll('.fullscreen-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        // Find the closest parent container that has the image
-        const container = btn.closest('.group, .relative');
-        if (container) {
-          const img = container.querySelector('img[data-fullview]') as HTMLImageElement;
-          if (img) {
-            openFullscreenViewer(img);
-          }
-        }
-      });
-    });
-  }
-
-  // Function to open fullscreen viewer
-  function openFullscreenViewer(img: HTMLImageElement) {
-    const fullview = img.getAttribute('data-fullview');
-    const viewer = document.getElementById('imageViewer');
-    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
-    
-    if (fullview && viewer && fullImage) {
-      // Reset the loaded class
-      fullImage.classList.remove('loaded');
-      
-      // Add loading indicator for fullscreen view
-      const fullImageContainer = fullImage.parentElement;
-      let loadingIndicator = document.getElementById('fullImageLoading');
-      
-      if (!loadingIndicator && fullImageContainer) {
-        loadingIndicator = document.createElement('div');
-        loadingIndicator.id = 'fullImageLoading';
-        loadingIndicator.className = 'loading-indicator fullscreen-loading';
-        fullImageContainer.appendChild(loadingIndicator);
-      }
-      
-      // Find the specific image-mosaic container that contains this image
-      const mosaic = img.closest('.image-mosaic, .perspective-1000');
-      currentImages = [];
-      
-      if (mosaic) {
-        // Collect all images from this specific mosaic
-        mosaic.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-          const imgSrc = itemImg.getAttribute('data-fullview');
-          if (imgSrc) {
-            currentImages.push(imgSrc);
-          }
-        });
-      } else {
-        // If we can't find the mosaic, try to get all images from the same category
-        const categoryId = window.location.pathname.split('/').pop();
-        if (categoryId) {
-          document.querySelectorAll(`img[data-fullview*="/${categoryId}/"]`).forEach(itemImg => {
-            const imgSrc = itemImg.getAttribute('data-fullview');
-            if (imgSrc && !currentImages.includes(imgSrc)) {
-              currentImages.push(imgSrc);
-            }
-          });
-        }
-      }
-      
-      // Set current index to clicked image
-      currentIndex = currentImages.indexOf(fullview);
-      
-      // Set image source
-      fullImage.src = fullview;
-      fullImage.alt = img.alt;
-      
-      // Add load event for fullscreen image
-      fullImage.onload = () => {
-        fullImage.classList.add('loaded');
-        if (loadingIndicator) {
-          loadingIndicator.style.display = 'none';
-        }
-        // Setup touch events after image has loaded
-        setupTouchEvents();
-      };
-      
-      // For cached images
-      if (fullImage.complete) {
-        fullImage.classList.add('loaded');
-        if (loadingIndicator) {
-          loadingIndicator.style.display = 'none';
-        }
-        // Setup touch events for cached images
-        setupTouchEvents();
-      } else if (loadingIndicator) {
-        loadingIndicator.style.display = 'block';
-      }
-      
-      viewer.classList.remove('hidden');
-      viewer.classList.add('flex');
-      
-      // Prevent scrolling on body
-      document.body.style.overflow = 'hidden';
-
-      // Update navigation button visibility based on number of images
-      const prevButton = document.getElementById('prevImage');
-      const nextButton = document.getElementById('nextImage');
-      if (prevButton && nextButton) {
-        if (currentImages.length <= 1) {
-          prevButton.style.display = 'none';
-          nextButton.style.display = 'none';
-        } else {
-          prevButton.style.display = '';
-          nextButton.style.display = '';
-        }
-      }
-    }
-  }
-  
-  // Setup image loading and click handlers
-  document.querySelectorAll('img[data-fullview]').forEach(img => {
-    // Create and add loading indicator
-    const parent = img.parentElement;
-    if (parent) {
-      // Add a loading indicator div
-      const loadingDiv = document.createElement('div');
-      loadingDiv.className = 'loading-indicator';
-      parent.appendChild(loadingDiv);
-      
-      // Handler to remove loading indicator
-      const removeLoading = () => {
-        img.classList.add('loaded');
-        loadingDiv.remove();
-      };
-      
-      // Add load event to remove loading state
-      img.addEventListener('load', removeLoading);
-      
-      // For already loaded images
-      if ((img as HTMLImageElement).complete) {
-        removeLoading();
-      }
-    }
-  });
-
-  // Function to update the viewer image based on current index
-  async function updateViewerImage() {
-    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
-    const loadingIndicator = document.getElementById('fullImageLoading');
-    
-    if (fullImage && currentImages[currentIndex]) {
-      // Reset loaded state
-      fullImage.classList.remove('loaded');
-      
-      // Show loading indicator
-      if (loadingIndicator) {
-        loadingIndicator.style.display = 'block';
-      }
-      
-      // Try to get cached image first
-      const cachedResponse = await getCachedImage(currentImages[currentIndex]);
-      if (cachedResponse) {
-        const blob = await cachedResponse.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        fullImage.src = objectUrl;
-        fullImage.classList.add('loaded');
-        if (loadingIndicator) {
-          loadingIndicator.style.display = 'none';
-        }
-        // Clean up object URL after image loads
-        fullImage.onload = () => {
-          URL.revokeObjectURL(objectUrl);
-          preloadAdjacentImages();
-        };
-      } else {
-        // If not cached, load normally and cache for next time
-        fullImage.src = currentImages[currentIndex];
-        fullImage.onload = async () => {
-          fullImage.classList.add('loaded');
-          if (loadingIndicator) {
-            loadingIndicator.style.display = 'none';
-          }
-          await preloadImage(currentImages[currentIndex]);
-          preloadAdjacentImages();
-        };
-      }
-      
-      // Find the original image to get its alt text
-      document.querySelectorAll('img[data-fullview]').forEach(img => {
-        if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
-          fullImage.alt = (img as HTMLImageElement).alt;
-        }
-      });
-    }
-  }
-
-  // Function to preload adjacent images
-  async function preloadAdjacentImages() {
-    if (currentImages.length <= 1) return;
-    
-    const nextIndex = (currentIndex + 1) % currentImages.length;
-    const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-    
-    await Promise.all([
-      preloadImage(currentImages[nextIndex]),
-      preloadImage(currentImages[prevIndex])
-    ]);
-  }
-
-  // Setup navigation handlers
-  document.getElementById('prevImage')?.addEventListener('click', () => {
-    if (currentImages.length > 1) {
-      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-      updateViewerImage();
-    }
-  });
-  
-  document.getElementById('nextImage')?.addEventListener('click', () => {
-    if (currentImages.length > 1) {
-      currentIndex = (currentIndex + 1) % currentImages.length;
-      updateViewerImage();
-    }
-  });
-  
-  // Close viewer
-  document.getElementById('closeViewer')?.addEventListener('click', () => {
-    const viewer = document.getElementById('imageViewer');
-    if (viewer) {
-      viewer.classList.add('hidden');
-      viewer.classList.remove('flex');
-      
-      // Restore scrolling
-      document.body.style.overflow = '';
-    }
-  });
-  
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    const viewer = document.getElementById('imageViewer');
-    if (viewer && !viewer.classList.contains('hidden')) {
-      if (e.key === 'Escape') {
-        viewer.classList.add('hidden');
-        viewer.classList.remove('flex');
-        document.body.style.overflow = '';
-      } else if (e.key === 'ArrowLeft') {
-        if (currentImages.length > 1) {
-          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-          updateViewerImage();
-        }
-      } else if (e.key === 'ArrowRight') {
-        if (currentImages.length > 1) {
-          currentIndex = (currentIndex + 1) % currentImages.length;
-          updateViewerImage();
-        }
-      }
-    }
-  });
-
-  // Initial setup
-  setupFullscreenHandlers();
-
-  // Preload all images in the category
-  if (typeof window !== 'undefined') {
-    const allImageUrls = category.items.flatMap(item => 
-      item.images.map(img => img.src)
-    );
-    preloadImages(allImageUrls);
-  }
-</script>
-
 <style>
-  .image-mosaic img {
-    transition: transform 0.3s ease;
+  /* Social Media Grid Layout */
+  .social-media-grid {
+    display: grid;
+    gap: 16px;
+    width: 100%;
+    min-height: 500px;
   }
-  
-  .image-mosaic img:hover {
+
+  /* Grid layouts - exactly like the reference image */
+  .social-media-grid.images-1 {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .social-media-grid.images-2 {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .social-media-grid.images-3 {
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .social-media-grid.images-4 {
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .social-media-grid.images-5 {
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  /* Grid item positioning */
+  .grid-item {
+    background: transparent;
+  }
+
+  /* First item is always large - spans full height */
+  .images-2 .item-1,
+  .images-3 .item-1,
+  .images-4 .item-1,
+  .images-5 .item-1 {
+    grid-column: 1;
+    grid-row: 1 / -1;
+  }
+
+  /* Two images layout */
+  .images-2 .item-2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  /* Three images layout */
+  .images-3 .item-2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .images-3 .item-3 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Four images layout - 2x2 grid on the right */
+  .images-4 .item-2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .images-4 .item-3 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .images-4 .item-4 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  /* Five images layout - 2x2 grid on the right */
+  .images-5 .item-2 {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .images-5 .item-3 {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .images-5 .item-4 {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .images-5 .item-5 {
+    grid-column: 3;
+    grid-row: 2;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .social-media-grid {
+      height: auto;
+      gap: 12px;
+    }
+
+    .social-media-grid.images-2,
+    .social-media-grid.images-3,
+    .social-media-grid.images-4,
+    .social-media-grid.images-5 {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+    }
+
+    /* First image spans full width on mobile */
+    .images-2 .item-1,
+    .images-3 .item-1,
+    .images-4 .item-1,
+    .images-5 .item-1 {
+      grid-column: 1 / -1;
+      grid-row: 1;
+      aspect-ratio: 16/9;
+    }
+
+    /* Rest of images in 2-column grid below */
+    .images-2 .item-2 {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
+    .images-3 .item-2,
+    .images-4 .item-2,
+    .images-5 .item-2 {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    .images-3 .item-3,
+    .images-4 .item-3,
+    .images-5 .item-3 {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .images-4 .item-4,
+    .images-5 .item-4 {
+      grid-column: 1;
+      grid-row: 3;
+    }
+
+    .images-5 .item-5 {
+      grid-column: 2;
+      grid-row: 3;
+    }
+
+    .grid-item .fullscreen-btn {
+      top: 4px;
+      right: 4px;
+      padding: 6px;
+    }
+
+    .grid-item .fullscreen-btn .lucide {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+    /* Swiper Container */
+  .swiper-container {
+    width: 100%;
+    background: linear-gradient(135deg, #f1f3f4 0%, #e8eaed 50%, #dadce0 100%);
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: transparent;
+  }
+
+  .swiper-slide img {
+    transition: transform 0.5s ease-out, filter 0.3s ease-out;
+    will-change: transform;
+  }
+
+  /* Navigation buttons */
+  .category-nav-btn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 48px !important;
+    height: 48px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 20 !important;
+    opacity: 0 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    will-change: transform, opacity !important;
+  }
+
+  .category-nav-btn[class*="prev"] {
+    left: 20px !important;
+  }
+
+  .category-nav-btn[class*="next"] {
+    right: 20px !important;
+  }
+
+  [class*="category-swiper"]:hover .category-nav-btn {
+    opacity: 1 !important;
+  }
+
+  .category-nav-btn:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-50%) scale(1.02) !important;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  .category-nav-btn:active {
+    transform: translateY(-50%) scale(0.98) !important;
+  }
+
+  /* Remove default swiper button styles */
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    display: none !important;
+  }
+
+  /* Pagination dots */
+  .swiper-pagination {
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    will-change: opacity;
+  }
+
+  [class*="category-swiper"]:hover .swiper-pagination {
+    opacity: 1;
+  }
+
+  .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+    background: rgba(255, 255, 255, 0.7) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    opacity: 1 !important;
+    margin: 0 6px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    will-change: transform !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    transform: scale(1.1);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .swiper-pagination-bullet:hover {
     transform: scale(1.05);
+  }
+
+  /* Color-specific pagination styles */
+  [class*="pagination-visit-cards"] .swiper-pagination-bullet-active {
+    background-color: #e11d48 !important;
+    border-color: #e11d48 !important;
+  }
+
+  [class*="pagination-books"] .swiper-pagination-bullet-active {
+    background-color: #059669 !important;
+    border-color: #059669 !important;
+  }
+
+  [class*="pagination-print-media"] .swiper-pagination-bullet-active {
+    background-color: #d97706 !important;
+    border-color: #d97706 !important;
+  }
+
+  [class*="pagination-branding"] .swiper-pagination-bullet-active {
+    background-color: #4f46e5 !important;
+    border-color: #4f46e5 !important;
+  }
+
+  [class*="pagination-social-media"] .swiper-pagination-bullet-active {
+    background-color: #0891b2 !important;
+    border-color: #0891b2 !important;
+  }
+
+  [class*="pagination-catalogs"] .swiper-pagination-bullet-active {
+    background-color: #9333ea !important;
+    border-color: #9333ea !important;
+  }
+
+  /* Touch/mobile improvements */
+  @media (max-width: 768px) {
+    .category-nav-btn {
+      opacity: 1 !important;
+      width: 40px !important;
+      height: 40px !important;
+    }
+    
+    .swiper-pagination {
+      opacity: 1;
+    }
+
+    .swiper-container {
+      border-radius: 0.75rem;
+    }
   }
 
   /* Image loading styles */
@@ -969,14 +1065,6 @@ const { category } = Astro.props;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
     animation: shimmer 1.5s infinite;
     transform: translateX(-100%);
-  }
-  
-  .fullscreen-loading {
-    background-color: transparent;
-  }
-  
-  .fullscreen-loading::after {
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
   }
 
   img {
@@ -1004,4 +1092,351 @@ const { category } = Astro.props;
   #fullImage.loaded {
     opacity: 1;
   }
-</style> 
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+  import 'swiper/css';
+  import 'swiper/css/navigation';
+  import 'swiper/css/pagination';
+  import { preloadImage, getCachedImage } from '../../utils/imageCache';
+
+  // Color mapping for pagination
+  const colorMap: Record<string, string> = {
+    'visit-cards': '#e11d48',
+    'books': '#059669', 
+    'print-media': '#d97706',
+    'branding': '#4f46e5',
+    'social-media': '#0891b2',
+    'catalogs': '#9333ea'
+  };
+
+  // Get current category from URL
+  const categoryId = window.location.pathname.split('/').pop() || 'catalogs';
+  const currentColor = colorMap[categoryId] || '#9333ea';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    // Setup image loading and click handlers first
+    setupImageLoading();
+    setupFullscreenHandlers();
+
+    // Initialize all Swiper instances
+    const swiperContainers = document.querySelectorAll('.swiper-container');
+    
+    swiperContainers.forEach((container, index) => {
+      const swiper = new Swiper(container as HTMLElement, {
+        modules: [Navigation, Pagination, Autoplay],
+        slidesPerView: 1,
+        spaceBetween: 0,
+        grabCursor: true,
+        touchRatio: 1,
+        resistance: true,
+        resistanceRatio: 0.85,
+        loop: container.querySelectorAll('.swiper-slide').length > 1,
+        speed: 600,
+        autoplay: container.querySelectorAll('.swiper-slide').length > 1 ? {
+          delay: 5000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        } : false,
+        navigation: {
+          nextEl: container.querySelector(`.category-nav-next-${index}`) as HTMLElement,
+          prevEl: container.querySelector(`.category-nav-prev-${index}`) as HTMLElement,
+        },
+        pagination: {
+          el: container.querySelector(`.pagination-${categoryId}-${index}`) as HTMLElement,
+          clickable: true,
+          dynamicBullets: false,
+        },
+        on: {
+          init: function() {
+            // Apply colors after initialization
+            setTimeout(() => {
+              const bullets = container.querySelectorAll('.swiper-pagination-bullet');
+              bullets.forEach((bullet: Element) => {
+                const htmlBullet = bullet as HTMLElement;
+                if (htmlBullet.classList.contains('swiper-pagination-bullet-active')) {
+                  htmlBullet.style.backgroundColor = currentColor;
+                  htmlBullet.style.borderColor = currentColor;
+                }
+              });
+            }, 100);
+          },
+          slideChange: function() {
+            // Reapply colors on slide change
+            const bullets = container.querySelectorAll('.swiper-pagination-bullet');
+            bullets.forEach((bullet: Element) => {
+              const htmlBullet = bullet as HTMLElement;
+              if (htmlBullet.classList.contains('swiper-pagination-bullet-active')) {
+                htmlBullet.style.backgroundColor = currentColor;
+                htmlBullet.style.borderColor = currentColor;
+              } else {
+                htmlBullet.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+                htmlBullet.style.borderColor = 'rgba(255, 255, 255, 0.8)';
+              }
+            });
+          }
+        }
+      });
+    });
+  });
+
+  // Setup image loading and click handlers
+  function setupImageLoading() {
+    document.querySelectorAll('img[data-fullview]').forEach(img => {
+      // Create and add loading indicator
+      const parent = img.parentElement;
+      if (parent && !parent.querySelector('.loading-indicator')) {
+        // Add a loading indicator div
+        const loadingDiv = document.createElement('div');
+        loadingDiv.className = 'loading-indicator';
+        parent.appendChild(loadingDiv);
+        
+        // Handler to remove loading indicator
+        const removeLoading = () => {
+          img.classList.add('loaded');
+          loadingDiv.remove();
+        };
+        
+        // Add load event to remove loading state
+        img.addEventListener('load', removeLoading);
+        
+        // For already loaded images
+        if ((img as HTMLImageElement).complete) {
+          removeLoading();
+        }
+      }
+    });
+  }
+
+  // Initialize image viewers for all images with data-fullview
+  let currentImages: string[] = [];
+  let currentIndex = 0;
+  
+  // Setup touch variables
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  // Handle swipe direction
+  function handleSwipe() {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer && !viewer.classList.contains('hidden') && currentImages.length > 1) {
+      const swipeThreshold = 50;
+      const swipeDistance = touchEndX - touchStartX;
+      
+      if (swipeDistance < -swipeThreshold) {
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        updateViewerImage();
+      } else if (swipeDistance > swipeThreshold) {
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        updateViewerImage();
+      }
+    }
+  }
+  
+  // Setup touch events for fullscreen navigation
+  function setupTouchEvents() {
+    const fullImage = document.getElementById('fullImage');
+    if (fullImage) {
+      fullImage.removeEventListener('touchstart', handleTouchStart);
+      fullImage.removeEventListener('touchend', handleTouchEnd);
+      
+      fullImage.addEventListener('touchstart', handleTouchStart, { passive: true });
+      fullImage.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+  }
+  
+  // Touch event handlers
+  function handleTouchStart(e: TouchEvent) {
+    touchStartX = e.changedTouches[0].screenX;
+  }
+  
+  function handleTouchEnd(e: TouchEvent) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }
+
+  // Setup click handlers for both images and fullscreen buttons
+  function setupFullscreenHandlers() {
+    document.querySelectorAll('img[data-fullview]').forEach(img => {
+      img.addEventListener('click', () => {
+        openFullscreenViewer(img as HTMLImageElement);
+      });
+    });
+
+    document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const container = btn.closest('.group, .relative');
+        if (container) {
+          const img = container.querySelector('img[data-fullview]') as HTMLImageElement;
+          if (img) {
+            openFullscreenViewer(img);
+          }
+        }
+      });
+    });
+  }
+
+  // Function to open fullscreen viewer
+  function openFullscreenViewer(img: HTMLImageElement) {
+    const fullview = img.getAttribute('data-fullview');
+    const viewer = document.getElementById('imageViewer');
+    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    
+    if (fullview && viewer && fullImage) {
+      fullImage.classList.remove('loaded');
+      
+      // Find the specific swiper container that contains this image
+      const swiperContainer = img.closest('[class*="category-swiper"]');
+      currentImages = [];
+      
+      if (swiperContainer) {
+        swiperContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
+          const imgSrc = itemImg.getAttribute('data-fullview');
+          if (imgSrc) {
+            currentImages.push(imgSrc);
+          }
+        });
+      }
+      
+      currentIndex = currentImages.indexOf(fullview);
+      
+      fullImage.src = fullview;
+      fullImage.alt = img.alt;
+      
+      fullImage.onload = () => {
+        fullImage.classList.add('loaded');
+        setupTouchEvents();
+      };
+      
+      if (fullImage.complete) {
+        fullImage.classList.add('loaded');
+        setupTouchEvents();
+      }
+      
+      viewer.classList.remove('hidden');
+      viewer.classList.add('flex');
+      
+      document.body.style.overflow = 'hidden';
+
+      const prevButton = document.getElementById('prevImage');
+      const nextButton = document.getElementById('nextImage');
+      if (prevButton && nextButton) {
+        if (currentImages.length <= 1) {
+          prevButton.style.display = 'none';
+          nextButton.style.display = 'none';
+        } else {
+          prevButton.style.display = '';
+          nextButton.style.display = '';
+        }
+      }
+    }
+  }
+
+  // Function to update the viewer image based on current index
+  async function updateViewerImage() {
+    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    
+    if (fullImage && currentImages[currentIndex]) {
+      fullImage.classList.remove('loaded');
+      
+      const cachedResponse = await getCachedImage(currentImages[currentIndex]);
+      if (cachedResponse) {
+        const blob = await cachedResponse.blob();
+        const objectUrl = URL.createObjectURL(blob);
+        fullImage.src = objectUrl;
+        fullImage.classList.add('loaded');
+        fullImage.onload = () => {
+          URL.revokeObjectURL(objectUrl);
+          // Only preload adjacent images, don't preload current again
+          preloadAdjacentImages();
+        };
+      } else {
+        fullImage.src = currentImages[currentIndex];
+        fullImage.onload = async () => {
+          fullImage.classList.add('loaded');
+          // Don't preload current image since we just loaded it
+          preloadAdjacentImages();
+        };
+      }
+      
+      document.querySelectorAll('img[data-fullview]').forEach(img => {
+        if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
+          fullImage.alt = (img as HTMLImageElement).alt;
+        }
+      });
+    }
+  }
+
+  // Function to preload only adjacent images (more conservative)
+  async function preloadAdjacentImages() {
+    if (currentImages.length <= 1) return;
+    
+    const nextIndex = (currentIndex + 1) % currentImages.length;
+    const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+    
+    // Only preload if not already cached to avoid unnecessary network requests
+    const preloadPromises = [];
+    
+    if (nextIndex !== currentIndex) {
+      preloadPromises.push(preloadImage(currentImages[nextIndex]));
+    }
+    
+    if (prevIndex !== currentIndex && prevIndex !== nextIndex) {
+      preloadPromises.push(preloadImage(currentImages[prevIndex]));
+    }
+    
+    await Promise.all(preloadPromises);
+  }
+
+  // Setup navigation handlers
+  document.getElementById('prevImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      updateViewerImage();
+    }
+  });
+  
+  document.getElementById('nextImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      updateViewerImage();
+    }
+  });
+  
+  // Close viewer
+  document.getElementById('closeViewer')?.addEventListener('click', () => {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer) {
+      viewer.classList.add('hidden');
+      viewer.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer && !viewer.classList.contains('hidden')) {
+      if (e.key === 'Escape') {
+        viewer.classList.add('hidden');
+        viewer.classList.remove('flex');
+        document.body.style.overflow = '';
+      } else if (e.key === 'ArrowLeft') {
+        if (currentImages.length > 1) {
+          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+          updateViewerImage();
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (currentImages.length > 1) {
+          currentIndex = (currentIndex + 1) % currentImages.length;
+          updateViewerImage();
+        }
+      }
+    }
+  });
+
+  // Initial setup - moved to DOMContentLoaded
+</script> 
