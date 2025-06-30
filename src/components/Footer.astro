@@ -1,5 +1,5 @@
 ---
-import { Linkedin, Mail, Copyright, Copy, Check } from 'lucide-astro'
+import { Linkedin, Mail, Copyright, Copy, Check, Download, ExternalLink } from 'lucide-astro'
 ---
 
 <footer id="contact" class="scroll-mt-20 relative overflow-hidden py-24 sm:py-32">
@@ -67,6 +67,31 @@ import { Linkedin, Mail, Copyright, Copy, Check } from 'lucide-astro'
               Copied!
             </span>
           </button>
+        </div>
+
+        {/* Download CV Row */}
+        <div class="relative flex group w-full">
+          <a
+            href="/cv.pdf"
+            download="Merjem_Durakovic_CV.pdf"
+            class="flex-1 flex items-center gap-3 sm:gap-4 p-4 sm:p-5 rounded-2xl bg-white hover:bg-gray-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-gray-100 shadow-sm"
+          >
+            <div class="bg-emerald-100/30 p-2.5 sm:p-3 rounded-xl">
+              <Download class="w-5 h-5 sm:w-6 sm:h-6 text-gray-800" />
+            </div>
+            <div class="flex-grow min-w-0 pr-8">
+              <p class="font-semibold text-gray-900 text-base sm:text-lg mb-0.5">Download my CV</p>
+            </div>
+          </a>
+          <a
+            href="/cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 p-1.5 sm:p-2 text-gray-400 hover:text-gray-600 transition-colors duration-300"
+            title="Open CV in new tab"
+          >
+            <ExternalLink class="w-4 h-4 sm:w-5 sm:h-5" />
+          </a>
         </div>
       </div>
 
