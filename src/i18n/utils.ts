@@ -111,7 +111,7 @@ const translations = {
     "category.brand_style_guide": "Vodič Stila Brenda",
     "category.brand_standards": "Standardi Brenda",
     "category.image": "slika",
-    "category.images": "slike",
+    "category.images": "slika",
     "footer.lets_work_together": "Hajde da Radimo Zajedno",
     "footer.send_email": "Pošalji mi email",
     "footer.copy_email": "Kopiraj email",
