@@ -591,7 +591,13 @@ const { category } = Astro.props;
                         id === 'social-media' ? 'bg-cyan-500' :
                         'bg-purple-500'
                       } rounded-full mr-2`}></span>
-                      {item.images.length} {item.images.length === 1 ? t('category.image') : t('category.images')}
+                      {item.images.length} {
+                        item.images.length === 1 
+                          ? t('category.image') 
+                          : item.images.length >= 2 && item.images.length <= 4 
+                            ? t('category.images_2_3_4') 
+                            : t('category.images_5_plus')
+                      }
                     </span>
                   </div>
                 </div>

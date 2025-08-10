@@ -112,6 +112,8 @@ const translations = {
     "category.brand_standards": "Standardi Brenda",
     "category.image": "slika",
     "category.images": "slika",
+    "category.images_2_3_4": "slike",
+    "category.images_5_plus": "slika",
     "footer.lets_work_together": "Hajde da Radimo Zajedno",
     "footer.send_email": "Pošalji mi email",
     "footer.copy_email": "Kopiraj email",
