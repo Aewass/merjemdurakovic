@@ -1,8 +1,45 @@
 ---
-import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
+import { Sparkles, ArrowDown, Palette, Layers, Globe } from 'lucide-astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import { languages } from '../i18n/ui';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
 ---
 
 <section id="home" class="min-h-screen flex items-center relative scroll-mt-20 overflow-hidden">
+  <!-- Language Switcher -->
+  <div class="absolute top-8 right-8 z-50">
+    <div class="language-switcher relative">
+      <button
+        id="language-toggle"
+        class="flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-gray-200/50 hover:bg-white hover:shadow-lg transition-all duration-300 text-sm font-medium text-gray-700 hover:scale-105"
+        aria-label="Switch language"
+      >
+        <Globe class="w-4 h-4" />
+        <span class="hidden sm:inline">
+          {lang === 'bs' ? 'BS' : 'EN'}
+        </span>
+      </button>
+      
+      <div
+        id="language-dropdown"
+        class="absolute top-full right-0 mt-2 w-32 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200/50 opacity-0 invisible transition-all duration-300 z-50"
+      >
+        {Object.entries(languages).map(([langCode, label]) => (
+          <a
+            href={translatePath('/', langCode)}
+            class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50/80 transition-colors duration-200 first:rounded-t-xl last:rounded-b-xl hover:scale-105"
+            data-lang={langCode}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
   <!-- Animated Background -->
   <div class="absolute inset-0">
     <div class="absolute inset-0 bg-gradient-to-br from-rose-50 via-violet-50 to-cyan-50"></div>
@@ -30,9 +67,9 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
         <!-- Main heading with creative styling -->
         <div class="space-y-4">
           <h1 class="text-6xl sm:text-7xl lg:text-8xl font-black text-gray-900 leading-tight tracking-tight">
-        Hello, I'm 
+        {t('hero.greeting')} 
                         <span class="relative inline-block hero-name">
-              Merjem
+              {t('hero.name')}
             </span>
       </h1>
         </div>
@@ -40,7 +77,7 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
         <!-- Enhanced description -->
         <div class="max-w-2xl space-y-6">
           <p class="text-lg sm:text-xl text-gray-700 leading-relaxed font-light">
-            A graphic designer and visual artist crafting purposeful, visually coherent identities. My work spans across <span class="font-medium text-indigo-600">brand development</span>, <span class="font-medium text-cyan-600">digital</span> and <span class="font-medium text-rose-600">print media</span>, with a refined sense for <span class="font-medium text-violet-600">typographic systems</span> and <span class="font-medium text-emerald-600">color dynamics</span>. I create everything from <span class="font-medium text-amber-600">logos</span> and <span class="font-medium text-cyan-600">social media content</span> to <span class="font-medium text-rose-600">brochures</span>, <span class="font-medium text-purple-600">catalogs</span>, and <span class="font-medium text-indigo-600">editorial design</span> — always with clarity, function, and aesthetic balance in mind.
+            {t('hero.description')}
           </p>
         </div>
 
@@ -53,7 +90,7 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
             <div class="absolute inset-0 bg-gradient-to-r from-rose-500 via-violet-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <span class="relative z-10 flex items-center gap-3">
               <Layers class="w-5 h-5" />
-          View My Work
+          {t('hero.view_work')}
             </span>
             <div class="absolute -inset-1 bg-gradient-to-r from-rose-500 via-violet-500 to-cyan-500 rounded-2xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10"></div>
         </a>
@@ -64,7 +101,7 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
           >
             <span class="flex items-center gap-3">
               <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-          Let's Talk
+          {t('hero.lets_talk')}
             </span>
           </a>
         </div>
@@ -87,11 +124,11 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
                       <Palette class="w-5 h-5 text-white" />
                     </div>
                     <div class="bg-white/20 backdrop-blur-md px-3 py-1 rounded-full">
-                      <span class="text-white font-semibold text-sm">Featured Work</span>
+                      <span class="text-white font-semibold text-sm">{t('portfolio.featured_work')}</span>
                     </div>
                   </div>
-                  <h3 class="text-white font-bold text-xl mb-1">Travel Catalog</h3>
-                  <p class="text-white/80 text-sm">Professional brochure design</p>
+                  <h3 class="text-white font-bold text-xl mb-1">{t('portfolio.travel_catalog')}</h3>
+                  <p class="text-white/80 text-sm">{t('portfolio.professional_brochure')}</p>
                 </div>
               </div>
             </div>
@@ -106,12 +143,12 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
                     <div class="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
                       <Sparkles class="w-4 h-4 text-white" />
                     </div>
-                    <span class="text-white font-bold text-sm">Brand Identity</span>
+                    <span class="text-white font-bold text-sm">{t('portfolio.brand_identity')}</span>
                   </div>
                 </div>
                 <div class="absolute bottom-4 left-4">
                   <p class="text-white font-semibold">AC Mint</p>
-                  <p class="text-white/80 text-xs">Complete brand system</p>
+                  <p class="text-white/80 text-xs">{t('portfolio.complete_brand_system')}</p>
                 </div>
               </div>
             </div>
@@ -124,8 +161,8 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
                     <Layers class="w-5 h-5 text-white" />
                   </div>
                   <div>
-                    <span class="text-cyan-700 font-bold text-sm block">Social Media</span>
-                    <span class="text-cyan-600 text-xs">Creative campaigns</span>
+                    <span class="text-cyan-700 font-bold text-sm block">{t('portfolio.social_media')}</span>
+                    <span class="text-cyan-600 text-xs">{t('portfolio.creative_campaigns')}</span>
                   </div>
                 </div>
                 <div class="grid grid-cols-2 gap-3 h-36">
@@ -151,9 +188,9 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
                     <div class="w-7 h-7 bg-white/20 backdrop-blur-sm rounded-lg flex items-center justify-center">
                       <ArrowDown class="w-3 h-3 text-white" />
                     </div>
-                    <span class="text-white font-semibold text-sm">Print Media</span>
+                    <span class="text-white font-semibold text-sm">{t('portfolio.print_media')}</span>
                   </div>
-                  <p class="text-white/90 text-xs">Trifold brochures & flyers</p>
+                  <p class="text-white/90 text-xs">{t('portfolio.trifold_brochures')}</p>
                 </div>
               </div>
             </div>
@@ -293,4 +330,39 @@ import { Sparkles, ArrowDown, Palette, Layers } from 'lucide-astro';
     0%, 100% { filter: brightness(1); }
     50% { filter: brightness(1.05); }
   }
-</style> 
+</style>
+
+<script>
+  const toggle = document.getElementById('language-toggle');
+  const dropdown = document.getElementById('language-dropdown');
+  
+  if (toggle && dropdown) {
+    toggle.addEventListener('click', () => {
+      const isVisible = dropdown.classList.contains('opacity-100');
+      
+      if (isVisible) {
+        dropdown.classList.remove('opacity-100', 'visible');
+        dropdown.classList.add('opacity-0', 'invisible');
+      } else {
+        dropdown.classList.add('opacity-100', 'visible');
+        dropdown.classList.remove('opacity-0', 'invisible');
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target as Node) && !dropdown.contains(e.target as Node)) {
+        dropdown.classList.remove('opacity-100', 'visible');
+        dropdown.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    // Close dropdown on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('opacity-100', 'visible');
+        dropdown.classList.add('opacity-0', 'invisible');
+      }
+    });
+  }
+</script> 

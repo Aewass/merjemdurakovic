@@ -1,5 +1,9 @@
 ---
 import PortfolioItem from './PortfolioItem.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 type Category = {
   number: string;
@@ -15,42 +19,42 @@ const categories: Category[] = [
   {
     number: "01",
     name: "branding", 
-    title: "Branding",
+    title: t('portfolio.branding'),
     titleImage: "/branding/branding-ac-mint/1.jpg",
     color: "indigo",
   },
 {
     number: "02",
     name: "catalogs",
-    title: "Brochures and Catalogs",
+    title: t('portfolio.brochures_catalogs'),
     titleImage: "/catalogs/catalog-iform/1.png",
     color: "purple",
   },
   {
     number: "03",
     name: "visit-cards",
-    title: "Visit Cards",
+    title: t('portfolio.visit_cards'),
     titleImage: "/visit-cards/visit-card-lezaj-trade/1.jpg",
     color: "rose",
   },
   {
     number: "04",
     name: "books",
-    title: "Cover Design",
+    title: t('portfolio.cover_design'),
     titleImage: "/books/book/1.jpg",
     color: "emerald",
   },
   {
     number: "05",
     name: "print-media",
-    title: "Various Print Media Works",
+    title: t('portfolio.print_media_works'),
     titleImage: "/print-media/fascicle-zerromax/1.jpg",
     color: "amber",
   },
   {
     number: "06",
     name: "social-media",
-    title: "Social Media Content",
+    title: t('portfolio.social_media_content'),
     titleImage: "/social-media/social-adblue/0.jpg",
     color: "cyan",
   },
@@ -81,7 +85,7 @@ const categories: Category[] = [
           <div class="portfolio-item-wrapper">
           <PortfolioItem 
             number={category.number}
-            category="Category"
+            category=""
             title={category.title}
             color={category.color}
             name={category.name}

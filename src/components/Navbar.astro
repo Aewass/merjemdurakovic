@@ -1,45 +1,37 @@
 ---
-import { Image } from 'astro:assets';
-import Logo from '../assets/logo.svg';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <nav class="fixed w-full z-20 top-0 transition-all duration-500" id="navbar">
   <div class="max-w-6xl mx-auto px-6 sm:px-8 py-6">
-    <div class="flex justify-between items-center">
-      <a 
-        href="#home" 
-        class="hover:opacity-75 transition-opacity duration-300"
-      >
-        <Image 
-          src={Logo} 
-          alt="Merjem Durakovic" 
-          class="h-12 w-auto"
-          width={117}
-          height={79}
-        />
-      </a>
-      <div class="flex gap-6">
+    <div class="flex justify-center items-center">
+      <div class="flex items-center gap-6">
         <a 
         href="#home" 
         class="relative group"
       >
-        <span class="hover:text-gray-600 transition-colors duration-300">Home</span>
-        <div class="absolute -bottom-1 left-0 w-full h-0.5 bg-gray-900/75 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
-      </a>
+          <span class="hover:text-gray-600 transition-colors duration-300">{t('nav.home')}</span>
+          <div class="absolute -bottom-1 left-0 w-full h-0.5 bg-gray-900/75 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+        </a>
         <a 
           href="#portfolio" 
           class="relative group"
         >
-          <span class="hover:text-gray-600 transition-colors duration-300">Portfolio</span>
+          <span class="hover:text-gray-600 transition-colors duration-300">{t('nav.portfolio')}</span>
           <div class="absolute -bottom-1 left-0 w-full h-0.5 bg-gray-900/75 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
         </a>
         <a 
           href="#contact" 
           class="relative group"
         >
-          <span class="hover:text-gray-600 transition-colors duration-300">Contact</span>
+          <span class="hover:text-gray-600 transition-colors duration-300">{t('nav.contact')}</span>
           <div class="absolute -bottom-1 left-0 w-full h-0.5 bg-gray-900/75 scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
         </a>
+        <LanguageSwitcher />
       </div>
     </div>
   </div>

@@ -1,8 +1,8 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Footer from '../../components/Footer.astro';
+import Layout from '../../../layouts/Layout.astro';
+import Footer from '../../../components/Footer.astro';
 import { ArrowLeft, Maximize2, ChevronLeft, ChevronRight, X } from 'lucide-astro';
-import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../i18n/utils';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../../../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -36,143 +36,143 @@ export function getStaticPaths() {
       props: {
         category: {
           number: "01",
-          title: "Branding",
-          category: "Category",
-          description: "Visual identity system for Auto Centar Mint, based on an existing logo and color palette. Expanded into a full brand guidelines book with defined typography, layout, iconography, visual elements, and usage rules. Applied across business cards, letterheads, branded materials like mugs and clothing.",
+          title: "Brending",
+          category: "Kategorija",
+          description: "Sistem vizuelnog identiteta za Auto Centar Mint, baziran na postojećem logotipu i paleti boja. Proširen u kompletnu knjigu smernica brenda sa definisanom tipografijom, layoutom, ikonografijom, vizuelnim elementima i pravilima korišćenja. Primenjen na poslovne kartice, pisma, brendirane materijale poput šolja i odeće.",
           items: [
             {
               name: "AC Mint",
-              description: "Brand identity",
+              description: "Identitet brenda",
               images: [
                 { 
                   src: "/branding/branding-ac-mint/1.jpg", 
-                  alt: "AC Mint brand identity",
-                  caption: "Logo design and visual identity" 
+                  alt: "AC Mint identitet brenda",
+                  caption: "Dizajn logotipa i vizuelni identitet" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/2.jpg", 
-                  alt: "AC Mint logo design",
-                  caption: "Logo variations and applications" 
+                  alt: "AC Mint dizajn logotipa",
+                  caption: "Varijacije logotipa i primene" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/3.jpg", 
-                  alt: "AC Mint brand applications",
-                  caption: "Brand applications and stationery" 
+                  alt: "AC Mint primene brenda",
+                  caption: "Primene brenda i papirologija" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/4.jpg", 
-                  alt: "AC Mint packaging design",
-                  caption: "Packaging design solutions" 
+                  alt: "AC Mint dizajn ambalaže",
+                  caption: "Rešenja dizajna ambalaže" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/5.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/6.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/7.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/8.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/9.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/10.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/11.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/12.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/13.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/14.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/15.jpg", 
-                  alt: "AC Mint brand guidelines",    
-                  caption: "Brand style guide and standards" 
+                  alt: "AC Mint smernice brenda",    
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/16.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/17.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
-                },  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
+                },
                 { 
                   src: "/branding/branding-ac-mint/18.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/19.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/20.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/21.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/22.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/23.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"    
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/24.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 },
                 { 
                   src: "/branding/branding-ac-mint/25.jpg", 
-                  alt: "AC Mint brand guidelines",
-                  caption: "Brand style guide and standards"  
+                  alt: "AC Mint smernice brenda",
+                  caption: "Vodič stila brenda i standardi" 
                 }
               ]
             }
           ]
-        } as CategoryData
+        }
       }
     },
     {
@@ -180,322 +180,277 @@ export function getStaticPaths() {
       props: {
         category: {
           number: "02",
-          title: "Brochures and Catalogs",
-          category: "Category",
-          description: "This section features print materials such as brochures, catalogs, reports, and guides from various fields. Each project reflects the brand's style, tone, and visual language tailored to its context.",
+          title: "Brošure i Katalozi",
+          category: "Kategorija",
+          description: "Ova sekcija sadrži štampane materijale kao što su brošure, katalozi, izveštaji i vodiči iz različitih oblasti. Svaki projekat odražava stil brenda, ton i vizuelni jezik prilagođen svom kontekstu.",
           items: [
             {
               name: "iForm",
-              description: "Carbon Footprint Report",
+              description: "Izveštaj o ugljeničnom otisku",
               images: [
                 { 
                   src: "/catalogs/catalog-iform/1.png", 
-                  alt: "iform catalog page 1",
-                  caption: "Product showcase page" 
+                  alt: "iform katalog strana 1",
+                  caption: "Stranica za prikaz proizvoda" 
                 },
                 { 
                   src: "/catalogs/catalog-iform/2.png", 
-                  alt: "iform catalog page 2",
-                  caption: "Technical specifications" 
+                  alt: "iform katalog strana 2",
+                  caption: "Tehničke specifikacije" 
                 }
               ]
             },
             {
               name: "Ležaj Trade",
-              description: "Catalog for Industrial Sales Program",
+              description: "Katalog za industrijski program prodaje",
               images: [
-                { src: "/catalogs/catalog-lezaj-trade/2.png", alt: "Lezaj Trade catalog page 1" },
-                { src: "/catalogs/catalog-lezaj-trade/3.png", alt: "Lezaj Trade catalog page 3" },
+                { src: "/catalogs/catalog-lezaj-trade/2.png", alt: "Lezaj Trade katalog strana 1" },
+                { src: "/catalogs/catalog-lezaj-trade/3.png", alt: "Lezaj Trade katalog strana 3" },
               ]
             },
             {
               name: "Mega Trans",
-              description: "Carbon Footprint Report",
+              description: "Izveštaj o ugljeničnom otisku",
               images: [
-                { src: "/catalogs/catalog-mega/1.png", alt: "Mega catalog page 1" },
-                { src: "/catalogs/catalog-mega/2.png", alt: "Mega catalog page 2" },
+                { src: "/catalogs/catalog-mega/1.png", alt: "Mega katalog strana 1" },
+                { src: "/catalogs/catalog-mega/2.png", alt: "Mega katalog strana 2" },
               ]
             },
             {
-              name: "Shams Travel",
-              description: "Catalog for the Travel Agency and Their Offers",
+              name: "Shams",
+              description: "Katalog proizvoda",
               images: [
-                { src: "/catalogs/catalog-shams/2.png", alt: "Shams catalog page 2" },
-                { src: "/catalogs/catalog-shams/3.png", alt: "Shams catalog page 3" }
+                { src: "/catalogs/catalog-shams/1.png", alt: "Shams katalog strana 1" },
+                { src: "/catalogs/catalog-shams/2.png", alt: "Shams katalog strana 2" },
+                { src: "/catalogs/catalog-shams/3.png", alt: "Shams katalog strana 3" },
               ]
             },
             {
-              name: "Stanić",
-              description: "Carbon Footprint Report",
+              name: "Stanic",
+              description: "Katalog proizvoda",
               images: [
-                { src: "/catalogs/catalog-stanic/1.png", alt: "Stanic catalog page 1" },
-                { src: "/catalogs/catalog-stanic/3.jpg", alt: "Stanic catalog page 3" },
+                { src: "/catalogs/catalog-stanic/1.png", alt: "Stanic katalog strana 1" },
+                { src: "/catalogs/catalog-stanic/2.png", alt: "Stanic katalog strana 2" },
+                { src: "/catalogs/catalog-stanic/3.jpg", alt: "Stanic katalog strana 3" },
               ]
             },
             {
               name: "ZGI",
-              description: "Carbon Footprint Report for ZGI 2023. and 2024.",
+              description: "Katalog proizvoda",
               images: [
-                { src: "/catalogs/catalog-zgi/1.jpg", alt: "ZGI catalog page 1" },
-                { src: "/catalogs/catalog-zgi/2.jpg", alt: "ZGI catalog page 2" },
-                { src: "/catalogs/catalog-zgi/3.jpg", alt: "ZGI catalog page 3" },
-                { src: "/catalogs/catalog-zgi2/1.jpg", alt: "ZGI Vol.2 catalog page 1" },
-                { src: "/catalogs/catalog-zgi2/2.jpg", alt: "ZGI Vol.2 catalog page 2" },
-                { src: "/catalogs/catalog-zgi2/3.jpg", alt: "ZGI Vol.2 catalog page 3" }
+                { src: "/catalogs/catalog-zgi/1.jpg", alt: "ZGI katalog strana 1" },
+                { src: "/catalogs/catalog-zgi/2.jpg", alt: "ZGI katalog strana 2" },
+                { src: "/catalogs/catalog-zgi/3.jpg", alt: "ZGI katalog strana 3" },
               ]
             },
-           
+            {
+              name: "ZGI 2",
+              description: "Katalog proizvoda",
+              images: [
+                { src: "/catalogs/catalog-zgi2/1.jpg", alt: "ZGI 2 katalog strana 1" },
+                { src: "/catalogs/catalog-zgi2/2.jpg", alt: "ZGI 2 katalog strana 2" },
+                { src: "/catalogs/catalog-zgi2/3.jpg", alt: "ZGI 2 katalog strana 3" },
+              ]
+            }
           ]
-        } as CategoryData
+        }
       }
     },
     {
       params: { id: 'visit-cards' },
       props: {
         category: {
-          number: "02",
-          title: "Visit Cards",
-          category: "Category",
-          description: "Business card designs combining clear structure, strong typography, and material detail to leave a lasting impression. Each card reflects the brands identity while staying functional, readable, and visually distinct.",
+          number: "03",
+          title: "Vizit Karte",
+          category: "Kategorija",
+          description: "Profesionalni dizajni poslovnih kartica koji hvataju suštinu svakog brenda uz održavanje funkcionalnosti i čitljivosti.",
           items: [
             {
-              name: "Ležaj Trade Business Card Design",
-              description: "",
+              name: "Ležaj Trade",
+              description: "Dizajn poslovne kartice",
               images: [
-                { 
-                  src: "/visit-cards/visit-card-lezaj-trade/1.jpg", 
-                  alt: "Ležaj Trade visit card",
-                  caption: "Front design" 
-                }
+                { src: "/visit-cards/visit-card-lezaj-trade/1.jpg", alt: "Lezaj Trade poslovna kartica" }
               ]
             },
             {
-              name: "ZerroMax Business Card Design",
-              description: "",
+              name: "Zerro Max",
+              description: "Dizajn poslovne kartice",
               images: [
-                { 
-                  src: "/visit-cards/visit-card-zerro-max/2.jpg", 
-                  alt: "ZerroMax visit card",
-                  caption: "Complete business card design" 
-                }
+                { src: "/visit-cards/visit-card-zerro-max/2.jpg", alt: "Zerro Max poslovna kartica" }
               ]
             }
           ]
-        } as CategoryData
+        }
       }
     },
     {
       params: { id: 'books' },
       props: {
         category: {
-          number: "03",
-          title: "Cover Design",
-          category: "Category",
-          description: "This section showcases my book design work, where I focus on creating covers. In my designs, I pay close attention to typography, composition, and aesthetics, while adhering to standards for both print and digital formats.",
+          number: "04",
+          title: "Dizajn Naslovnica",
+          category: "Kategorija",
+          description: "Dizajni naslovnica knjiga koji hvataju suštinu sadržaja uz stvaranje vizuelne privlačnosti i tržišne vrednosti.",
           items: [
             {
-              name: "Dramaturgija Evropskog Lutkarstva Fragmenti",
-              description: "Cover design for a book about puppetry",
+              name: "Dizajn Knjiga",
+              description: "Dizajn naslovnica za različite publikacije",
               images: [
-                { 
-                  src: "/books/book/1.jpg", 
-                  alt: "Book design page 1",
-                  caption: "Cover design" 
-                },
-                { 
-                  src: "/books/book/2.jpg", 
-                  alt: "Book design page 2",
-                  caption: "Internal layout" 
-                },
-                { 
-                  src: "/books/book/3.jpg", 
-                  alt: "Book design page 3",
-                  caption: "Chapter opening page" 
-                }
+                { src: "/books/book/1.jpg", alt: "Dizajn naslovnice knjige 1" },
+                { src: "/books/book/2.jpg", alt: "Dizajn naslovnice knjige 2" },
+                { src: "/books/book/3.jpg", alt: "Dizajn naslovnice knjige 3" }
               ]
             }
           ]
-        } as CategoryData
+        }
       }
     },
     {
       params: { id: 'print-media' },
       props: {
         category: {
-          number: "04",
-          title: "Various Print Media Works",
-          category: "Category",
-          description: "My print media portfolio showcases versatile design solutions across various formats including flyers, folders, and trifold brochures. Each piece is thoughtfully designed to effectively communicate the client's message through strategic use of layout, typography, and visual elements. I prioritize both aesthetic appeal and practical functionality, ensuring that each design serves its intended purpose while maintaining visual impact.",
+          number: "05",
+          title: "Razni Štampani Mediji",
+          category: "Kategorija",
+          description: "Raznovrsna kolekcija štampanih materijala uključujući letke, brošure i druge promotivne materijale dizajnirane za različite industrije i svrhe.",
           items: [
-          {
-              name: "Express Wood",
-              description: "Letterhead design",
+            {
+              name: "Zerro Max Fascikl",
+              description: "Dizajn brošure proizvoda",
               images: [
-                { 
-                  src: "/print-media/memorandum-express/1.jpg", 
-                  alt: "Express Wood memorandum page 1",
-                  caption: "Letterhead design" 
-                },
+                { src: "/print-media/fascicle-zerromax/1.jpg", alt: "Zerro Max fascikl strana 1" },
+                { src: "/print-media/fascicle-zerromax/2.jpg", alt: "Zerro Max fascikl strana 2" }
               ]
             },
             {
-              name: "ZerroMax",
-              description: "Folder design",
+              name: "AdBlue Letak",
+              description: "Dizajn letka proizvoda",
               images: [
-                { 
-                  src: "/print-media/fascicle-zerromax/1.jpg", 
-                  alt: "Zerromax folder design page 1",
-                  caption: "Front cover design" 
-                },
-                { 
-                  src: "/print-media/fascicle-zerromax/2.jpg", 
-                  alt: "Zerromax folder design page 2",
-                  caption: "Interior spread" 
-                }
+                { src: "/print-media/flyer-adblue/1.jpg", alt: "AdBlue letak" }
               ]
             },
             {
-              name: "Begović BH d.o.o.",
-              description: "Promotional flyer",
+              name: "Doma Letak",
+              description: "Dizajn letka proizvoda",
               images: [
-                { 
-                  src: "/print-media/flyer-adblue/1.jpg", 
-                  alt: "AdBlue flyer design",
-                  caption: "Single page promotional flyer" 
-                }
+                { src: "/print-media/flyer-doma/1.jpg", alt: "Doma letak" }
               ]
             },
             {
-              name: "Pogrebno Preduzeće Palma",
-              description: "Promotional flyer",
+              name: "Palma Letak",
+              description: "Dizajn letka proizvoda",
               images: [
-                { 
-                  src: "/print-media/flyer-palma/1.jpg", 
-                  alt: "Palma flyer design",
-                  caption: "Product promotion flyer" 
-                }
+                { src: "/print-media/flyer-palma/1.jpg", alt: "Palma letak" }
               ]
             },
             {
-              name: "Phoenix Restaurant",
-              description: "Promotional flyer",
+              name: "Phoenix Letak",
+              description: "Dizajn letka proizvoda",
               images: [
-                { 
-                  src: "/print-media/flyer-phoenix/1.jpg", 
-                  alt: "Phoenix flyer design",
-                  caption: "Event promotional material" 
-                }
+                { src: "/print-media/flyer-phoenix/1.jpg", alt: "Phoenix letak" }
               ]
             },
             {
-              name: "Shams Travel",
-              description: "Promotional flyer",
+              name: "Shams Letak",
+              description: "Dizajn letka proizvoda",
               images: [
-                { 
-                  src: "/print-media/flyer-shams/1.jpg", 
-                  alt: "Shams flyer design",
-                  caption: "Product showcase flyer" 
-                }
+                { src: "/print-media/flyer-shams/1.jpg", alt: "Shams letak" }
               ]
             },
             {
-              name: "Artane d.o.o. Sarajevo",
-              description: "Trifold brochure",
+              name: "Express Memorandum",
+              description: "Dizajn memoranduma",
               images: [
-                { 
-                  src: "/print-media/trifold-artane/1.jpg", 
-                  alt: "Artane trifold brochure page 1",
-                  caption: "Front panel design" 
-                },
-                { 
-                  src: "/print-media/trifold-artane/2.jpg", 
-                  alt: "Artane trifold brochure page 2",
-                  caption: "Interior panels layout" 
-                },
-                { 
-                  src: "/print-media/trifold-artane/3.jpg", 
-                  alt: "Artane trifold brochure page 3",
-                  caption: "Back panel design" 
-                }
+                { src: "/print-media/memorandum-express/1.jpg", alt: "Express memorandum" }
+              ]
+            },
+            {
+              name: "Artane Trosklop",
+              description: "Dizajn trosklopne brošure",
+              images: [
+                { src: "/print-media/trifold-artane/1.jpg", alt: "Artane trosklop strana 1" },
+                { src: "/print-media/trifold-artane/2.jpg", alt: "Artane trosklop strana 2" },
+                { src: "/print-media/trifold-artane/3.jpg", alt: "Artane trosklop strana 3" }
               ]
             }
           ]
-        } as CategoryData
+        }
       }
     },
     {
       params: { id: 'social-media' },
       props: {
         category: {
-          number: "05",
-          title: "Social Media Design",
-          category: "Category",
-          description: "My social media design work focuses on creating engaging and visually appealing content that effectively communicates brand messages across various platforms. Each design is crafted to capture attention, drive engagement, and maintain brand consistency while adapting to the unique requirements of different social media channels.",
+          number: "06",
+          title: "Sadržaj Društvenih Mreža",
+          category: "Kategorija",
+          description: "Kreativne kampanje na društvenim mrežama i sadržaj dizajniran za angažovanje publike i promociju brendova na različitim platformama.",
           items: [
             {
-              name: "Begović BH d.o.o.",
-              description: "Social media content",
+              name: "AdBlue",
+              description: "Kampanja na društvenim mrežama",
               images: [
-                { src: "/social-media/social-adblue/1.jpg", alt: "AdBlue social media design 1" },
-                { src: "/social-media/social-adblue/2.jpg", alt: "AdBlue social media design 2" },
-                { src: "/social-media/social-adblue/4.jpg", alt: "AdBlue social media design 3" },
-                { src: "/social-media/social-adblue/3.jpg", alt: "AdBlue social media design 4" },
-                { src: "/social-media/social-adblue/5.jpg", alt: "AdBlue social media design 5" },
+                { src: "/social-media/social-adblue/0.jpg", alt: "AdBlue sadržaj društvenih mreža" },
+                { src: "/social-media/social-adblue/1.jpg", alt: "AdBlue sadržaj društvenih mreža" },
+                { src: "/social-media/social-adblue/2.jpg", alt: "AdBlue sadržaj društvenih mreža" },
+                { src: "/social-media/social-adblue/3.jpg", alt: "AdBlue sadržaj društvenih mreža" },
+                { src: "/social-media/social-adblue/4.jpg", alt: "AdBlue sadržaj društvenih mreža" },
+                { src: "/social-media/social-adblue/5.jpg", alt: "AdBlue sadržaj društvenih mreža" }
               ]
             },
             {
-              name: "Doma d.o.o.",
-              description: "Social media content",
+              name: "Doma",
+              description: "Kampanja na društvenim mrežama",
               images: [
-                { src: "/social-media/social-doma/3.jpg", alt: "Doma social media design 1" },
-                { src: "/social-media/social-doma/4.jpg", alt: "Doma social media design 2" },
-                { src: "/social-media/social-doma/5.jpg", alt: "Doma social media design 3" },
-                { src: "/social-media/social-doma/1.jpg", alt: "Doma social media design 4" },
-                { src: "/social-media/social-doma/2.jpg", alt: "Doma social media design 5" },
+                { src: "/social-media/social-doma/1.jpg", alt: "Doma sadržaj društvenih mreža" },
+                { src: "/social-media/social-doma/2.jpg", alt: "Doma sadržaj društvenih mreža" },
+                { src: "/social-media/social-doma/3.jpg", alt: "Doma sadržaj društvenih mreža" },
+                { src: "/social-media/social-doma/4.jpg", alt: "Doma sadržaj društvenih mreža" },
+                { src: "/social-media/social-doma/5.jpg", alt: "Doma sadržaj društvenih mreža" }
               ]
             },
             {
-              name: "Eurotim Company d.o.o.",
-              description: "Social media content",
+              name: "Eurotim",
+              description: "Kampanja na društvenim mrežama",
               images: [
-                { src: "/social-media/social-eurotim/1.jpg", alt: "Eurotim social media design 1" },
-                { src: "/social-media/social-eurotim/4.jpg", alt: "Eurotim social media design 2" },
-                { src: "/social-media/social-eurotim/2.jpg", alt: "Eurotim social media design 3" },
-                { src: "/social-media/social-eurotim/3.jpg", alt: "Eurotim social media design 4" },
-                { src: "/social-media/social-eurotim/5.jpg", alt: "Eurotim social media design 5" },
+                { src: "/social-media/social-eurotim/1.jpg", alt: "Eurotim sadržaj društvenih mreža" },
+                { src: "/social-media/social-eurotim/2.jpg", alt: "Eurotim sadržaj društvenih mreža" },
+                { src: "/social-media/social-eurotim/3.jpg", alt: "Eurotim sadržaj društvenih mreža" },
+                { src: "/social-media/social-eurotim/4.jpg", alt: "Eurotim sadržaj društvenih mreža" },
+                { src: "/social-media/social-eurotim/5.jpg", alt: "Eurotim sadržaj društvenih mreža" }
               ]
             },
             {
-              name: "Mehanizmi.ba",
-              description: "Social media content",
+              name: "Mehanizmi",
+              description: "Kampanja na društvenim mrežama",
               images: [
-                { src: "/social-media/social-mehanizmi/1.png", alt: "Mehanizmi social media design 1" },
-                { src: "/social-media/social-mehanizmi/2.png", alt: "Mehanizmi social media design 2" },
-                { src: "/social-media/social-mehanizmi/3.png", alt: "Mehanizmi social media design 3" },
-                { src: "/social-media/social-mehanizmi/4.png", alt: "Mehanizmi social media design 4" },
-                { src: "/social-media/social-mehanizmi/5.png", alt: "Mehanizmi social media design 5" },
+                { src: "/social-media/social-mehanizmi/1.png", alt: "Mehanizmi sadržaj društvenih mreža" },
+                { src: "/social-media/social-mehanizmi/2.png", alt: "Mehanizmi sadržaj društvenih mreža" },
+                { src: "/social-media/social-mehanizmi/3.png", alt: "Mehanizmi sadržaj društvenih mreža" },
+                { src: "/social-media/social-mehanizmi/4.png", alt: "Mehanizmi sadržaj društvenih mreža" },
+                { src: "/social-media/social-mehanizmi/5.png", alt: "Mehanizmi sadržaj društvenih mreža" }
               ]
             },
             {
               name: "Rework",
-              description: "Social media content",
+              description: "Kampanja na društvenim mrežama",
               images: [
-                { src: "/social-media/social-rework/1.jpg", alt: "Rework social media design 1" },
-                { src: "/social-media/social-rework/2.jpg", alt: "Rework social media design 2" },
-                { src: "/social-media/social-rework/3.jpg", alt: "Rework social media design 3" },
-                { src: "/social-media/social-rework/4.jpg", alt: "Rework social media design 4" },
-                { src: "/social-media/social-rework/5.jpg", alt: "Rework social media design 5" },
+                { src: "/social-media/social-rework/1.jpg", alt: "Rework sadržaj društvenih mreža" },
+                { src: "/social-media/social-rework/2.jpg", alt: "Rework sadržaj društvenih mreža" },
+                { src: "/social-media/social-rework/3.jpg", alt: "Rework sadržaj društvenih mreža" },
+                { src: "/social-media/social-rework/4.jpg", alt: "Rework sadržaj društvenih mreža" },
+                { src: "/social-media/social-rework/5.jpg", alt: "Rework sadržaj društvenih mreža" }
               ]
             }
           ]
-        } as CategoryData
+        }
       }
     }
   ];
 }
 
-const { id } = Astro.params;
 const { category } = Astro.props;
+const { id } = Astro.params;
 ---
 
 <Layout title={`${category.title} - ${category.category}`}>
@@ -806,6 +761,137 @@ const { category } = Astro.props;
 </Layout>
 
 <style>
+  /* Navigation buttons */
+  .category-nav-btn {
+    position: absolute !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    width: 60px !important;
+    height: 60px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(16px) !important;
+    border: none !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    z-index: 20 !important;
+    opacity: 1 !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
+    will-change: transform, opacity !important;
+  }
+
+  .category-nav-btn[class*="prev"] {
+    left: 24px !important;
+  }
+
+  .category-nav-btn[class*="next"] {
+    right: 24px !important;
+  }
+
+  .category-nav-btn:hover {
+    background: rgba(255, 255, 255, 1) !important;
+    transform: translateY(-50%) scale(1.05) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16) !important;
+  }
+
+  .category-nav-btn:active {
+    transform: translateY(-50%) scale(0.95) !important;
+  }
+
+  /* Remove default swiper button styles */
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    display: none !important;
+  }
+
+  /* Touch/mobile improvements */
+  @media (max-width: 768px) {
+    .category-nav-btn {
+      opacity: 1 !important;
+      width: 40px !important;
+      height: 40px !important;
+    }
+    
+    .swiper-pagination {
+      opacity: 1;
+    }
+
+    .swiper-container {
+      border-radius: 0.75rem;
+    }
+  }
+
+  /* Image loading styles */
+  .loading-indicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f3f4f6;
+    z-index: 1;
+    overflow: hidden;
+  }
+  
+  .loading-indicator::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
+    animation: shimmer 1.5s infinite;
+    transform: translateX(-100%);
+  }
+
+  img {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  img.loaded {
+    opacity: 1;
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  #fullImage {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #fullImage.loaded {
+    opacity: 1;
+  }
+
+  /* Swiper Container */
+  .swiper-container {
+    width: 100%;
+  }
+
+  .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: transparent;
+  }
+
+  .swiper-slide img {
+    transition: transform 0.5s ease-out, filter 0.3s ease-out;
+    will-change: transform;
+  }
+
   /* Branding Vertical Stack Layout */
   .branding-vertical-stack {
     width: 100%;
@@ -942,137 +1028,216 @@ const { category } = Astro.props;
     /* This media query will never match, effectively disabling mobile grid styles */
   }
 
-    /* Swiper Container */
-  .swiper-container {
-    width: 100%;
+  /* Social Media Grid Layout */
+  .social-media-grid {
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    gap: 8px;
+    aspect-ratio: 16/9;
+    max-height: 600px;
   }
 
-  .swiper-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    background: transparent;
+  .social-media-grid.images-1 .item-1 {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
   }
 
-  .swiper-slide img {
-    transition: transform 0.5s ease-out, filter 0.3s ease-out;
-    will-change: transform;
+  .social-media-grid.images-2 .item-1 {
+    grid-column: 1 / 7;
+    grid-row: 1 / -1;
   }
 
-  /* Navigation buttons */
-  .category-nav-btn {
-    position: absolute !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    width: 60px !important;
-    height: 60px !important;
-    background: rgba(255, 255, 255, 0.95) !important;
-    backdrop-filter: blur(16px) !important;
-    border: none !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    cursor: pointer !important;
-    z-index: 20 !important;
-    opacity: 1 !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12) !important;
-    will-change: transform, opacity !important;
+  .social-media-grid.images-2 .item-2 {
+    grid-column: 7 / -1;
+    grid-row: 1 / -1;
   }
 
-  .category-nav-btn[class*="prev"] {
-    left: 24px !important;
+  .social-media-grid.images-3 .item-1 {
+    grid-column: 1 / 7;
+    grid-row: 1 / 7;
   }
 
-  .category-nav-btn[class*="next"] {
-    right: 24px !important;
+  .social-media-grid.images-3 .item-2 {
+    grid-column: 7 / -1;
+    grid-row: 1 / 7;
   }
 
-  .category-nav-btn:hover {
-    background: rgba(255, 255, 255, 1) !important;
-    transform: translateY(-50%) scale(1.05) !important;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16) !important;
+  .social-media-grid.images-3 .item-3 {
+    grid-column: 1 / -1;
+    grid-row: 7 / -1;
   }
 
-  .category-nav-btn:active {
-    transform: translateY(-50%) scale(0.95) !important;
+  .social-media-grid.images-4 .item-1 {
+    grid-column: 1 / 7;
+    grid-row: 1 / 7;
   }
 
-  /* Remove default swiper button styles */
-  .swiper-button-prev:after,
-  .swiper-button-next:after {
-    display: none !important;
+  .social-media-grid.images-4 .item-2 {
+    grid-column: 7 / -1;
+    grid-row: 1 / 7;
   }
 
-
-
-  /* Touch/mobile improvements */
-  @media (max-width: 768px) {
-    .category-nav-btn {
-      opacity: 1 !important;
-      width: 40px !important;
-      height: 40px !important;
-    }
-    
-    .swiper-pagination {
-      opacity: 1;
-    }
-
-    .swiper-container {
-      border-radius: 0.75rem;
-    }
+  .social-media-grid.images-4 .item-3 {
+    grid-column: 1 / 7;
+    grid-row: 7 / -1;
   }
 
-  /* Image loading styles */
+  .social-media-grid.images-4 .item-4 {
+    grid-column: 7 / -1;
+    grid-row: 7 / -1;
+  }
+
+  .social-media-grid.images-5 .item-1 {
+    grid-column: 1 / 7;
+    grid-row: 1 / 7;
+  }
+
+  .social-media-grid.images-5 .item-2 {
+    grid-column: 7 / -1;
+    grid-row: 1 / 7;
+  }
+
+  .social-media-grid.images-5 .item-3 {
+    grid-column: 1 / 5;
+    grid-row: 7 / -1;
+  }
+
+  .social-media-grid.images-5 .item-4 {
+    grid-column: 5 / 9;
+    grid-row: 7 / -1;
+  }
+
+  .social-media-grid.images-5 .item-5 {
+    grid-column: 9 / -1;
+    grid-row: 7 / -1;
+  }
+
+  /* Branding Vertical Stack */
+  .branding-vertical-stack {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .branding-image-container {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 
+      0 4px 6px -1px rgba(0, 0, 0, 0.1), 
+      0 2px 4px -1px rgba(0, 0, 0, 0.06),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+
+  /* Image Viewer */
+  #imageViewer {
+    backdrop-filter: blur(8px);
+  }
+
+  #imageViewer img {
+    transition: opacity 0.3s ease;
+  }
+
+  #imageViewer img.loaded {
+    opacity: 1;
+  }
+
+  #imageViewer img:not(.loaded) {
+    opacity: 0;
+  }
+
+  /* Loading Indicator */
   .loading-indicator {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #f3f4f6;
-    z-index: 1;
-    overflow: hidden;
-  }
-  
-  .loading-indicator::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-    animation: shimmer 1.5s infinite;
-    transform: translateX(-100%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 5;
   }
 
-  img {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    position: relative;
-    z-index: 2;
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
   }
 
-  img.loaded {
-    opacity: 1;
-  }
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .category-nav-btn {
+      width: 40px;
+      height: 40px;
+    }
 
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
+    .category-nav-btn.swiper-button-prev {
+      left: 8px;
+    }
+
+    .category-nav-btn.swiper-button-next {
+      right: 8px;
+    }
+
+    .social-media-grid {
+      aspect-ratio: 4/3;
     }
   }
 
-  #fullImage {
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  /* Floating animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1deg); }
+    66% { transform: translateY(-6px) rotate(-1deg); }
   }
 
-  #fullImage.loaded {
-    opacity: 1;
+  .floating-shape {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Portfolio category animations */
+  .portfolio-category {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .portfolio-category.reverse {
+    animation-delay: 0.2s;
+  }
+
+  /* Portfolio item wrapper */
+  .portfolio-item-wrapper {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Hover effects */
+  .catalog-item:hover {
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+  }
+
+  /* Swiper pagination customization */
+  .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.6) !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    opacity: 1 !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .swiper-pagination-bullet-active {
+    background: var(--swiper-pagination-color, #3b82f6) !important;
+    border-color: var(--swiper-pagination-color, #3b82f6) !important;
+    transform: scale(1.2) !important;
   }
 </style>
 
@@ -1082,7 +1247,7 @@ const { category } = Astro.props;
   import 'swiper/css';
   import 'swiper/css/navigation';
   import 'swiper/css/pagination';
-  import { preloadImage, getCachedImage } from '../../utils/imageCache';
+  import { preloadImage, getCachedImage } from '../../../utils/imageCache';
 
   // Color mapping for pagination
   const colorMap: Record<string, string> = {
@@ -1177,26 +1342,27 @@ const { category } = Astro.props;
         
         // Handler to remove loading indicator
         const removeLoading = () => {
-          img.classList.add('loaded');
-          loadingDiv.remove();
+          const indicator = parent.querySelector('.loading-indicator');
+          if (indicator) {
+            indicator.remove();
+          }
         };
-        
-        // Add load event to remove loading state
+
+        // Remove loading indicator when image loads
         img.addEventListener('load', removeLoading);
+        img.addEventListener('error', removeLoading);
         
-        // For already loaded images
-        if ((img as HTMLImageElement).complete) {
-          removeLoading();
-        }
+        // Remove loading indicator after a timeout as fallback
+        setTimeout(removeLoading, 5000);
       }
     });
   }
 
-  // Initialize image viewers for all images with data-fullview
+  // Fullscreen viewer variables
   let currentImages: string[] = [];
   let currentIndex = 0;
-  
-  // Setup touch variables
+
+  // Touch variables for mobile navigation
   let touchStartX = 0;
   let touchEndX = 0;
   
@@ -1303,171 +1469,133 @@ const { category } = Astro.props;
           }
         });
       } else if (socialContainer) {
-        // Handle social media container - get images from the visible layout only
-        const isDesktop = window.innerWidth >= 1024;
-        const targetContainer = isDesktop 
-          ? socialContainer.querySelector('.social-media-grid')
-          : socialContainer.querySelector('[class*="category-swiper"]');
-        
-        if (targetContainer) {
-          targetContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-            const imgSrc = itemImg.getAttribute('data-fullview');
-            if (imgSrc) {
-              currentImages.push(imgSrc);
-            }
-          });
-        }
-      } else {
-        // Fallback: find all images in the current catalog item, but avoid duplicates
-        const catalogItem = img.closest('.catalog-item');
-        if (catalogItem) {
-          const seenImages = new Set();
-          catalogItem.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-            const imgSrc = itemImg.getAttribute('data-fullview');
-            if (imgSrc && !seenImages.has(imgSrc)) {
-              seenImages.add(imgSrc);
-              currentImages.push(imgSrc);
-            }
-          });
-        }
+        // Handle social media container (fallback)
+        socialContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
+          const imgSrc = itemImg.getAttribute('data-fullview');
+          if (imgSrc) {
+            currentImages.push(imgSrc);
+          }
+        });
       }
       
+      // Find the index of the clicked image
       currentIndex = currentImages.indexOf(fullview);
+      if (currentIndex === -1) currentIndex = 0;
       
+      // Show viewer and load image
+      viewer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      setupTouchEvents();
+      
+      // Load the image
       fullImage.src = fullview;
-      fullImage.alt = img.alt;
+      fullImage.alt = img.alt || 'Full size image';
+      
+      // Show image when loaded
+      fullImage.onload = () => {
+        fullImage.classList.add('loaded');
+      };
+      
+      // Update navigation buttons
+      updateNavigationButtons();
+    }
+  }
+
+  // Function to update viewer image
+  function updateViewerImage() {
+    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    if (fullImage && currentImages.length > 0) {
+      fullImage.classList.remove('loaded');
+      fullImage.src = currentImages[currentIndex];
       
       fullImage.onload = () => {
         fullImage.classList.add('loaded');
-        setupTouchEvents();
       };
       
-      if (fullImage.complete) {
-        fullImage.classList.add('loaded');
-        setupTouchEvents();
-      }
-      
-      viewer.classList.remove('hidden');
-      viewer.classList.add('flex');
-      
-      document.body.style.overflow = 'hidden';
-
-      const prevButton = document.getElementById('prevImage');
-      const nextButton = document.getElementById('nextImage');
-      if (prevButton && nextButton) {
-        if (currentImages.length <= 1) {
-          prevButton.style.display = 'none';
-          nextButton.style.display = 'none';
-        } else {
-          prevButton.style.display = '';
-          nextButton.style.display = '';
-        }
-      }
+      updateNavigationButtons();
     }
   }
 
-  // Function to update the viewer image based on current index
-  async function updateViewerImage() {
-    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+  // Function to update navigation buttons
+  function updateNavigationButtons() {
+    const prevBtn = document.getElementById('prevImage');
+    const nextBtn = document.getElementById('nextImage');
     
-    if (fullImage && currentImages[currentIndex]) {
-      fullImage.classList.remove('loaded');
-      
-      const cachedResponse = await getCachedImage(currentImages[currentIndex]);
-      if (cachedResponse) {
-        const blob = await cachedResponse.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        fullImage.src = objectUrl;
-        fullImage.classList.add('loaded');
-        fullImage.onload = () => {
-          URL.revokeObjectURL(objectUrl);
-          // Only preload adjacent images, don't preload current again
-          preloadAdjacentImages();
-        };
-      } else {
-        fullImage.src = currentImages[currentIndex];
-        fullImage.onload = async () => {
-          fullImage.classList.add('loaded');
-          // Don't preload current image since we just loaded it
-          preloadAdjacentImages();
-        };
-      }
-      
-      document.querySelectorAll('img[data-fullview]').forEach(img => {
-        if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
-          fullImage.alt = (img as HTMLImageElement).alt;
-        }
-      });
+    if (prevBtn) {
+      prevBtn.style.display = currentImages.length > 1 ? 'flex' : 'none';
+    }
+    
+    if (nextBtn) {
+      nextBtn.style.display = currentImages.length > 1 ? 'flex' : 'none';
     }
   }
 
-  // Function to preload only adjacent images (more conservative)
-  async function preloadAdjacentImages() {
-    if (currentImages.length <= 1) return;
-    
-    const nextIndex = (currentIndex + 1) % currentImages.length;
-    const prevIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-    
-    // Only preload if not already cached to avoid unnecessary network requests
-    const preloadPromises = [];
-    
-    if (nextIndex !== currentIndex) {
-      preloadPromises.push(preloadImage(currentImages[nextIndex]));
+  // Close viewer function
+  function closeViewer() {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer) {
+      viewer.classList.add('hidden');
+      document.body.style.overflow = '';
     }
-    
-    if (prevIndex !== currentIndex && prevIndex !== nextIndex) {
-      preloadPromises.push(preloadImage(currentImages[prevIndex]));
-    }
-    
-    await Promise.all(preloadPromises);
   }
 
-  // Setup navigation handlers
-  document.getElementById('prevImage')?.addEventListener('click', () => {
+  // Navigation functions
+  function showPrevImage() {
     if (currentImages.length > 1) {
       currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
       updateViewerImage();
     }
-  });
-  
-  document.getElementById('nextImage')?.addEventListener('click', () => {
+  }
+
+  function showNextImage() {
     if (currentImages.length > 1) {
       currentIndex = (currentIndex + 1) % currentImages.length;
       updateViewerImage();
     }
-  });
-  
-  // Close viewer
-  document.getElementById('closeViewer')?.addEventListener('click', () => {
+  }
+
+  // Event listeners for viewer controls
+  document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('closeViewer');
+    const prevBtn = document.getElementById('prevImage');
+    const nextBtn = document.getElementById('nextImage');
     const viewer = document.getElementById('imageViewer');
-    if (viewer) {
-      viewer.classList.add('hidden');
-      viewer.classList.remove('flex');
-      document.body.style.overflow = '';
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeViewer);
     }
-  });
-  
-  // Keyboard navigation
-  document.addEventListener('keydown', (e) => {
-    const viewer = document.getElementById('imageViewer');
-    if (viewer && !viewer.classList.contains('hidden')) {
-      if (e.key === 'Escape') {
-        viewer.classList.add('hidden');
-        viewer.classList.remove('flex');
-        document.body.style.overflow = '';
-      } else if (e.key === 'ArrowLeft') {
-        if (currentImages.length > 1) {
-          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
-          updateViewerImage();
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', showPrevImage);
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', showNextImage);
+    }
+
+    if (viewer) {
+      viewer.addEventListener('click', (e) => {
+        if (e.target === viewer) {
+          closeViewer();
         }
-      } else if (e.key === 'ArrowRight') {
-        if (currentImages.length > 1) {
-          currentIndex = (currentIndex + 1) % currentImages.length;
-          updateViewerImage();
+      });
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (viewer && !viewer.classList.contains('hidden')) {
+        switch (e.key) {
+          case 'Escape':
+            closeViewer();
+            break;
+          case 'ArrowLeft':
+            showPrevImage();
+            break;
+          case 'ArrowRight':
+            showNextImage();
+            break;
         }
       }
-    }
+    });
   });
-
-  // Initial setup - moved to DOMContentLoaded
 </script> 

@@ -1,0 +1,71 @@
+---
+import { Globe } from 'lucide-astro';
+import { languages } from '../i18n/ui';
+import { getLangFromUrl, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const translatePath = useTranslatedPath(lang);
+---
+
+<div class="language-switcher relative">
+  <button
+    id="language-toggle"
+    class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:shadow-md transition-all duration-200 text-sm font-medium text-gray-700"
+    aria-label="Switch language"
+  >
+    <Globe class="w-4 h-4" />
+    <span class="hidden sm:inline">
+      {lang === 'bs' ? 'BS' : 'EN'}
+    </span>
+  </button>
+  
+  <div
+    id="language-dropdown"
+    class="absolute top-full right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible transition-all duration-200 z-50"
+  >
+    {Object.entries(languages).map(([langCode, label]) => (
+      <a
+        href={translatePath('/', langCode)}
+        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-150 first:rounded-t-lg last:rounded-b-lg"
+        data-lang={langCode}
+      >
+        {label}
+      </a>
+    ))}
+  </div>
+</div>
+
+<script>
+  const toggle = document.getElementById('language-toggle');
+  const dropdown = document.getElementById('language-dropdown');
+  
+  if (toggle && dropdown) {
+    toggle.addEventListener('click', () => {
+      const isVisible = dropdown.classList.contains('opacity-100');
+      
+      if (isVisible) {
+        dropdown.classList.remove('opacity-100', 'visible');
+        dropdown.classList.add('opacity-0', 'invisible');
+      } else {
+        dropdown.classList.add('opacity-100', 'visible');
+        dropdown.classList.remove('opacity-0', 'invisible');
+      }
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target as Node) && !dropdown.contains(e.target as Node)) {
+        dropdown.classList.remove('opacity-100', 'visible');
+        dropdown.classList.add('opacity-0', 'invisible');
+      }
+    });
+    
+    // Close dropdown on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        dropdown.classList.remove('opacity-100', 'visible');
+        dropdown.classList.add('opacity-0', 'invisible');
+      }
+    });
+  }
+</script>

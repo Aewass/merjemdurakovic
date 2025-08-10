@@ -3,11 +3,14 @@ interface Props {
 	title: string;
 }
 
+import { getLangFromUrl } from '../i18n/utils';
+
 const { title } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Merjem Durakovic - Digital Designer Portfolio" />
@@ -48,20 +51,6 @@ const { title } = Astro.props;
 		<slot />
 		
 		<script>
-			// Use a namespace to avoid conflicts with existing declarations
-			namespace NetlifyTypes {
-				export interface NetlifyIdentity {
-					on(event: string, callback: (user?: unknown) => void): void;
-				}
-			}
-			
-			// Extend the Window interface only once
-			declare global {
-				interface Window {
-					netlifyIdentity: NetlifyTypes.NetlifyIdentity;
-				}
-			}
-
 			if (window.netlifyIdentity) {
 				window.netlifyIdentity.on("init", (user) => {
 					if (!user) {
