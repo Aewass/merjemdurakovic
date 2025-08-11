@@ -32,11 +32,11 @@ type CategoryData = {
 export function getStaticPaths() {
   return [
     {
-      params: { id: 'branding' },
+      params: { id: 'branding-ac-mint' },
       props: {
         category: {
           number: "01",
-          title: "Branding",
+          title: "Branding - AC Mint",
           category: "Category",
           description: "Visual identity system for Auto Centar Mint, based on an existing logo and color palette. Expanded into a full brand guidelines book with defined typography, layout, iconography, visual elements, and usage rules. Applied across business cards, letterheads, branded materials like mugs and clothing.",
           items: [
@@ -171,6 +171,31 @@ export function getStaticPaths() {
                 }
               ]
             }
+          ],
+        } as CategoryData
+      }
+    },
+    {
+      params: { id: 'branding-shams-travel' },
+      props: {
+        category: {
+          number: "02",
+          title: "Branding - Shams Travel",
+          category: "Category",
+          description: "Visual identity system for Shams Travel, based on an existing logo and color palette. Expanded into a full brand guidelines book with defined typography, layout, iconography, visual elements, and usage rules. Applied across business cards, letterheads, branded materials like mugs and clothing.",
+          items: [
+            {
+              name: "Shams Travel",
+              description: "Brand identity",
+              images: [
+                { src: "/branding/branding-shams-travel/1.jpg", alt: "Shams Travel brand identity" },
+                { src: "/branding/branding-shams-travel/2.jpg", alt: "Shams Travel brand identity" },
+                { src: "/branding/branding-shams-travel/3.jpg", alt: "Shams Travel brand identity" },
+                { src: "/branding/branding-shams-travel/4.jpg", alt: "Shams Travel brand identity" },
+                { src: "/branding/branding-shams-travel/5.jpg", alt: "Shams Travel brand identity" },
+              ]
+            },
+            
           ]
         } as CategoryData
       }
@@ -179,7 +204,7 @@ export function getStaticPaths() {
       params: { id: 'catalogs' },
       props: {
         category: {
-          number: "02",
+          number: "03",
           title: "Brochures and Catalogs",
           category: "Category",
           description: "This section features print materials such as brochures, catalogs, reports, and guides from various fields. Each project reflects the brand's style, tone, and visual language tailored to its context.",
@@ -253,7 +278,7 @@ export function getStaticPaths() {
       params: { id: 'visit-cards' },
       props: {
         category: {
-          number: "02",
+          number: "04",
           title: "Visit Cards",
           category: "Category",
           description: "Business card designs combining clear structure, strong typography, and material detail to leave a lasting impression. Each card reflects the brands identity while staying functional, readable, and visually distinct.",
@@ -288,7 +313,7 @@ export function getStaticPaths() {
       params: { id: 'books' },
       props: {
         category: {
-          number: "03",
+          number: "05",
           title: "Cover Design",
           category: "Category",
           description: "This section showcases my book design work, where I focus on creating covers. In my designs, I pay close attention to typography, composition, and aesthetics, while adhering to standards for both print and digital formats.",
@@ -322,7 +347,7 @@ export function getStaticPaths() {
       params: { id: 'print-media' },
       props: {
         category: {
-          number: "04",
+          number: "06",
           title: "Various Print Media Works",
           category: "Category",
           description: "My print media portfolio showcases versatile design solutions across various formats including flyers, folders, and trifold brochures. Each piece is thoughtfully designed to effectively communicate the client's message through strategic use of layout, typography, and visual elements. I prioritize both aesthetic appeal and practical functionality, ensuring that each design serves its intended purpose while maintaining visual impact.",
@@ -427,7 +452,7 @@ export function getStaticPaths() {
       params: { id: 'social-media' },
       props: {
         category: {
-          number: "05",
+          number: "07",
           title: "Social Media Design",
           category: "Category",
           description: "My social media design work focuses on creating engaging and visually appealing content that effectively communicates brand messages across various platforms. Each design is crafted to capture attention, drive engagement, and maintain brand consistency while adapting to the unique requirements of different social media channels.",
@@ -508,8 +533,8 @@ const { category } = Astro.props;
             ? 'from-emerald-200/40 via-emerald-100/30 to-transparent'
             : id === 'print-media'
               ? 'from-amber-200/40 via-amber-100/30 to-transparent'
-              : id === 'branding'
-                ? 'from-indigo-200/40 via-indigo-100/30 to-transparent'
+                              : id === 'branding' || id === 'branding-shams-travel'
+                  ? 'from-indigo-200/40 via-indigo-100/30 to-transparent'
                 : id === 'social-media'
                   ? 'from-cyan-200/40 via-cyan-100/30 to-transparent'
                   : 'from-purple-200/40 via-purple-100/30 to-transparent'
@@ -531,7 +556,7 @@ const { category } = Astro.props;
                 id === 'visit-cards' ? 'hover:text-rose-600' : 
                 id === 'books' ? 'hover:text-emerald-600' : 
                 id === 'print-media' ? 'hover:text-amber-600' :
-                id === 'branding' ? 'hover:text-indigo-600' :
+                id === 'branding' || id === 'branding-shams-travel' ? 'hover:text-indigo-600' :
                 id === 'social-media' ? 'hover:text-cyan-600' :
                 'hover:text-purple-600'
               }
@@ -552,7 +577,7 @@ const { category } = Astro.props;
                 id === 'visit-cards' ? 'text-rose-600' : 
                 id === 'books' ? 'text-emerald-600' : 
                 id === 'print-media' ? 'text-amber-600' :
-                id === 'branding' ? 'text-indigo-600' :
+                id === 'branding' || id === 'branding-shams-travel' ? 'text-indigo-600' :
                 id === 'social-media' ? 'text-cyan-600' :
                 'text-purple-600'
               } mb-6`}>
@@ -579,7 +604,7 @@ const { category } = Astro.props;
                       id === 'visit-cards' ? 'bg-rose-50/70' : 
                       id === 'books' ? 'bg-emerald-50/70' : 
                       id === 'print-media' ? 'bg-amber-50/70' :
-                      id === 'branding' ? 'bg-indigo-50/70' :
+                      id === 'branding' || id === 'branding-shams-travel' ? 'bg-indigo-50/70' :
                       id === 'social-media' ? 'bg-cyan-50/70' :
                       'bg-purple-50/70'
                     } text-sm text-gray-800 rounded-full`}>
@@ -587,7 +612,7 @@ const { category } = Astro.props;
                         id === 'visit-cards' ? 'bg-rose-500' : 
                         id === 'books' ? 'bg-emerald-500' : 
                         id === 'print-media' ? 'bg-amber-500' :
-                        id === 'branding' ? 'bg-indigo-500' :
+                        id === 'branding' || id === 'branding-shams-travel' ? 'bg-indigo-500' :
                         id === 'social-media' ? 'bg-cyan-500' :
                         'bg-purple-500'
                       } rounded-full mr-2`}></span>
@@ -683,7 +708,7 @@ const { category } = Astro.props;
 
                     </div>
                   </div>
-                ) : id === 'branding' ? (
+                ) : id === 'branding' || id === 'branding-shams-travel' ? (
                   <!-- Branding Vertical Stack Layout -->
                   <div class="branding-vertical-stack space-y-8">
                     {item.images.map((image, index) => (
@@ -745,7 +770,7 @@ const { category } = Astro.props;
                                   id === 'visit-cards' ? 'text-rose-600' : 
                                   id === 'books' ? 'text-emerald-600' : 
                                   id === 'print-media' ? 'text-amber-600' :
-                                  id === 'branding' ? 'text-indigo-600' :
+                                  id === 'branding' || id === 'branding-shams-travel' ? 'text-indigo-600' :
                                   id === 'social-media' ? 'text-cyan-600' :
                                   'text-purple-600'
                                 }`} />
@@ -763,7 +788,7 @@ const { category } = Astro.props;
                               id === 'visit-cards' ? 'text-rose-600' : 
                               id === 'books' ? 'text-emerald-600' : 
                               id === 'print-media' ? 'text-amber-600' :
-                              id === 'branding' ? 'text-indigo-600' :
+                              id === 'branding' || id === 'branding-shams-travel' ? 'text-indigo-600' :
                               id === 'social-media' ? 'text-cyan-600' :
                               'text-purple-600'
                             }`} />
@@ -773,7 +798,7 @@ const { category } = Astro.props;
                               id === 'visit-cards' ? 'text-rose-600' : 
                               id === 'books' ? 'text-emerald-600' : 
                               id === 'print-media' ? 'text-amber-600' :
-                              id === 'branding' ? 'text-indigo-600' :
+                              id === 'branding' || id === 'branding-shams-travel' ? 'text-indigo-600' :
                               id === 'social-media' ? 'text-cyan-600' :
                               'text-purple-600'
                             }`} />
