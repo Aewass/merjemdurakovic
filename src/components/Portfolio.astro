@@ -10,7 +10,7 @@ type Category = {
   name: string;
   title: string;
   description?: string;
-  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo' | 'cyan' | 'pink';
+  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo' | 'cyan' | 'pink' | 'orange';
   images?: Array<{ src: string; alt: string; }>;
   titleImage: string;
 }
@@ -32,34 +32,41 @@ const categories: Category[] = [
   },
   {
     number: "03",
-    name: "catalogs",
-    title: t('portfolio.brochures_catalogs'),
-    titleImage: "/catalogs/catalog-iform/1.png",
+    name: "branding-upscale", 
+    title: t('portfolio.branding.upscale'),
+    titleImage: "/branding/branding-upscale/1.jpg",
     color: "purple",
   },
   {
     number: "04",
+    name: "catalogs",
+    title: t('portfolio.brochures_catalogs'),
+    titleImage: "/catalogs/catalog-iform/1.png",
+    color: "orange",
+  },
+  {
+    number: "05",
     name: "visit-cards",
     title: t('portfolio.visit_cards'),
     titleImage: "/visit-cards/visit-card-lezaj-trade/1.jpg",
     color: "rose",
   },
   {
-    number: "05",
+    number: "06",
     name: "books",
     title: t('portfolio.cover_design'),
     titleImage: "/books/book/1.jpg",
     color: "emerald",
   },
   {
-    number: "06",
+    number: "07",
     name: "print-media",
     title: t('portfolio.print_media_works'),
     titleImage: "/print-media/fascicle-zerromax/1.jpg",
     color: "amber",
   },
   {
-    number: "07",
+    number: "08",
     name: "social-media",
     title: t('portfolio.social_media_content'),
     titleImage: "/social-media/social-adblue/0.jpg",

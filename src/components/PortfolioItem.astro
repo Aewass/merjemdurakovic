@@ -11,7 +11,7 @@ interface Props {
   number: string;
   title: string;
   titleImage: string;
-  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo' | 'cyan' | 'pink';
+  color: 'purple' | 'rose' | 'emerald' | 'amber' | 'indigo' | 'cyan' | 'pink' | 'orange';
   name?: string;
 }
 
@@ -73,6 +73,14 @@ const colorClasses = {
     gradient: "from-pink-400/20 to-pink-200/20",
     tag: "bg-pink-50",
     button: "bg-pink-600 hover:bg-pink-700"
+  },
+  orange: {
+    text: "text-orange-600",
+    border: "border-orange-200",
+    shadow: "shadow-orange-200/20",
+    gradient: "from-orange-400/20 to-orange-200/20",
+    tag: "bg-orange-50",
+    button: "bg-orange-600 hover:bg-orange-700"
   }
 };
 
@@ -88,7 +96,7 @@ const colorClasses = {
         <span>{t('portfolio.category')}</span>
       </span>
       
-      <a href={translatePath(`/category/${name}`)} class="block group" style={`--hover-color: ${color === 'purple' ? '#9333ea' : color === 'rose' ? '#e11d48' : color === 'emerald' ? '#059669' : color === 'amber' ? '#d97706' : color === 'indigo' ? '#4f46e5' : color === 'pink' ? '#db2777' : '#0891b2'}`}>
+      <a href={translatePath(`/category/${name}`)} class="block group" style={`--hover-color: ${color === 'purple' ? '#9333ea' : color === 'rose' ? '#e11d48' : color === 'emerald' ? '#059669' : color === 'amber' ? '#d97706' : color === 'indigo' ? '#4f46e5' : color === 'pink' ? '#db2777' : color === 'orange' ? '#ea580c' : '#0891b2'}`}>
         <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold cursor-pointer transition-all duration-300 hover-title">
           {title}
         </h3>
