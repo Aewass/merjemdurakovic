@@ -25,12 +25,11 @@ export const categoryDataBs: Record<string, CategoryData> = {
     number: "01",
     title: "Brending - AC Mint",
     category: "Kategorija",
-    description:
-      "Sistem vizuelnog identiteta za Auto Centar Mint, baziran na postojećem logotipu i paleti boja. Proširen u kompletnu knjigu smernica brenda sa definisanom tipografijom, layoutom, ikonografijom, vizuelnim elementima i pravilima korišćenja. Primenjen na poslovne kartice, pisma, brendirane materijale poput šolja i odeće.",
+    description: "",
     items: [
       {
         name: "AC Mint",
-        description: "Identitet brenda",
+        description: "Brending",
         images: [
           {
             src: "/branding/branding-ac-mint/1.jpg",
@@ -50,7 +49,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
           {
             src: "/branding/branding-ac-mint/4.jpg",
             alt: "AC Mint dizajn pakovanja",
-            caption: "Rešenja dizajna pakovanja",
+            caption: "Rješenja dizajna pakovanja",
           },
           {
             src: "/branding/branding-ac-mint/5.jpg",
@@ -165,12 +164,11 @@ export const categoryDataBs: Record<string, CategoryData> = {
     number: "02",
     title: "Brending - Shams Travel",
     category: "Kategorija",
-    description:
-      "Sistem vizuelnog identiteta za Shams Travel, baziran na postojećem logotipu i paleti boja. Proširen u kompletnu knjigu smernica brenda sa definisanom tipografijom, layoutom, ikonografijom, vizuelnim elementima i pravilima korišćenja. Primenjen na poslovne kartice, pisma, brendirane materijale poput šolja i odeće.",
+    description: "",
     items: [
       {
         name: "Shams Travel",
-        description: "Identitet brenda",
+        description: "Brending",
         images: [
           {
             src: "/branding/branding-shams-travel/1.jpg",
@@ -204,12 +202,11 @@ export const categoryDataBs: Record<string, CategoryData> = {
     number: "03",
     title: "Brending - Upscale",
     category: "Kategorija",
-    description:
-      "Sistem vizuelnog identiteta za Upscale, baziran na postojećem logotipu i paleti boja. Proširen u kompletnu knjigu smernica brenda sa definisanom tipografijom, layoutom, ikonografijom, vizuelnim elementima i pravilima korišćenja. Primenjen na poslovne kartice, pisma, brendirane materijale poput šolja i odeće.",
+    description: "",
     items: [
       {
         name: "Upscale",
-        description: "Identitet brenda",
+        description: "Brending",
         images: [
           {
             src: "/branding/branding-upscale/1.jpg",
@@ -229,7 +226,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
           {
             src: "/branding/branding-upscale/4.jpg",
             alt: "Upscale dizajn pakovanja",
-            caption: "Rešenja dizajna pakovanja",
+            caption: "Rješenja dizajna pakovanja",
           },
           {
             src: "/branding/branding-upscale/5.jpg",
@@ -270,11 +267,11 @@ export const categoryDataBs: Record<string, CategoryData> = {
     title: "Brošure i Katalozi",
     category: "Kategorija",
     description:
-      "Ova sekcija prikazuje štampane materijale kao što su brošure, katalozi, izveštaji i vodiči iz različitih oblasti. Svaki projekat odražava stil brenda, ton i vizuelni jezik prilagođen svom kontekstu.",
+      "Ova sekcija prikazuje štampane materijale poput brošura, kataloga, izvještaja i vodiča. Svaki projekat odražava stil brenda, ton i vizuelni jezik.",
     items: [
       {
         name: "iForm",
-        description: "Izveštaj o ugljeničnom otisku",
+        description: "Izvještaj o ugljičnom otisku",
         images: [
           {
             src: "/catalogs/catalog-iform/1.png",
@@ -289,7 +286,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
         ],
       },
       {
-        name: "Ležaj Trade",
+        name: "Industrijski prodajni program",
         description: "Katalog za program industrijskih prodaja",
         images: [
           {
@@ -304,29 +301,16 @@ export const categoryDataBs: Record<string, CategoryData> = {
       },
       {
         name: "Mega Trans",
-        description: "Izveštaj o ugljeničnom otisku",
+        description: "Izvještaj o ugljičnom otisku",
         images: [
           { src: "/catalogs/catalog-mega/1.png", alt: "Mega katalog strana 1" },
           { src: "/catalogs/catalog-mega/2.png", alt: "Mega katalog strana 2" },
         ],
       },
-      {
-        name: "Shams Travel",
-        description: "Katalog za turističku agenciju i njihove ponude",
-        images: [
-          {
-            src: "/catalogs/catalog-shams/2.png",
-            alt: "Shams katalog strana 2",
-          },
-          {
-            src: "/catalogs/catalog-shams/3.png",
-            alt: "Shams katalog strana 3",
-          },
-        ],
-      },
+
       {
         name: "Stanić",
-        description: "Izveštaj o ugljeničnom otisku",
+        description: "Izvještaj o ugljičnom otisku",
         images: [
           {
             src: "/catalogs/catalog-stanic/1.png",
@@ -340,7 +324,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
       },
       {
         name: "ZGI",
-        description: "Izveštaj o ugljeničnom otisku za ZGI 2023. i 2024.",
+        description: "Izvještaj o ugljičnom otisku za ZGI 2023. i 2024.",
         images: [
           { src: "/catalogs/catalog-zgi/1.jpg", alt: "ZGI katalog strana 1" },
           { src: "/catalogs/catalog-zgi/2.jpg", alt: "ZGI katalog strana 2" },
@@ -366,7 +350,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
     title: "Poslovne Kartice",
     category: "Kategorija",
     description:
-      "Dizajni poslovnih kartica koji kombinuju jasnu strukturu, snažnu tipografiju i detalje materijala kako bi ostavili trajan utisak. Svaka kartica odražava identitet brenda dok ostaje funkcionalna, čitljiva i vizuelno izrazita.",
+      "Dizajni poslovnih kartica koji kombinuju jasnu strukturu, snažnu tipografiju i kvalitetan dizajn kako bi ostavili trajan utisak. Svaka kartica odražava identitet brenda dok ostaje funkcionalna, čitljiva i vizuelno izrazita.",
     items: [
       {
         name: "Ležaj Trade dizajn poslovne kartice",
@@ -397,7 +381,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
     title: "Dizajn Korica",
     category: "Kategorija",
     description:
-      "Ova sekcija prikazuje moj rad na dizajnu knjiga, gde se fokusiram na kreiranje korica. U svojim dizajnima, pažljivo obraćam pažnju na tipografiju, kompoziciju i estetiku, dok se pridržavam standarda za štampane i digitalne formate.",
+      "Ova sekcija prikazuje moj rad na izradi dizajna korica knjiga, s pažnjom na tipografiju, kompoziciju i estetiku, uz poštovanje standarda za štampane formate.",
     items: [
       {
         name: "Dramaturgija Evropskog Lutkarstva Fragmenti",
@@ -427,11 +411,11 @@ export const categoryDataBs: Record<string, CategoryData> = {
     title: "Razni Štampani Mediji",
     category: "Kategorija",
     description:
-      "Moj portfolio štampanih medija prikazuje svestrane dizajnerske rešenja kroz različite formate uključujući letke, fascikle i trostruke brošure. Svaki komad je pažljivo dizajniran da efikasno komunicira poruku klijenta kroz strateško korišćenje layouta, tipografije i vizuelnih elemenata. Prioritet mi je i estetska privlačnost i praktična funkcionalnost, osiguravajući da svaki dizajn služi svojoj nameri dok održava vizuelni utisak.",
+      "U ovoj sekciji prikazujem dizajnerska rješenja za štampane medije, kao što su letci, fascikle i brošure. Svaki komad pažljivo je osmišljen kako bi učinkovito prenio poruku.",
     items: [
       {
         name: "Express Wood",
-        description: "Dizajn pismovnog papira",
+        description: "Memorandum za express wood",
         images: [
           {
             src: "/print-media/memorandum-express/1.jpg",
@@ -502,7 +486,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
       },
       {
         name: "Artane d.o.o. Sarajevo",
-        description: "Trostruka brošura",
+        description: "Promotivni letak",
         images: [
           {
             src: "/print-media/trifold-artane/1.jpg",
@@ -528,7 +512,7 @@ export const categoryDataBs: Record<string, CategoryData> = {
     title: "Dizajn Društvenih Mreža",
     category: "Kategorija",
     description:
-      "Moj rad na dizajnu društvenih mreža fokusiran je na kreiranje privlačnog i vizuelno atraktivnog sadržaja koji efikasno komunicira poruke brenda kroz različite platforme. Svaki dizajn je kreiran da privuče pažnju, potakne angažovanost i održi konzistentnost brenda dok se prilagođava jedinstvenim zahtevima različitih kanala društvenih mreža.",
+      "Kreiram moderne i popularne vizuale za društvene mreže, fokusirajući se na stvaranje sadržaja koji je atraktivan i relevantan za publiku. Pokušavam da uhvatim svaki trend i uklopim ga na način koji čini feed profila mojih klijenata privlačnim i angažujućim za sve uzraste, održavajući istovremeno dosljednost brenda.",
     items: [
       {
         name: "Begović BH d.o.o.",

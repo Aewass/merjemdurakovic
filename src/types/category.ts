@@ -25,8 +25,7 @@ export const categoryData: Record<string, CategoryData> = {
     number: "01",
     title: "Branding - AC Mint",
     category: "Category",
-    description:
-      "Visual identity system for Auto Centar Mint, based on an existing logo and color palette. Expanded into a full brand guidelines book with defined typography, layout, iconography, visual elements, and usage rules. Applied across business cards, letterheads, branded materials like mugs and clothing.",
+    description: "",
     items: [
       {
         name: "AC Mint",
@@ -165,8 +164,7 @@ export const categoryData: Record<string, CategoryData> = {
     number: "02",
     title: "Branding - Shams Travel",
     category: "Category",
-    description:
-      "Visual identity system for Shams Travel, based on an existing logo and color palette. Expanded into a full brand guidelines book with defined typography, layout, iconography, visual elements, and usage rules. Applied across business cards, letterheads, branded materials like mugs and clothing.",
+    description: "",
     items: [
       {
         name: "Shams Travel",
@@ -204,8 +202,7 @@ export const categoryData: Record<string, CategoryData> = {
     number: "03",
     title: "Branding - Upscale",
     category: "Category",
-    description:
-      "Visual identity system for Upscale, based on an existing logo and color palette. Expanded into a full brand guidelines book with defined typography, layout, iconography, visual elements, and usage rules. Applied across business cards, letterheads, branded materials like mugs and clothing.",
+    description: "",
     items: [
       {
         name: "UpScale",
@@ -260,7 +257,7 @@ export const categoryData: Record<string, CategoryData> = {
     title: "Brochures and Catalogs",
     category: "Category",
     description:
-      "This section features print materials such as brochures, catalogs, reports, and guides from various fields. Each project reflects the brand's style, tone, and visual language tailored to its context.",
+      "This section showcases printed materials such as brochures, catalogs, reports, and guides. Each project reflects the brand's style, tone, and visual language.",
     items: [
       {
         name: "iForm",
@@ -279,7 +276,7 @@ export const categoryData: Record<string, CategoryData> = {
         ],
       },
       {
-        name: "Ležaj Trade",
+        name: "Industrial Sales Program",
         description: "Catalog for Industrial Sales Program",
         images: [
           {
@@ -342,7 +339,7 @@ export const categoryData: Record<string, CategoryData> = {
     title: "Visit Cards",
     category: "Category",
     description:
-      "Business card designs combining clear structure, strong typography, and material detail to leave a lasting impression. Each card reflects the brands identity while staying functional, readable, and visually distinct.",
+      "Business card designs that combine clear structure, strong typography, and quality design to leave a lasting impression. Each card reflects the brand's identity while remaining functional, legible, and visually striking.",
     items: [
       {
         name: "Ležaj Trade Business Card Design",
@@ -373,7 +370,7 @@ export const categoryData: Record<string, CategoryData> = {
     title: "Cover Design",
     category: "Category",
     description:
-      "This section showcases my book design work, where I focus on creating covers. In my designs, I pay close attention to typography, composition, and aesthetics, while adhering to standards for both print and digital formats.",
+      "This section showcases my work in designing book covers, with attention to typography, composition, and aesthetics, while adhering to standards for print formats.",
     items: [
       {
         name: "Dramaturgija Evropskog Lutkarstva Fragmenti",
@@ -403,11 +400,11 @@ export const categoryData: Record<string, CategoryData> = {
     title: "Various Print Media Works",
     category: "Category",
     description:
-      "My print media portfolio showcases versatile design solutions across various formats including flyers, folders, and trifold brochures. Each piece is thoughtfully designed to effectively communicate the client's message through strategic use of layout, typography, and visual elements. I prioritize both aesthetic appeal and practical functionality, ensuring that each design serves its intended purpose while maintaining visual impact.",
+      "In this section, I showcase design solutions for printed media, such as flyers, folders, and brochures. Each piece is carefully crafted to effectively convey the message.",
     items: [
       {
         name: "Express Wood",
-        description: "Letterhead design",
+        description: "Memorandum for express wood",
         images: [
           {
             src: "/print-media/memorandum-express/1.jpg",
@@ -467,7 +464,7 @@ export const categoryData: Record<string, CategoryData> = {
       },
       {
         name: "Artane d.o.o. Sarajevo",
-        description: "Trifold brochure",
+        description: "Promotional flyer",
         images: [
           {
             src: "/print-media/trifold-artane/1.jpg",
@@ -493,7 +490,7 @@ export const categoryData: Record<string, CategoryData> = {
     title: "Social Media Design",
     category: "Category",
     description:
-      "My social media design work focuses on creating engaging and visually appealing content that effectively communicates brand messages across various platforms. Each design is crafted to capture attention, drive engagement, and maintain brand consistency while adapting to the unique requirements of different social media channels.",
+      "I create modern and popular visuals for social media, focusing on crafting content that is attractive and relevant to the audience. I try to capture every trend and incorporate it in a way that makes my clients' social media feeds appealing and engaging for all age groups, while maintaining brand consistency.",
     items: [
       {
         name: "Begović BH d.o.o.",
