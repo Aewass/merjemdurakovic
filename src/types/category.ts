@@ -23,7 +23,7 @@ export type CategoryData = {
 export const categoryData: Record<string, CategoryData> = {
   "branding-ac-mint": {
     number: "01",
-    title: "Branding - AC Mint",
+    title: "AC Mint",
     category: "Category",
     description: "",
     items: [
@@ -162,7 +162,7 @@ export const categoryData: Record<string, CategoryData> = {
   },
   "branding-shams-travel": {
     number: "02",
-    title: "Branding - Shams Travel",
+    title: "Shams Travel",
     category: "Category",
     description: "",
     items: [
@@ -200,7 +200,7 @@ export const categoryData: Record<string, CategoryData> = {
   },
   "branding-upscale": {
     number: "03",
-    title: "Branding - Upscale",
+    title: "Upscale",
     category: "Category",
     description: "",
     items: [
@@ -342,6 +342,17 @@ export const categoryData: Record<string, CategoryData> = {
       "Business card designs that combine clear structure, strong typography, and quality design to leave a lasting impression. Each card reflects the brand's identity while remaining functional, legible, and visually striking.",
     items: [
       {
+        name: "ZerroMax Business Card Design",
+        description: "",
+        images: [
+          {
+            src: "/visit-cards/visit-card-zerro-max/2.jpg",
+            alt: "ZerroMax visit card",
+            caption: "Complete business card design",
+          },
+        ],
+      },
+      {
         name: "Ležaj Trade Business Card Design",
         description: "",
         images: [
@@ -353,12 +364,12 @@ export const categoryData: Record<string, CategoryData> = {
         ],
       },
       {
-        name: "ZerroMax Business Card Design",
+        name: "Mehanizmi.ba Business Card Design",
         description: "",
         images: [
           {
-            src: "/visit-cards/visit-card-zerro-max/2.jpg",
-            alt: "ZerroMax visit card",
+            src: "/visit-cards/visit-card-mehanizmi-ba/1.jpg",
+            alt: "Mehanizmi.ba visit card",
             caption: "Complete business card design",
           },
         ],
@@ -377,11 +388,6 @@ export const categoryData: Record<string, CategoryData> = {
         description: "Cover design for a book about puppetry",
         images: [
           {
-            src: "/books/book/1.jpg",
-            alt: "Book design page 1",
-            caption: "Cover design",
-          },
-          {
             src: "/books/book/2.jpg",
             alt: "Book design page 2",
             caption: "Internal layout",
@@ -390,6 +396,11 @@ export const categoryData: Record<string, CategoryData> = {
             src: "/books/book/3.jpg",
             alt: "Book design page 3",
             caption: "Chapter opening page",
+          },
+          {
+            src: "/books/book/1.jpg",
+            alt: "Book design page 1",
+            caption: "Cover design",
           },
         ],
       },

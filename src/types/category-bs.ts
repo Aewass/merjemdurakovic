@@ -353,6 +353,17 @@ export const categoryDataBs: Record<string, CategoryData> = {
       "Dizajni poslovnih kartica koji kombinuju jasnu strukturu, snažnu tipografiju i kvalitetan dizajn kako bi ostavili trajan utisak. Svaka kartica odražava identitet brenda dok ostaje funkcionalna, čitljiva i vizuelno izrazita.",
     items: [
       {
+        name: "Mehanizmi.ba dizajn poslovne kartice",
+        description: "",
+        images: [
+          {
+            src: "/visit-cards/visit-card-mehanizmi-ba/1.jpg",
+            alt: "Mehanizmi.ba poslovna kartica",
+            caption: "Prednja strana",
+          },
+        ],
+      },
+      {
         name: "Ležaj Trade dizajn poslovne kartice",
         description: "",
         images: [
@@ -388,11 +399,6 @@ export const categoryDataBs: Record<string, CategoryData> = {
         description: "Dizajn korica za knjigu o lutkarstvu",
         images: [
           {
-            src: "/books/book/1.jpg",
-            alt: "Dizajn knjige strana 1",
-            caption: "Dizajn korica",
-          },
-          {
             src: "/books/book/2.jpg",
             alt: "Dizajn knjige strana 2",
             caption: "Unutrašnji layout",
@@ -401,6 +407,11 @@ export const categoryDataBs: Record<string, CategoryData> = {
             src: "/books/book/3.jpg",
             alt: "Dizajn knjige strana 3",
             caption: "Stranica otvaranja poglavlja",
+          },
+          {
+            src: "/books/book/1.jpg",
+            alt: "Dizajn knjige strana 1",
+            caption: "Dizajn korica",
           },
         ],
       },
