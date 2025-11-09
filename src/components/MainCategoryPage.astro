@@ -1,0 +1,453 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Footer from './Footer.astro';
+import { ArrowLeft, Maximize2, ChevronLeft, ChevronRight, X } from 'lucide-astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import type { MainCategoryData, SubCategory, CategoryImage, ArtworkItem } from '../types/main-category';
+
+interface Props {
+  mainCategory: MainCategoryData;
+}
+
+const { mainCategory } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<Layout title={`${t(mainCategory.titleKey)} - Merjem Durakovic`}>
+  <main class="relative min-h-screen">
+    <!-- Background -->
+    <div class="fixed inset-0">
+      <div class={`absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] ${mainCategory.color.gradient}`}></div>
+    </div>
+
+    <div class="relative">
+      <article class="pt-24 pb-24">
+        <div class="max-w-7xl mx-auto px-6 sm:px-8">
+          <!-- Back Button -->
+          <a 
+            href={translatePath('/#main-categories')} 
+            class={`
+              inline-flex 
+              items-center 
+              gap-2 
+              text-gray-500 
+              ${mainCategory.color.hover}
+              transition-colors 
+              duration-300 
+              mb-12 
+              group
+            `}
+          >
+            <ArrowLeft class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
+            <span class="text-sm">{t('main_category.back_to_home')}</span>
+          </a>
+
+          <!-- Header -->
+          <header class="mb-16">
+            <h1 class={`text-5xl sm:text-6xl lg:text-7xl font-bold ${mainCategory.color.primary} mb-6`}>
+              {t(mainCategory.titleKey)}
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-600 max-w-3xl">
+              {t(mainCategory.descriptionKey)}
+            </p>
+          </header>
+
+          <!-- Content: Artwork Items OR Direct Images OR Subcategories OR Coming Soon -->
+          {mainCategory.showArtworkItems && mainCategory.artworkItems && mainCategory.artworkItems.length > 0 ? (
+            <!-- Artwork Items Layout (like Visit Cards) -->
+            <div class="space-y-40">
+              {mainCategory.artworkItems.map((item: ArtworkItem, itemIndex: number) => (
+                <div class="artwork-item">
+                  <!-- Text Section -->
+                  <div class="mb-12">
+                    <h2 class={`text-4xl font-bold mb-4 ${mainCategory.color.primary}`}>{item.name}</h2>
+                    <p class="text-lg text-gray-600 mb-8 max-w-4xl">{item.description}</p>
+                  </div>
+                  
+                  <!-- Branding Vertical Stack Layout -->
+                  <div class="branding-vertical-stack">
+                    {item.images.map((image: CategoryImage, index: number) => (
+                      <div class="branding-image-container">
+                        <div class="relative group">
+                          <img 
+                            src={image.src} 
+                            alt={image.alt || `${item.name} image ${index + 1}`}
+                            loading={itemIndex === 0 && index === 0 ? "eager" : "lazy"}
+                            decoding="async"
+                            fetchpriority={itemIndex === 0 && index === 0 ? "high" : "auto"}
+                            class={`w-full h-auto object-contain ${
+                              index === 0 ? 'rounded-t-2xl' : 
+                              index === item.images.length - 1 ? 'rounded-b-2xl' : 
+                              'rounded-none'
+                            }`}
+                            data-fullview={image.src}
+                          />
+                          
+                          <!-- Fullscreen button -->
+                          <button 
+                            class="fullscreen-btn absolute top-4 right-4 bg-white/95 backdrop-filter backdrop-blur-sm p-2.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out hover:bg-white hover:scale-105 hover:shadow-xl z-10"
+                            data-fullview={image.src}
+                            data-alt={image.alt}
+                          >
+                            <Maximize2 class={`w-5 h-5 ${mainCategory.color.primary}`} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : mainCategory.showDirectImages && mainCategory.images && mainCategory.images.length > 0 ? (
+            <!-- Direct Image Display (Vertical Stack like AC Mint) -->
+            <div class="branding-vertical-stack">
+              {mainCategory.images.map((image: CategoryImage, index: number) => (
+                <div class="branding-image-container">
+                  <div class="relative group">
+                    <img 
+                      src={image.src} 
+                      alt={image.alt}
+                      loading={index === 0 ? "eager" : "lazy"}
+                      decoding="async"
+                      fetchpriority={index === 0 ? "high" : "auto"}
+                      class={`w-full h-auto object-contain ${
+                        index === 0 ? 'rounded-t-2xl' : 
+                        index === mainCategory.images!.length - 1 ? 'rounded-b-2xl' : 
+                        'rounded-none'
+                      }`}
+                      data-fullview={image.src}
+                    />
+                    
+                    <!-- Fullscreen button -->
+                    <button 
+                      class="fullscreen-btn absolute top-4 right-4 bg-white/95 backdrop-filter backdrop-blur-sm p-2.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out hover:bg-white hover:scale-105 hover:shadow-xl z-10"
+                      data-fullview={image.src}
+                      data-alt={image.alt}
+                    >
+                      <Maximize2 class={`w-5 h-5 ${mainCategory.color.primary}`} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : mainCategory.subCategories.length > 0 ? (
+            <!-- Subcategories Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {mainCategory.subCategories.map((subCategory: SubCategory, index: number) => (
+                <a
+                  href={translatePath(`/category/${subCategory.id}`)}
+                  class="subcategory-card group relative overflow-hidden rounded-2xl aspect-[4/3] transition-all duration-300 hover:shadow-2xl"
+                  style={`animation-delay: ${index * 0.1}s;`}
+                >
+                  <img 
+                    src={subCategory.thumbnail} 
+                    alt={t(subCategory.titleKey)}
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                  <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <h3 class="text-xl font-bold text-white group-hover:translate-y-[-4px] transition-transform duration-300">
+                      {t(subCategory.titleKey)}
+                    </h3>
+                  </div>
+                </a>
+              ))}
+            </div>
+          ) : (
+            <div class="text-center py-20">
+              <div class="inline-flex items-center justify-center w-20 h-20 bg-gray-100 rounded-full mb-6">
+                <svg class="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold text-gray-700 mb-3">{t('main_category.coming_soon')}</h2>
+              <p class="text-gray-500 max-w-md mx-auto">{t('main_category.coming_soon_description')}</p>
+            </div>
+          )}
+        </div>
+      </article>
+
+      <Footer />
+    </div>
+  </main>
+
+  <!-- Full-size image viewer -->
+  <div id="imageViewer" class="fixed inset-0 bg-black z-50 hidden flex items-center justify-center">
+    <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
+      <X class="w-8 h-8" />
+    </button>
+    <button id="prevImage" class="absolute left-4 md:left-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+      <ChevronLeft class="w-8 h-8 md:w-10 md:h-10" />
+    </button>
+    <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
+    <button id="nextImage" class="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
+      <ChevronRight class="w-8 h-8 md:w-10 md:h-10" />
+    </button>
+  </div>
+</Layout>
+
+<style>
+  /* Branding Vertical Stack Layout */
+  .branding-vertical-stack {
+    width: 100%;
+  }
+
+  .branding-image-container {
+    margin: 0;
+  }
+
+  .branding-image-container img {
+    display: block;
+    margin: 0;
+  }
+
+  /* Show fullscreen button on hover over the container */
+  .branding-image-container:hover .fullscreen-btn {
+    opacity: 1 !important;
+  }
+
+  /* Mobile responsive for branding */
+  @media (max-width: 768px) {
+    .branding-vertical-stack {
+      gap: 1.5rem;
+    }
+    
+    .branding-image-container img {
+      max-height: 60vh !important;
+    }
+    
+    .branding-image-container .fullscreen-btn {
+      top: 12px !important;
+      right: 12px !important;
+      padding: 8px !important;
+    }
+    
+    .branding-image-container .fullscreen-btn .lucide {
+      width: 18px !important;
+      height: 18px !important;
+    }
+  }
+
+  /* Subcategory card animations */
+  .subcategory-card {
+    animation: slideInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Card hover effects */
+  .subcategory-card {
+    border: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .subcategory-card:hover {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<script>
+  // Image viewer functionality
+  let currentImages: string[] = [];
+  let currentIndex = 0;
+  
+  // Setup touch variables for swipe navigation
+  let touchStartX = 0;
+  let touchEndX = 0;
+  
+  function handleSwipe() {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer && !viewer.classList.contains('hidden') && currentImages.length > 1) {
+      const swipeThreshold = 50;
+      const swipeDistance = touchEndX - touchStartX;
+      
+      if (swipeDistance < -swipeThreshold) {
+        currentIndex = (currentIndex + 1) % currentImages.length;
+        updateViewerImage();
+      } else if (swipeDistance > swipeThreshold) {
+        currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+        updateViewerImage();
+      }
+    }
+  }
+  
+  function setupTouchEvents() {
+    const fullImage = document.getElementById('fullImage');
+    if (fullImage) {
+      fullImage.removeEventListener('touchstart', handleTouchStart);
+      fullImage.removeEventListener('touchend', handleTouchEnd);
+      
+      fullImage.addEventListener('touchstart', handleTouchStart, { passive: true });
+      fullImage.addEventListener('touchend', handleTouchEnd, { passive: true });
+    }
+  }
+  
+  function handleTouchStart(e: TouchEvent) {
+    touchStartX = e.changedTouches[0].screenX;
+  }
+  
+  function handleTouchEnd(e: TouchEvent) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }
+
+  // Setup click handlers for images and fullscreen buttons
+  function setupFullscreenHandlers() {
+    document.querySelectorAll('img[data-fullview]').forEach(img => {
+      img.addEventListener('click', () => {
+        openFullscreenViewer(img as HTMLImageElement);
+      });
+    });
+
+    document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const container = btn.closest('.group, .relative');
+        if (container) {
+          const img = container.querySelector('img[data-fullview]') as HTMLImageElement;
+          if (img) {
+            openFullscreenViewer(img);
+          }
+        }
+      });
+    });
+  }
+
+  // Function to open fullscreen viewer
+  function openFullscreenViewer(img: HTMLImageElement) {
+    const fullview = img.getAttribute('data-fullview');
+    const viewer = document.getElementById('imageViewer');
+    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    
+    if (fullview && viewer && fullImage) {
+      fullImage.classList.remove('loaded');
+      
+      // Find the container that contains this image
+      const brandingContainer = img.closest('.branding-vertical-stack');
+      
+      currentImages = [];
+      
+      if (brandingContainer) {
+        // Handle branding vertical stack (both direct images and artwork items)
+        brandingContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
+          const imgSrc = itemImg.getAttribute('data-fullview');
+          if (imgSrc) {
+            currentImages.push(imgSrc);
+          }
+        });
+      }
+      
+      currentIndex = currentImages.indexOf(fullview);
+      
+      fullImage.src = fullview;
+      fullImage.alt = img.alt;
+      
+      fullImage.onload = () => {
+        fullImage.classList.add('loaded');
+        setupTouchEvents();
+      };
+      
+      if (fullImage.complete) {
+        fullImage.classList.add('loaded');
+        setupTouchEvents();
+      }
+      
+      viewer.classList.remove('hidden');
+      viewer.classList.add('flex');
+      
+      document.body.style.overflow = 'hidden';
+
+      const prevButton = document.getElementById('prevImage');
+      const nextButton = document.getElementById('nextImage');
+      if (prevButton && nextButton) {
+        if (currentImages.length <= 1) {
+          prevButton.style.display = 'none';
+          nextButton.style.display = 'none';
+        } else {
+          prevButton.style.display = '';
+          nextButton.style.display = '';
+        }
+      }
+    }
+  }
+
+  // Function to update the viewer image based on current index
+  function updateViewerImage() {
+    const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    
+    if (fullImage && currentImages[currentIndex]) {
+      fullImage.classList.remove('loaded');
+      fullImage.src = currentImages[currentIndex];
+      fullImage.onload = () => {
+        fullImage.classList.add('loaded');
+      };
+      
+      document.querySelectorAll('img[data-fullview]').forEach(img => {
+        if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
+          fullImage.alt = (img as HTMLImageElement).alt;
+        }
+      });
+    }
+  }
+
+  // Setup navigation handlers
+  document.getElementById('prevImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      updateViewerImage();
+    }
+  });
+  
+  document.getElementById('nextImage')?.addEventListener('click', () => {
+    if (currentImages.length > 1) {
+      currentIndex = (currentIndex + 1) % currentImages.length;
+      updateViewerImage();
+    }
+  });
+  
+  // Close viewer
+  document.getElementById('closeViewer')?.addEventListener('click', () => {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer) {
+      viewer.classList.add('hidden');
+      viewer.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+  });
+  
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    const viewer = document.getElementById('imageViewer');
+    if (viewer && !viewer.classList.contains('hidden')) {
+      if (e.key === 'Escape') {
+        viewer.classList.add('hidden');
+        viewer.classList.remove('flex');
+        document.body.style.overflow = '';
+      } else if (e.key === 'ArrowLeft') {
+        if (currentImages.length > 1) {
+          currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+          updateViewerImage();
+        }
+      } else if (e.key === 'ArrowRight') {
+        if (currentImages.length > 1) {
+          currentIndex = (currentIndex + 1) % currentImages.length;
+          updateViewerImage();
+        }
+      }
+    }
+  });
+
+  // Initialize on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    setupFullscreenHandlers();
+  });
+</script>

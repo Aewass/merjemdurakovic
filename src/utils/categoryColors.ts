@@ -7,7 +7,9 @@ export type CategoryId =
   | "visit-cards"
   | "books"
   | "print-media"
-  | "social-media";
+  | "social-media"
+  | "3d-medieval-man"
+  | "3d-facial-anatomy";
 
 export interface CategoryColors {
   background: string;
@@ -93,6 +95,24 @@ const categoryColorMap: Record<CategoryId, CategoryColors> = {
     fullscreen: "text-cyan-600",
     navigation: "text-cyan-600",
   },
+  "3d-medieval-man": {
+    background: "from-cyan-200/40 via-cyan-100/30 to-transparent",
+    hover: "hover:text-cyan-600",
+    text: "text-cyan-600",
+    badgeBg: "bg-cyan-50/70",
+    badgeDot: "bg-cyan-500",
+    fullscreen: "text-cyan-600",
+    navigation: "text-cyan-600",
+  },
+  "3d-facial-anatomy": {
+    background: "from-cyan-200/40 via-cyan-100/30 to-transparent",
+    hover: "hover:text-cyan-600",
+    text: "text-cyan-600",
+    badgeBg: "bg-cyan-50/70",
+    badgeDot: "bg-cyan-500",
+    fullscreen: "text-cyan-600",
+    navigation: "text-cyan-600",
+  },
 };
 
 // Default colors for unknown categories
@@ -149,6 +169,8 @@ export function isBrandingLayout(categoryId: string): boolean {
     "branding-ac-mint",
     "branding-shams-travel",
     "branding-upscale",
+    "3d-medieval-man",
+    "3d-facial-anatomy",
   ].includes(categoryId);
 }
 

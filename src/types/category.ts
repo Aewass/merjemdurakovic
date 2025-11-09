@@ -635,6 +635,111 @@ export const categoryData: Record<string, CategoryData> = {
       },
     ],
   },
+  "3d-medieval-man": {
+    number: "09",
+    title: "Medieval Man",
+    category: "3D Character Art",
+    description: "3D character modeling and design",
+    items: [
+      {
+        name: "Medieval Man Character",
+        description: "3D character modeling",
+        images: [
+          { src: "/3d/3d-medieval-man/1.png", alt: "Medieval Man 3D model 1" },
+          { src: "/3d/3d-medieval-man/2.png", alt: "Medieval Man 3D model 2" },
+          { src: "/3d/3d-medieval-man/3.png", alt: "Medieval Man 3D model 3" },
+          { src: "/3d/3d-medieval-man/4.png", alt: "Medieval Man 3D model 4" },
+          { src: "/3d/3d-medieval-man/5.jpg", alt: "Medieval Man 3D model 5" },
+          { src: "/3d/3d-medieval-man/6.png", alt: "Medieval Man 3D model 6" },
+          { src: "/3d/3d-medieval-man/7.jpg", alt: "Medieval Man 3D model 7" },
+          { src: "/3d/3d-medieval-man/8.jpg", alt: "Medieval Man 3D model 8" },
+          { src: "/3d/3d-medieval-man/9.png", alt: "Medieval Man 3D model 9" },
+          {
+            src: "/3d/3d-medieval-man/10.png",
+            alt: "Medieval Man 3D model 10",
+          },
+          {
+            src: "/3d/3d-medieval-man/11.png",
+            alt: "Medieval Man 3D model 11",
+          },
+          {
+            src: "/3d/3d-medieval-man/12.png",
+            alt: "Medieval Man 3D model 12",
+          },
+          {
+            src: "/3d/3d-medieval-man/13.png",
+            alt: "Medieval Man 3D model 13",
+          },
+          {
+            src: "/3d/3d-medieval-man/14.png",
+            alt: "Medieval Man 3D model 14",
+          },
+          {
+            src: "/3d/3d-medieval-man/15.png",
+            alt: "Medieval Man 3D model 15",
+          },
+          {
+            src: "/3d/3d-medieval-man/16.png",
+            alt: "Medieval Man 3D model 16",
+          },
+        ],
+      },
+    ],
+  },
+  "3d-facial-anatomy": {
+    number: "10",
+    title: "Facial Anatomy",
+    category: "3D Character Art",
+    description: "3D anatomical studies and character modeling",
+    items: [
+      {
+        name: "Facial Anatomy Study",
+        description: "3D anatomical modeling",
+        images: [
+          {
+            src: "/3d/3d-facial-anatomy/1.png",
+            alt: "Facial anatomy 3D model 1",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/2.png",
+            alt: "Facial anatomy 3D model 2",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/4.png",
+            alt: "Facial anatomy 3D model 4",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/5.png",
+            alt: "Facial anatomy 3D model 5",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/6.png",
+            alt: "Facial anatomy 3D model 6",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/7.png",
+            alt: "Facial anatomy 3D model 7",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/8.png",
+            alt: "Facial anatomy 3D model 8",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/9.png",
+            alt: "Facial anatomy 3D model 9",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/10.png",
+            alt: "Facial anatomy 3D model 10",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/11.png",
+            alt: "Facial anatomy 3D model 11",
+          },
+        ],
+      },
+    ],
+  },
 };
 
 // Generate static paths for all categories

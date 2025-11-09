@@ -657,6 +657,138 @@ export const categoryDataBs: Record<string, CategoryData> = {
       },
     ],
   },
+  "3d-medieval-man": {
+    number: "09",
+    title: "Čovjek iz Srednjeg Vijeka",
+    category: "3D Umjetnost Karaktera",
+    description: "3D modeliranje i dizajn karaktera",
+    items: [
+      {
+        name: "Čovjek iz Srednjeg Vijeka",
+        description: "3D modeliranje karaktera",
+        images: [
+          {
+            src: "/3d/3d-medieval-man/1.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 1",
+          },
+          {
+            src: "/3d/3d-medieval-man/2.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 2",
+          },
+          {
+            src: "/3d/3d-medieval-man/3.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 3",
+          },
+          {
+            src: "/3d/3d-medieval-man/4.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 4",
+          },
+          {
+            src: "/3d/3d-medieval-man/5.jpg",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 5",
+          },
+          {
+            src: "/3d/3d-medieval-man/6.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 6",
+          },
+          {
+            src: "/3d/3d-medieval-man/7.jpg",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 7",
+          },
+          {
+            src: "/3d/3d-medieval-man/8.jpg",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 8",
+          },
+          {
+            src: "/3d/3d-medieval-man/9.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 9",
+          },
+          {
+            src: "/3d/3d-medieval-man/10.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 10",
+          },
+          {
+            src: "/3d/3d-medieval-man/11.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 11",
+          },
+          {
+            src: "/3d/3d-medieval-man/12.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 12",
+          },
+          {
+            src: "/3d/3d-medieval-man/13.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 13",
+          },
+          {
+            src: "/3d/3d-medieval-man/14.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 14",
+          },
+          {
+            src: "/3d/3d-medieval-man/15.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 15",
+          },
+          {
+            src: "/3d/3d-medieval-man/16.png",
+            alt: "Čovjek iz Srednjeg Vijeka 3D model 16",
+          },
+        ],
+      },
+    ],
+  },
+  "3d-facial-anatomy": {
+    number: "10",
+    title: "Studija Anatomije Lica",
+    category: "3D Umjetnost Karaktera",
+    description: "3D anatomske studije i modeliranje karaktera",
+    items: [
+      {
+        name: "Studija Anatomije Lica",
+        description: "3D anatomsko modeliranje",
+        images: [
+          {
+            src: "/3d/3d-facial-anatomy/1.png",
+            alt: "Anatomija lica 3D model 1",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/2.png",
+            alt: "Anatomija lica 3D model 2",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/4.png",
+            alt: "Anatomija lica 3D model 4",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/5.png",
+            alt: "Anatomija lica 3D model 5",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/6.png",
+            alt: "Anatomija lica 3D model 6",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/7.png",
+            alt: "Anatomija lica 3D model 7",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/8.png",
+            alt: "Anatomija lica 3D model 8",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/9.png",
+            alt: "Anatomija lica 3D model 9",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/10.png",
+            alt: "Anatomija lica 3D model 10",
+          },
+          {
+            src: "/3d/3d-facial-anatomy/11.png",
+            alt: "Anatomija lica 3D model 11",
+          },
+        ],
+      },
+    ],
+  },
 };
 
 // Generate static paths for all categories - Bosnian version

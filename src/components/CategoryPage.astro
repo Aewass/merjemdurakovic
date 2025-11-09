@@ -33,6 +33,32 @@ const { id, category } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const translatePath = useTranslatedPath(lang);
+
+// Map subcategories to their parent main categories
+const categoryToMainCategoryMap: Record<string, string> = {
+  // 3D categories
+  '3d-medieval-man': '3d-character',
+  '3d-facial-anatomy': '3d-character',
+  
+  // 2D Design categories
+  'branding-ac-mint': '2d-design',
+  'branding-shams-travel': '2d-design',
+  'branding-upscale': '2d-design',
+  'catalogs': '2d-design',
+  'visit-cards': '2d-design',
+  'books': '2d-design',
+  'print-media': '2d-design',
+  'social-media': '2d-design',
+};
+
+// Determine back link based on category mapping
+const parentCategory = categoryToMainCategoryMap[id];
+const backLink = parentCategory 
+  ? translatePath(`/main-category/${parentCategory}`)
+  : translatePath('/#main-categories');
+const backText = parentCategory 
+  ? t('main_category.back_to_category')
+  : t('main_category.back_to_home');
 ---
 
 <Layout title={`${category.title} - ${category.category}`}>
@@ -46,7 +72,7 @@ const translatePath = useTranslatedPath(lang);
         <div class="max-w-6xl mx-auto px-6 sm:px-8">
           <!-- Back Button -->
           <a 
-            href={translatePath('/#portfolio')} 
+            href={backLink} 
             class={`
               inline-flex 
               items-center 
@@ -60,22 +86,8 @@ const translatePath = useTranslatedPath(lang);
             `}
           >
             <ArrowLeft class="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" />
-            <span class="text-sm">{t('category.back_to_portfolio')}</span>
+            <span class="text-sm">{backText}</span>
           </a>
-
-          <!-- Header -->
-          <header class="mb-16">
-            <div>
-              <div class={`flex items-center gap-2 ${getTextClass(id)} mb-6`}>
-                <span class="font-mono">{category.number}</span>
-                <span class="text-gray-300">—</span>
-                <span>{t('portfolio.category')}</span>
-              </div>
-              <p class="text-xl text-gray-600 max-w-2xl">
-                {category.description}
-              </p>
-            </div>
-          </header>
 
           <!-- Catalogs List -->
           <div class="space-y-40">
@@ -84,7 +96,6 @@ const translatePath = useTranslatedPath(lang);
                 <!-- Text Section -->
                 <div class="mb-12">
                   <h2 class={`text-4xl font-bold mb-4 ${getTitleClass(id)}`}>{item.name}</h2>
-                  <p class="text-lg text-gray-600 mb-8 max-w-4xl">{item.description}</p>
                   <div class="flex items-center">
                     <span class={`inline-flex items-center py-1.5 px-3 ${getBadgeBgClass(id)} text-sm text-gray-800 rounded-full`}>
                       <span class={`w-1.5 h-1.5 ${getBadgeDotClass(id)} rounded-full mr-2`}></span>
@@ -268,7 +279,7 @@ const translatePath = useTranslatedPath(lang);
       </article>
 
       <!-- Full-size image viewer -->
-      <div id="imageViewer" class="fixed inset-0 bg-black/90 z-50 hidden flex items-center justify-center">
+      <div id="imageViewer" class="fixed inset-0 bg-black z-50 hidden flex items-center justify-center">
         <button id="closeViewer" class="absolute top-6 right-6 text-white hover:text-gray-300">
           <X class="w-8 h-8" />
         </button>
@@ -299,6 +310,11 @@ const translatePath = useTranslatedPath(lang);
   .branding-image-container img {
     display: block;
     margin: 0;
+  }
+
+  /* Show fullscreen button on hover over the container */
+  .branding-image-container:hover .fullscreen-btn {
+    opacity: 1 !important;
   }
 
   /* Mobile responsive for branding */

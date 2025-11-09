@@ -1,0 +1,12 @@
+---
+import MainCategoryPage from '../../components/MainCategoryPage.astro';
+import { getStaticPaths as getMainCategoryStaticPaths } from '../../types/main-category';
+
+// Re-export getStaticPaths for Astro's static site generation
+export { getMainCategoryStaticPaths as getStaticPaths };
+
+const { id } = Astro.params;
+const { mainCategory } = Astro.props;
+---
+
+<MainCategoryPage mainCategory={mainCategory} />

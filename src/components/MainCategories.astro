@@ -1,0 +1,212 @@
+---
+import { Palette, Box, Camera, Brush } from 'lucide-astro';
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+type MainCategory = {
+  id: string;
+  icon: any;
+  color: {
+    bg: string;
+    gradient: string;
+    hover: string;
+    iconBg: string;
+    text: string;
+  };
+}
+
+const categories: MainCategory[] = [
+  {
+    id: "2d-design",
+    icon: Palette,
+    color: {
+      bg: "bg-gradient-to-br from-purple-50 to-violet-50",
+      gradient: "from-purple-400/20 to-violet-400/20",
+      hover: "group-hover:from-purple-500/30 group-hover:to-violet-500/30",
+      iconBg: "bg-purple-500",
+      text: "text-purple-600"
+    }
+  },
+  {
+    id: "3d-character",
+    icon: Box,
+    color: {
+      bg: "bg-gradient-to-br from-cyan-50 to-blue-50",
+      gradient: "from-cyan-400/20 to-blue-400/20",
+      hover: "group-hover:from-cyan-500/30 group-hover:to-blue-500/30",
+      iconBg: "bg-cyan-500",
+      text: "text-cyan-600"
+    }
+  },
+  {
+    id: "photography",
+    icon: Camera,
+    color: {
+      bg: "bg-gradient-to-br from-rose-50 to-pink-50",
+      gradient: "from-rose-400/20 to-pink-400/20",
+      hover: "group-hover:from-rose-500/30 group-hover:to-pink-500/30",
+      iconBg: "bg-rose-500",
+      text: "text-rose-600"
+    }
+  },
+  {
+    id: "traditional-art",
+    icon: Brush,
+    color: {
+      bg: "bg-gradient-to-br from-amber-50 to-orange-50",
+      gradient: "from-amber-400/20 to-orange-400/20",
+      hover: "group-hover:from-amber-500/30 group-hover:to-orange-500/30",
+      iconBg: "bg-amber-500",
+      text: "text-amber-600"
+    }
+  }
+];
+---
+
+<section id="main-categories" class="scroll-mt-20 relative py-12 overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 mb-4">
+        {t('main_categories.title')}
+      </h2>
+      <p class="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto font-medium">
+        {t('main_categories.subtitle')}
+      </p>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {categories.map((category, index) => {
+        const Icon = category.icon;
+        return (
+          <a
+            href={translatePath(`/main-category/${category.id}`)}
+            class="category-card group relative overflow-hidden rounded-3xl transition-all duration-500 hover:scale-[1.03] hover:shadow-2xl"
+            style={`animation-delay: ${index * 0.1}s;`}
+          >
+            {/* Background gradient */}
+            <div class={`absolute inset-0 ${category.color.bg}`}></div>
+            
+            {/* Hover gradient overlay */}
+            <div class={`absolute inset-0 bg-gradient-to-br ${category.color.gradient} ${category.color.hover} transition-all duration-500`}></div>
+            
+            {/* Multiple decorative blur circles for depth */}
+            <div class={`absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br ${category.color.gradient} rounded-full blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-500`}></div>
+            <div class={`absolute -bottom-16 -left-16 w-32 h-32 bg-gradient-to-br ${category.color.gradient} rounded-full blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500`}></div>
+            <div class={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-br ${category.color.gradient} rounded-full blur-3xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`}></div>
+            
+            {/* Geometric pattern overlay */}
+            <div class="absolute inset-0 opacity-5">
+              <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id={`pattern-${index}`} x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1" fill="currentColor" class={category.color.text} />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill={`url(#pattern-${index})`} />
+              </svg>
+            </div>
+            
+            {/* Content */}
+            <div class="relative p-8 h-full flex flex-col min-h-[320px]">
+              {/* Top section - Icon with badge */}
+              <div class="mb-auto">
+                <div class="relative inline-block">
+                  <div class={`flex items-center justify-center w-20 h-20 ${category.color.iconBg} rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+                    <Icon class="w-10 h-10 text-white" />
+                  </div>
+                  {/* Small decorative badge */}
+                  <div class={`absolute -top-2 -right-2 w-6 h-6 ${category.color.iconBg} rounded-full flex items-center justify-center shadow-lg opacity-80 group-hover:scale-110 transition-transform duration-500`}>
+                    <svg class="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Bottom section - Text with decorative line */}
+              <div class="space-y-3">
+                {/* Decorative line */}
+                <div class={`w-12 h-1 ${category.color.iconBg} rounded-full group-hover:w-20 transition-all duration-500`}></div>
+                
+                {/* Title */}
+                <h3 class={`text-2xl lg:text-3xl font-bold ${category.color.text} leading-tight group-hover:translate-x-1 transition-transform duration-300`}>
+                  {t(`main_categories.${category.id}.title`)}
+                </h3>
+                
+                {/* Subtitle hint */}
+                <p class="text-sm text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {t('main_categories.explore')}
+                </p>
+              </div>
+              
+              {/* Hover indicator - arrow */}
+              <div class="absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:translate-x-1">
+                <div class={`w-10 h-10 ${category.color.iconBg} rounded-full flex items-center justify-center shadow-lg`}>
+                  <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+              
+              {/* Decorative corner accents */}
+              <div class={`absolute top-0 left-0 w-24 h-24 ${category.color.iconBg} opacity-5 rounded-br-full`}></div>
+              <div class={`absolute bottom-0 right-0 w-20 h-20 ${category.color.iconBg} opacity-5 rounded-tl-full`}></div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Floating animations */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-12px) rotate(1deg); }
+    66% { transform: translateY(-6px) rotate(-1deg); }
+  }
+  
+  .floating-shape {
+    animation: float 10s ease-in-out infinite;
+  }
+  
+  .floating-shape:nth-child(2) {
+    animation: float 12s ease-in-out infinite reverse;
+  }
+
+  /* Category card animations */
+  .category-card {
+    animation: slideInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  
+  @keyframes slideInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Card hover effects */
+  .category-card {
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+  
+  .category-card:hover {
+    border-color: rgba(0, 0, 0, 0.1);
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .category-card {
+      min-height: 240px;
+    }
+  }
+</style>
