@@ -57,6 +57,13 @@ export const mainCategoryData: Record<MainCategoryId, MainCategoryData> = {
     },
     subCategories: [
       {
+        id: "branding-pumpkin",
+        titleKey: "portfolio.branding.pumpkin",
+        thumbnail: "/branding/branding-pumpkin/01.mp4",
+        itemCount: 19,
+        thumbnailType: 'video',
+      },
+      {
         id: "branding-ac-mint",
         titleKey: "portfolio.branding.ac_mint",
         thumbnail: "/branding/branding-ac-mint/1.jpg",
@@ -73,13 +80,6 @@ export const mainCategoryData: Record<MainCategoryId, MainCategoryData> = {
         titleKey: "portfolio.branding.upscale",
         thumbnail: "/branding/branding-upscale/1.jpg",
         itemCount: 10,
-      },
-      {
-        id: "branding-pumpkin",
-        titleKey: "portfolio.branding.pumpkin",
-        thumbnail: "/branding/branding-pumpkin/01.mp4",
-        itemCount: 19,
-        thumbnailType: 'video',
       },
       {
         id: "catalogs",
