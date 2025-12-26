@@ -10,6 +10,7 @@ export type SubCategory = {
   titleKey: string;
   thumbnail: string;
   itemCount: number;
+  thumbnailType?: 'image' | 'video';
 };
 
 export type CategoryImage = {
@@ -72,6 +73,13 @@ export const mainCategoryData: Record<MainCategoryId, MainCategoryData> = {
         titleKey: "portfolio.branding.upscale",
         thumbnail: "/branding/branding-upscale/1.jpg",
         itemCount: 10,
+      },
+      {
+        id: "branding-pumpkin",
+        titleKey: "portfolio.branding.pumpkin",
+        thumbnail: "/branding/branding-pumpkin/01.mp4",
+        itemCount: 19,
+        thumbnailType: 'video',
       },
       {
         id: "catalogs",

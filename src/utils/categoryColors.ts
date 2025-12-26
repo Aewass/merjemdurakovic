@@ -3,6 +3,7 @@ export type CategoryId =
   | "branding-ac-mint"
   | "branding-shams-travel"
   | "branding-upscale"
+  | "branding-pumpkin"
   | "catalogs"
   | "visit-cards"
   | "books"
@@ -49,6 +50,15 @@ const categoryColorMap: Record<CategoryId, CategoryColors> = {
     badgeDot: "bg-purple-500",
     fullscreen: "text-purple-600",
     navigation: "text-purple-600",
+  },
+  "branding-pumpkin": {
+    background: "from-orange-200/40 via-orange-100/30 to-transparent",
+    hover: "hover:text-orange-600",
+    text: "text-orange-600",
+    badgeBg: "bg-orange-50/70",
+    badgeDot: "bg-orange-500",
+    fullscreen: "text-orange-600",
+    navigation: "text-orange-600",
   },
   catalogs: {
     background: "from-orange-200/40 via-orange-100/30 to-transparent",
@@ -169,6 +179,7 @@ export function isBrandingLayout(categoryId: string): boolean {
     "branding-ac-mint",
     "branding-shams-travel",
     "branding-upscale",
+    "branding-pumpkin",
     "3d-medieval-man",
     "3d-facial-anatomy",
   ].includes(categoryId);

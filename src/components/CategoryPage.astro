@@ -44,6 +44,7 @@ const categoryToMainCategoryMap: Record<string, string> = {
   'branding-ac-mint': '2d-design',
   'branding-shams-travel': '2d-design',
   'branding-upscale': '2d-design',
+  'branding-pumpkin': '2d-design',
   'catalogs': '2d-design',
   'visit-cards': '2d-design',
   'books': '2d-design',
@@ -115,6 +116,23 @@ const backText = parentCategory
                     {item.images.map((image: CatalogImage, index: number) => (
                       <div class="branding-image-container">
                         <div class="relative">
+                          {image.type === 'video' ? (
+                            <video 
+                              src={image.src} 
+                              class={`w-full h-auto object-contain ${
+                                index === 0 ? 'rounded-t-2xl' : 
+                                index === item.images.length - 1 ? 'rounded-b-2xl' : 
+                                'rounded-none'
+                              }`}
+                              controls
+                              autoplay
+                              muted
+                              loop
+                              playsinline
+                              data-fullview={image.src}
+                              data-type="video"
+                            ></video>
+                          ) : (
                             <img 
                               src={image.src} 
                               alt={image.alt || `${item.name} image ${index + 1}`}
@@ -127,13 +145,16 @@ const backText = parentCategory
                                 'rounded-none'
                               }`}
                               data-fullview={image.src}
+                              data-type="image"
                             />
+                          )}
                           
                           {/* Fullscreen button */}
                           <button 
                             class="fullscreen-btn absolute top-4 right-4 bg-white/95 backdrop-filter backdrop-blur-sm p-2.5 rounded-full shadow-lg opacity-0 hover:opacity-100 transition-all duration-300 ease-out hover:bg-white hover:scale-105 hover:shadow-xl z-10"
                             data-fullview={image.src}
                             data-alt={image.alt}
+                            data-type={image.type || 'image'}
                           >
                             <Maximize2 class={`w-5 h-5 ${getFullscreenClass(id)}`} />
                           </button>
@@ -287,6 +308,7 @@ const backText = parentCategory
           <ChevronLeft class="w-8 h-8 md:w-10 md:h-10" />
         </button>
         <img id="fullImage" src="" alt="Full size image" class="max-h-[90vh] max-w-[90vw] object-contain" />
+        <video id="fullVideo" class="max-h-[90vh] max-w-[90vw] object-contain hidden" controls autoplay playsinline loop></video>
         <button id="nextImage" class="absolute right-4 md:right-6 top-1/2 -translate-y-1/2 text-white hover:text-gray-300 bg-black/50 hover:bg-black/70 p-3 rounded-full transition-all z-10">
           <ChevronRight class="w-8 h-8 md:w-10 md:h-10" />
         </button>
@@ -758,9 +780,9 @@ const backText = parentCategory
         e.stopPropagation();
         const container = btn.closest('.group, .relative');
         if (container) {
-          const img = container.querySelector('img[data-fullview]') as HTMLImageElement;
-          if (img) {
-            openFullscreenViewer(img);
+          const media = container.querySelector('[data-fullview]') as HTMLElement;
+          if (media) {
+            openFullscreenViewer(media);
           }
         }
       });
@@ -768,90 +790,58 @@ const backText = parentCategory
   }
 
   // Function to open fullscreen viewer
-  function openFullscreenViewer(img: HTMLImageElement) {
-    const fullview = img.getAttribute('data-fullview');
+  function openFullscreenViewer(element: HTMLElement) {
+    const fullview = element.getAttribute('data-fullview');
     const viewer = document.getElementById('imageViewer');
     const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    const fullVideo = document.getElementById('fullVideo') as HTMLVideoElement;
     
-    if (fullview && viewer && fullImage) {
-      fullImage.classList.remove('loaded');
-      
+    if (fullview && viewer && fullImage && fullVideo) {
       // Find the container that contains this image
-      const swiperContainer = img.closest('[class*="category-swiper"]');
-      const brandingContainer = img.closest('.branding-vertical-stack');
-      const socialGridContainer = img.closest('.social-media-grid');
-      const socialContainer = img.closest('.social-media-container');
+      const swiperContainer = element.closest('[class*="category-swiper"]');
+      const brandingContainer = element.closest('.branding-vertical-stack');
+      const socialGridContainer = element.closest('.social-media-grid');
+      const socialContainer = element.closest('.social-media-container');
       
       currentImages = [];
       
+      const collectMedia = (container: Element) => {
+        container.querySelectorAll('[data-fullview]').forEach(item => {
+          const src = item.getAttribute('data-fullview');
+          if (src) {
+             // Avoid duplicates (video element + button might both be found)
+             if (!currentImages.includes(src)) {
+               currentImages.push(src);
+             }
+          }
+        });
+      };
+
       if (swiperContainer) {
-        // Handle swiper containers (catalogs, books, print-media, visit-cards, social-media mobile)
-        swiperContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-          const imgSrc = itemImg.getAttribute('data-fullview');
-          if (imgSrc) {
-            currentImages.push(imgSrc);
-          }
-        });
+        collectMedia(swiperContainer);
       } else if (brandingContainer) {
-        // Handle branding vertical stack
-        brandingContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-          const imgSrc = itemImg.getAttribute('data-fullview');
-          if (imgSrc) {
-            currentImages.push(imgSrc);
-          }
-        });
+        collectMedia(brandingContainer);
       } else if (socialGridContainer) {
-        // Handle social media grid (desktop only)
-        socialGridContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-          const imgSrc = itemImg.getAttribute('data-fullview');
-          if (imgSrc) {
-            currentImages.push(imgSrc);
-          }
-        });
+        collectMedia(socialGridContainer);
       } else if (socialContainer) {
-        // Handle social media container - get images from the visible layout only
         const isDesktop = window.innerWidth >= 1024;
         const targetContainer = isDesktop 
           ? socialContainer.querySelector('.social-media-grid')
           : socialContainer.querySelector('[class*="category-swiper"]');
         
         if (targetContainer) {
-          targetContainer.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-            const imgSrc = itemImg.getAttribute('data-fullview');
-            if (imgSrc) {
-              currentImages.push(imgSrc);
-            }
-          });
+          collectMedia(targetContainer);
         }
       } else {
-        // Fallback: find all images in the current catalog item, but avoid duplicates
-        const catalogItem = img.closest('.catalog-item');
+        const catalogItem = element.closest('.catalog-item');
         if (catalogItem) {
-          const seenImages = new Set();
-          catalogItem.querySelectorAll('img[data-fullview]').forEach(itemImg => {
-            const imgSrc = itemImg.getAttribute('data-fullview');
-            if (imgSrc && !seenImages.has(imgSrc)) {
-              seenImages.add(imgSrc);
-              currentImages.push(imgSrc);
-            }
-          });
+          collectMedia(catalogItem);
         }
       }
       
       currentIndex = currentImages.indexOf(fullview);
       
-      fullImage.src = fullview;
-      fullImage.alt = img.alt;
-      
-      fullImage.onload = () => {
-        fullImage.classList.add('loaded');
-        setupTouchEvents();
-      };
-      
-      if (fullImage.complete) {
-        fullImage.classList.add('loaded');
-        setupTouchEvents();
-      }
+      updateViewerImage();
       
       viewer.classList.remove('hidden');
       viewer.classList.add('flex');
@@ -875,35 +865,55 @@ const backText = parentCategory
   // Function to update the viewer image based on current index
   async function updateViewerImage() {
     const fullImage = document.getElementById('fullImage') as HTMLImageElement;
+    const fullVideo = document.getElementById('fullVideo') as HTMLVideoElement;
+    const currentSrc = currentImages[currentIndex];
     
-    if (fullImage && currentImages[currentIndex]) {
-      fullImage.classList.remove('loaded');
-      
-      const cachedResponse = await getCachedImage(currentImages[currentIndex]);
-      if (cachedResponse) {
-        const blob = await cachedResponse.blob();
-        const objectUrl = URL.createObjectURL(blob);
-        fullImage.src = objectUrl;
-        fullImage.classList.add('loaded');
-        fullImage.onload = () => {
-          URL.revokeObjectURL(objectUrl);
-          // Only preload adjacent images, don't preload current again
-          preloadAdjacentImages();
-        };
+    if (currentSrc) {
+      const isVideo = currentSrc.toLowerCase().endsWith('.mp4') || 
+                     currentSrc.toLowerCase().endsWith('.webm') || 
+                     currentSrc.toLowerCase().endsWith('.mov');
+
+      if (isVideo) {
+        fullImage.classList.add('hidden');
+        fullVideo.classList.remove('hidden');
+        fullVideo.src = currentSrc;
+        // Reset and play
+        fullVideo.currentTime = 0;
+        fullVideo.play().catch(e => console.log('Autoplay failed', e));
       } else {
-        fullImage.src = currentImages[currentIndex];
-        fullImage.onload = async () => {
+        fullVideo.classList.add('hidden');
+        fullVideo.pause();
+        fullImage.classList.remove('hidden');
+        fullImage.classList.remove('loaded');
+        
+        const cachedResponse = await getCachedImage(currentSrc);
+        if (cachedResponse) {
+          const blob = await cachedResponse.blob();
+          const objectUrl = URL.createObjectURL(blob);
+          fullImage.src = objectUrl;
           fullImage.classList.add('loaded');
-          // Don't preload current image since we just loaded it
-          preloadAdjacentImages();
-        };
+          fullImage.onload = () => {
+            URL.revokeObjectURL(objectUrl);
+            preloadAdjacentImages();
+          };
+        } else {
+          fullImage.src = currentSrc;
+          fullImage.onload = async () => {
+            fullImage.classList.add('loaded');
+            preloadAdjacentImages();
+          };
+        }
       }
       
-      document.querySelectorAll('img[data-fullview]').forEach(img => {
-        if (img.getAttribute('data-fullview') === currentImages[currentIndex]) {
-          fullImage.alt = (img as HTMLImageElement).alt;
+      // Update alt text for image
+      if (!isVideo) {
+        // Find the original image/element to get its alt text
+        const originalElement = document.querySelector(`[data-fullview="${currentSrc}"]`);
+        if (originalElement) {
+          const alt = originalElement.getAttribute('alt') || originalElement.getAttribute('data-alt') || '';
+          fullImage.alt = alt;
         }
-      });
+      }
     }
   }
 

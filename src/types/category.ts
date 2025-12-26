@@ -3,6 +3,8 @@ export type CatalogImage = {
   src: string;
   alt: string;
   caption?: string;
+  type?: 'image' | 'video'; // Defaults to 'image' if undefined
+  poster?: string; // For video thumbnail
 };
 
 export type CatalogItem = {
@@ -247,6 +249,97 @@ export const categoryData: Record<string, CategoryData> = {
           {
             src: "/branding/branding-upscale/10.jpg",
             alt: "Upscale brand identity",
+          },
+        ],
+      },
+    ],
+  },
+  "branding-pumpkin": {
+    number: "04",
+    title: "Branding - Pumpkin",
+    category: "Category",
+    description: "",
+    items: [
+      {
+        name: "Pumpkin",
+        description: "Branding",
+        images: [
+          {
+            src: "/branding/branding-pumpkin/01.mp4",
+            alt: "Pumpkin video presentation",
+            type: "video"
+          },
+          {
+            src: "/branding/branding-pumpkin/02.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/03.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/04.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/05.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/06.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/07.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/08.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/09.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/10.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/11.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/12.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/13.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/14.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/15.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/16.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/17.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/18.jpg",
+            alt: "Pumpkin brand identity",
+          },
+          {
+            src: "/branding/branding-pumpkin/19.jpg",
+            alt: "Pumpkin brand identity",
           },
         ],
       },

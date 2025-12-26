@@ -31,6 +31,13 @@ export const mainCategoryDataBs: Record<MainCategoryId, MainCategoryData> = {
         itemCount: 10,
       },
       {
+        id: "branding-pumpkin",
+        titleKey: "portfolio.branding.pumpkin",
+        thumbnail: "/branding/branding-pumpkin/01.mp4",
+        itemCount: 19,
+        thumbnailType: 'video',
+      },
+      {
         id: "catalogs",
         titleKey: "portfolio.brochures_catalogs",
         thumbnail: "/catalogs/catalog-iform/1.png",
